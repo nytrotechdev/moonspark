@@ -1,0 +1,19 @@
+{
+    "/js/admin/app.js": "/js/admin/app.js",
+    "/js/admin/admin-chunks/admin-dashboard.js": "/js/admin/admin-chunks/admin-dashboard.js",
+    "/js/admin/admin-chunks/admin-profile-view.js": "/js/admin/admin-chunks/admin-profile-view.js",
+    "/js/admin/admin-chunks/admin-profile-edit.js": "/js/admin/admin-chunks/admin-profile-edit.js",
+    "/js/admin/admin-chunks/admin-projects-index.js": "/js/admin/admin-chunks/admin-projects-index.js",
+    "/js/admin/admin-chunks/admin-projects-create.js": "/js/admin/admin-chunks/admin-projects-create.js",
+    "/js/admin/admin-chunks/admin-projects-show.js": "/js/admin/admin-chunks/admin-projects-show.js",
+    "/js/admin/admin-chunks/admin-user-index.js": "/js/admin/admin-chunks/admin-user-index.js",
+    "/js/admin/admin-chunks/admin-user-create.js": "/js/admin/admin-chunks/admin-user-create.js",
+    "/js/admin/admin-chunks/admin-user-show.js": "/js/admin/admin-chunks/admin-user-show.js",
+    "/js/admin/admin-chunks/admin-user-edit.js": "/js/admin/admin-chunks/admin-user-edit.js",
+    "/js/admin/admin-chunks/admin-page-index.js": "/js/admin/admin-chunks/admin-page-index.js",
+    "/js/admin/admin-chunks/admin-page-create.js": "/js/admin/admin-chunks/admin-page-create.js",
+    "/js/admin/admin-chunks/admin-page-show.js": "/js/admin/admin-chunks/admin-page-show.js",
+    "/css/admin/app.css": "/css/admin/app.css",
+    "/js/admin/admin-chunks/admin-projects-edit.js": "/js/admin/admin-chunks/admin-projects-edit.js",
+    "/js/admin/admin-chunks/admin-transaction-index.js": "/js/admin/admin-chunks/admin-transaction-index.js"
+}

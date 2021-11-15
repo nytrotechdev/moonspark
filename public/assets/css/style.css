@@ -1,0 +1,913 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap');
+:root{
+    --black:#03060E;
+    --gray:#282828;
+    --hovergradient:linear-gradient(135deg,#7049ba,#e95095);
+    --box-shadow:0 .5rem 1rem rgba(0,0,0,.1);
+}
+
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: 'Lato', sans-serif;
+    text-decoration: none !important;
+    outline: none !important;
+    border: none !important;
+    text-transform: capitalize !important;
+    transition: all .2s linear !important;
+}
+html{
+    scroll-behavior: smooth;
+}
+
+a{
+    text-decoration: none;
+    color: gold;
+}
+
+.header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #03060E;
+    color: white;
+    z-index: 999;
+    padding: 15px 50px;
+}
+
+.header .logo{
+    width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin:0 15px;
+}
+
+.header .logo img{
+    width: 100%;
+    margin-right: 20px;
+}
+
+.nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 0 15px;
+}
+
+.header .nav a{
+    font-size: 16px;
+    margin: 0 15px;
+    text-transform: uppercase !important;
+    color: white;
+    text-decoration: none;
+}
+
+.header .nav a:hover{
+    color: gold;
+}
+
+.header .main-btn{
+    padding: 15px 35px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    font-size: 15px;
+    outline: none !important;
+    transition: 0.5s;
+}
+.header .btn-white:hover{
+    background: gold !important;
+    color: black;
+}
+.header .btn-gold:hover{
+    background: white;
+    color: black;
+}
+.btn-white{
+    background: white;
+    color: black !important;
+}
+.btn-gold{
+    background: gold;
+    color: black !important;
+}
+
+#menu-btn{
+    font-size: 2.5rem;
+    color: gold;
+    cursor: pointer;
+    display: none;
+}
+
+.banner{
+    position: relative;
+    background: url('../img/banner.jpg') no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    padding: 200px 100px;
+    overflow: hidden;
+}
+.banner-text h1{
+    color: white;
+    font-size: 60px;
+    font-weight: 500;
+    line-height: 80px;
+}
+.banner-text h1 span{
+    background: gold;
+    color: black;
+}
+.banner-text p{
+    font-size: 18px;
+    font-weight: 500;
+    color: white;
+}
+.banner-img{
+    width: 360px;
+}
+.banner-img img{
+    width: 100%;
+    margin-left: 70%;
+}
+
+.buyCrypto{
+    position: relative;
+    background: var(--black);
+    padding: 70px 0;
+    overflow: hidden;
+}
+
+.buyCrypto h2.heading{
+    position: relative;
+    font-size: 45px;
+    font-weight: 600;
+    color: white;
+}
+
+.buyCrypto h2.heading::before{
+    content: '';
+    position: absolute;
+    display: block;
+    left: -15px;
+    width: 5px;
+    height: 100%;
+    background: gold;
+}
+.buyCrypto .card-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.buyCrypto .crypto_card{
+    position: relative;
+    padding: 30px;
+    margin: 20px 0;
+    background: var(--gray);
+    border-radius: 35px;
+    width: 100%;
+}
+
+.crypto_card .card_head{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    max-height: 150px;
+}
+.crypto_card .card_head span{
+    color: white;
+    font-size: 16px;
+    text-transform: uppercase !important;
+}
+.crypto_card .card_head h5{
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+}
+.crypto_card .card_head figure{
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    margin-top: 5px;
+}
+.card_head figure img{
+    width: 100%;
+    border-radius: 50%;
+}
+.crypto_card .card_body{
+    max-height: 400px;
+}
+.crypto_card .card_body .dis{
+    height: 180px;
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+    padding: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.card_body .coin_details{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 10px 0;
+}
+.card_body .coin_details p{
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.crypto_card .card_foot{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+}
+.card_foot a{
+    color: gold;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: 400;
+    font-family: Georgia,serif;
+}
+.card_foot .card-btn{
+    padding: 12px 70px;
+    text-transform: uppercase !important;
+    font-size: 30px !important;
+    color: var(--black);
+    background: gold;
+    border-radius: 40px;
+    margin-top: 15px;
+    border: 2px solid gold !important;
+}
+.card_foot a:hover{
+    color: #7049ba;
+}
+.card_foot .card-btn:hover{
+    background-image: var(--hovergradient);
+    color: white;
+    border: 2px solid gold !important;
+}
+.footer{
+    position: relative;
+    padding: 60px 0 50px 0;
+    background: var(--gray);
+    text-align: center;
+}
+.footer h2.heading{
+    color: gold;
+    font-size: 25px;
+    line-height: 45px;
+    text-transform: uppercase !important;
+    font-weight: 600;
+    margin-bottom: 25px;
+}
+.footer_inner{
+    border-bottom: 1px solid white !important;
+    padding-bottom: 60px;
+}
+.footer_inner a{ 
+    color: white;
+    font-size: 18px;
+}
+.social_icons{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px;
+}
+.social_icons .twitter{
+    background: #55acee;
+    color: white;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    margin: 5px;
+}
+.social_icons .telegram{
+    background: #0e8ed4;
+    color: white;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    margin: 5px;
+}
+
+/*********Top Scroll*********/
+
+/* .w-toplink span:not(.ripple-container):after {
+    content: '\f106';
+    font-family: fontawesome;
+    font-weight: 400;
+    font-size: 1.6em;
+    vertical-align: top;
+}
+.w-toplink.active:hover{
+    background: var(--hovergradient);
+}
+.w-toplink.active {
+    transform: translate3d(0,0,0)!important;
+}
+.w-toplink.pos_right {
+    right: 0;
+}
+.w-toplink:not(.w-btn) {
+    text-align: center;
+    border-radius: 0.3rem;
+    color: #fff!important;
+    line-height: 50px;
+    height: 50px;
+    width: 50px;
+}
+.w-toplink {
+    position: fixed!important;
+    z-index: 99;
+    bottom: 0;
+    transform: translate3d(0,5rem,0)!important;
+    margin: 15px;
+} */
+
+/*********Submit Your Project Page*********/
+
+.submitYourProject,.project_summary{
+    position: relative;
+    background: var(--black);
+    padding: 70px 0;
+    overflow: hidden;
+}
+.submitYourProject h2.heading,.project_summary h2.heading{
+    color: #f00c3a;
+    font-size: 45px;
+    font-weight: 700;
+    text-transform: uppercase !important;
+}
+
+.submitYourProject .card-wrapper,
+.project_summary .card-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+.submitYourProject .form{
+    position: relative;
+    padding: 30px;
+    background: var(--gray);
+    border-radius: 20px;
+    width: 750px;
+}
+form h5, form h3{
+    color: gold;
+    margin: 30px 0;
+}
+.submitYourProject form p
+{
+    color: white;
+    margin: 20px 0;
+    line-height: 25px;
+}
+.submitYourProject form ul li{
+    color: white;
+}
+
+.submitYourProject form label{
+    color: white;
+}
+
+.submitYourProject form .form-group{
+    margin:35px 0 !important;
+}
+
+.submitYourProject form input.form-control{
+    background-color: #555555;
+    color: #fff;
+    outline: none !important;
+    border-radius: 10px;
+    margin: 5px 0 10px 0;
+}
+form textarea.form-control{
+    background-color: #555555;
+    color: #fff;
+    outline: none !important;
+    border-radius: 10px;
+}
+
+.submitYourProject form .form_button{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.submitYourProject form .main-btn,
+.project_summary form .main-btn{
+    padding:15px 20px;
+    border-radius: 25px;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: 700;
+    outline: none !important;
+    transition: 0.5s;
+}
+.submitYourProject form .btn-gold,
+.project_summary form .btn-gold{
+    background: gold;
+    color: black;
+    border: 1px solid gold !important;
+}
+.submitYourProject form .btn-gold:hover,
+.project_summary form .btn-gold:hover{
+    background: var(--hovergradient);
+    color: white;
+    border: 1px solid gold !important;
+}
+
+
+/*********Wallet Guide Page*********/
+
+
+.wallet_guide_banner,.head_banner{
+    position: relative;
+    background: url('../img/banner.jpg') no-repeat;
+    background-position: top;
+    background-size: cover;
+    padding: 110px 0;
+    text-align: center;
+}
+.wallet_guide_banner h2,.head_banner h2{
+    color: white;
+    font-size: 60px;
+    font-weight: 900;
+    text-transform: uppercase !important;
+    margin-top: 90px;
+}
+.walletGuide{
+    position: relative;
+    padding: 50px 0;
+}
+.textBox h2{
+    color: var(--black);
+    font-size: 32px;
+    font-weight: 600;
+    text-transform: uppercase !important;
+    padding: 60px 0;
+}
+
+.walletGuide .wpb_wrapper img{
+    margin: 30px auto;
+    display: flex;
+    justify-self: center;
+}
+
+/********SignUp page********/
+
+.signup-form{
+    position: relative;
+    padding: 90px 0 50px 0;
+    background: var(--black);
+    overflow: hidden;
+}
+
+.signup-form-container{
+    position: relative;
+    background: var(--gray);
+    padding: 30px;
+    border-radius: 25px;
+    width: 450px;
+    margin: 70px auto;
+}
+
+.signup-form-container form h3{
+    position: relative;
+    color: white;
+    font-size: 30px;
+    font-weight: 500;
+    margin: 10px 0 20px 20px;
+    display: flex;
+    align-items: center;
+}
+
+.signup-form-container form h3::before{
+    content: '';
+    position: absolute;
+    height: 100%;
+    display: block;
+    width: 8px;
+    background: gold;
+    left: -20px;
+}
+
+form label{
+    color: white;
+}
+
+form .form-group{
+    margin:25px 0 !important;
+}
+
+form input.form-control,
+form select.form-control{
+    background-color: #555555;
+    color: #fff;
+    outline: none !important;
+    border-radius: 8px;
+}
+
+.signup-form-container form .main-btn{
+    padding:10px 20px;
+    border-radius: 35px;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: 500;
+    outline: none !important;
+    transition: 0.5s;
+    width: 100%;
+}
+.signup-form-container form .btn-gold{
+    background: gold;
+    color: black;
+    border: 1px solid gold !important;
+}
+.signup-form-container form .btn-gold:hover{
+    background: var(--hovergradient);
+    color: white;
+    border: 1px solid gold !important;
+}
+.custom-control-label::before {
+    content: '';
+    border: 2px solid gold;
+    background: var(--gray);
+}
+
+/******Modal******/
+
+
+.buyCoin{
+    position: relative;
+    background: var(--gray);
+    padding: 30px;
+    border-radius: 25px;
+    width: 450px;
+}
+
+.modal{
+    padding-right: 0 !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+.modal-content{
+    border-radius: 30px;
+    width: auto;
+}
+
+.buyCoin form h3{
+    position: relative;
+    color: white;
+    font-size: 30px;
+    font-weight: 500;
+    margin: 10px 0 20px 20px;
+    display: flex;
+    align-items: center;
+}
+
+.buyCoin form h3::before{
+    content: '';
+    position: absolute;
+    height: 100%;
+    display: block;
+    width: 8px;
+    background: gold;
+    left: -20px;
+}
+
+.buyCoin form label{
+    color: white;
+}
+
+.buyCoin form .form-group{
+    margin:25px 0 !important;
+}
+
+.buyCoin form input.form-control,
+form select.form-control{
+    background-color: #555555;
+    color: #fff;
+    outline: none !important;
+    border-radius: 8px;
+}
+
+.buyCoin form .main-btn{
+    padding:8px 20px;
+    border-radius: 35px;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: 600;
+    outline: none !important;
+    transition: 0.5s;
+    width: 100%;
+    border: 1px solid gold !important;
+}
+.buyCoin form .form-button{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.btn-transparent{
+    background: transparent;
+    color: white;
+    margin-right: 15px;
+}
+
+.btn-transparent:hover{
+    background: var(--hovergradient);
+    color: white;
+    border: 1px solid gold !important;
+}
+.btn-gold:hover{
+    background: var(--hovergradient);
+    color: white;
+    border: 1px solid gold !important;
+}
+
+.account-container{
+    position: relative;
+    padding: 130px 0 90px 0;
+    background: var(--black);
+    overflow: hidden;
+}
+.account-container h3{
+    position: relative;
+    color: white !important;
+    font-size: 30px;
+    font-weight: 500;
+    margin: 10px 0 20px 20px;
+    display: flex;
+    align-items: center;
+}
+
+.account-container h3::before{
+    content: '';
+    position: absolute;
+    height: 100%;
+    display: block;
+    width: 8px;
+    background: gold;
+    left: -20px;
+}
+
+.account_coin_details{
+    position: relative;
+    padding: 20px;
+    background: var(--gray);
+    border-radius: 35px;
+    box-shadow: var(--box-shadow);
+    width: 400px;
+}
+.account_coin_details .coin_head{
+    display: flex;
+    align-items: flex-start;
+}
+.coin_head .coin_icon{
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: gold;
+    padding: 10px;
+    border-radius: 50px;
+    box-shadow:0 .2rem 1.2rem gold;
+    margin-right: 15px;
+}
+.coin_icon img{
+    width: 100%;
+}
+.coin_head .coin_name{
+    margin-left: 15px;
+    border-left: 4px solid gold !important;
+    display: block;
+    padding: 0 20px 0 20px;
+    color: white;
+}
+.coin_head .coin_name h6{
+    font-size: 22px;
+    font-size: 500;
+}
+.coin_head .coin_name .coin_dis{
+    display: flex;
+    align-items: center !important;
+}
+
+.coin_head .coin_name .coin_dis p{
+    color: white;
+    font-size: 15px;
+    font-weight: 300;
+    margin-right: 10px;
+    margin-bottom: 0;
+}
+.coin_head .coin_name .coin_dis a.btn-gold{
+    background: gold;
+    color: black;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 2px 10px;
+    border-radius: 25px;
+}
+.coin_details{
+    padding: 10px 10px 0 10px;
+}
+.coin_details p{
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.account-section-btn{
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 3px 12px;
+    margin: 0 5px;
+    border-radius: 25px;
+}
+
+.project_summary .form{
+    position: relative;
+    padding: 30px;
+    background: var(--gray);
+    border-radius: 20px;
+    width: 500px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media(max-width:1300px){
+    .header .nav{
+        margin: 0 0 0 15px;
+        justify-content: center;
+    }
+    .header .nav a{
+        font-size: 15px;
+        margin: 0 10px;
+    }
+    .header .main-btn{
+        margin-left: 10px;
+        padding: 13px 25px;
+    } 
+}
+
+@media(max-width:1200px){
+    .header .nav{
+        justify-content: center;
+    }
+    .header .nav a{
+        margin: 0 7px;
+    }
+    .header .main-btn{
+        margin-left: 8px;
+        padding: 10px 20px;
+    }
+    .header .logo{
+        width: 200px;
+    } 
+}
+
+@media(max-width:992px){
+    .header{
+        justify-content: space-between;
+    }
+    .header .nav{
+        position: absolute;
+        top: 99%;
+        left: 0;
+        right: 0;
+        background: white;
+        border-top: 1px solid var(--black);
+        clip-path: polygon(0 0,100% 0,100% 0,0 0);
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        flex-direction: column;
+        padding: 20px 0;
+    }
+    .header .nav a{
+        display: block;
+        margin: 20px;
+        font-size: 20px;
+        color: var(--black);
+    }
+    .header .nav .main-btn{
+        margin-bottom: 10px;
+    }
+    .header .btn-white:hover{
+        background: gold;
+        color: black;
+        border: 1px solid gold !important;
+    }
+    .header .btn-gold:hover{
+        background: white;
+        color: black;
+        border: 1px solid gold !important;
+    }
+    .btn-white{
+        background: white;
+        border: 1px solid gold !important;
+    }
+    .btn-gold{
+        background: gold;
+        border: 1px solid gold !important;
+    }
+    #menu-btn{
+        display: block;
+    }
+
+    #menu-btn.fa-times{
+        transform: rotate(180deg);
+    }
+
+    .header .nav.active{
+        clip-path: polygon(0 0,100% 0,100% 100%,0 100%);
+    }
+    .banner-text h1{
+        font-size: 50px;
+        line-height: 70px;
+    }
+    .banner-text p{
+        font-size: 15px;
+    }
+    .banner-img{
+        width: 300px;
+    }
+    .banner-img img{
+        margin-left: 20%;
+    }
+
+}
+
+@media(max-width:768px){
+    .banner{
+        padding: 150px 50px;
+    }
+    .banner-img{
+        margin-top: 30px;
+    }
+    .banner-img img{
+        margin-left: 0;
+    }
+    .banner-text h1{
+        font-size: 40px;
+        line-height: 60px;
+    }
+    .banner-text p{
+        font-size: 13px;
+    }
+}
+
+@media(max-width:575px){
+    .footer .footer_inner .row{
+        flex-direction: column;
+    }
+}
+
+@media(max-width:490px){
+    .header .logo{
+        width: 200px;
+    }
+    .signup-form-container{
+        padding: 25px;
+        width: 100%;
+        margin: 10px;
+    }
+    .account_coin_details{
+        width: 100%;
+    }
+}

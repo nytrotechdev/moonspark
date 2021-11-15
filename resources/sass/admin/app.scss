@@ -1,0 +1,25 @@
+// @import 'https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css';
+@import '../../../public/vendor/bootstrap-select/dist/css/bootstrap-select.min.css';
+@import '../../../public/vendor/datatables/css/jquery.dataTables.min.css';
+@import '../../../public/css/admin.css';
+@import 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css';
+
+.btn-pri{
+    background-color: #fb0000;
+    border-color: #fb0000;    
+}
+
+.btn-pri:hover {
+    color: #fff;
+    background-color: #b70909;
+    border-color: #b70909;
+}
+
+.dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate{
+    color: #fff !important;
+}
+
+[data-theme-version="dark"] select.form-control option{
+    background: transparent;
+    color: black;
+ }
