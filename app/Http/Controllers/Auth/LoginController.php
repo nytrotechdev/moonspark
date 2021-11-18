@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -37,4 +38,16 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    protected function authenticated(Request $request, $user)
+    {
+        $token = $user->createToken(config('app.name'))->accessToken;
+        
+        setcookie('p_token', $token, time() + (86400 * 30), "/"); // 86400 = 1 day
+
+        if($request->expectsJson()) return $this->responseSuccess(['user' =>$user, 'token' => $token ]);
+
+        return redirect(url($this->redirectTo));
+    }
+
 }

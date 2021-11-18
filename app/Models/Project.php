@@ -14,10 +14,10 @@ class Project extends Model
     protected $fillable = [
         "user_id",
         "project_name",  "project_ticker",  "logo",  "project_detail",  
-        "fund_raised_todate",  "total_raised_todate",  "smart_contract_audited",  "smart_contract_audited_text",  "project_type",  "token_usecase",  "website",  "medium",  "twitter",  "telegram",  "tg_handle",  "email",  "name_of_ceo",  "name_of_cto",  "bio_of_ceo",  "bio_of_cto",  "short_video",  "project_business_incorporated",  "project_business_incorporated_where",  "project_business_lic",  "project_business_lic_list",  "project_business_lic_plan",  "tokenomics_detail",  "project_business_model",  "legal_opinion",  "market_cape",  "diluted_market_cape",  "summary",  "core_team",  "mvp",  "whitepaper_link",  "total_follower",  "youtube_link",  "partnership",  "core_developer",  "security_concerns",  "split",  "relevant_info",  "contract",  "contract_link",  "decimal",  "no_of_token", "status" , "max_no_of_token"
+        "fund_raised_todate",  "total_raised_todate",  "smart_contract_audited", 
+         "smart_contract_audited_text",  "project_type",  "token_usecase",  "website",  "medium",  "twitter",  "telegram",  "tg_handle",  "email",  "name_of_ceo",  "name_of_cto",  "bio_of_ceo",  "bio_of_cto",  "short_video",  "project_business_incorporated",  "project_business_incorporated_where",  "project_business_lic",  "project_business_lic_list",  "project_business_lic_plan",  "tokenomics_detail",  "project_business_model",  "legal_opinion",  "market_cape",  "diluted_market_cape",  "summary",  "core_team",  "mvp",  "whitepaper_link",  "total_follower",  "youtube_link",  "partnership",  "core_developer",  "security_concerns",  "split",  "relevant_info",  "contract",  "contract_link",  "decimal",  "no_of_token", "status" , "max_no_of_token", "available_balance"
         
     ];
-
 
     protected $appends = ['created_date'];
 
@@ -34,6 +34,10 @@ class Project extends Model
         $query->where('user_id', $user->id);
     }
 
+    public function scopeActive($query){
+        $query->where('status', 1);
+    }
+
     public function client(){
         return $this->belongsTo(User::class, 'user_id');
     }
@@ -46,5 +50,8 @@ class Project extends Model
         return ($value) ? asset("storage/$value") : null;
     }
 
+    public function tokenPrice(){
+        return $this->hasOne(TokenPrice::class, 'project_id')->whereActive('1');
+    }
 
 }

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.unauth')
 
 @section('content')
 <section class="signup-form">

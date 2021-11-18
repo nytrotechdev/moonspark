@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admins;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProjectRequest;
 use App\Models\User;
-use App\Models\Admin;
 use App\Models\Project;
 use App\Models\TokenPrice;
 use Illuminate\Http\Request;
@@ -20,20 +19,25 @@ class ProjectController extends Controller
      * @return void
      */
     public function index(Request $request){
+        $user = $request->user();
 
-        $projects = Project::with('client');
-        
-        if($request->status == 0)
-            return $projects = $projects->where('status', 0)->get();
- 
-        if($request->status == 1)
-            return $projects = $projects->where('status', 1)->get();
+        $projects = Project::with('client', 'tokenPrice')->mine($user)->latest()->get();
 
-
-        return [];
+        return $projects;
 
     }
 
+    public function latestProject(Request $request){
+        $projects = Project::select(
+            'id', 'project_name', 'project_ticker', 'project_detail', 'logo',
+            'market_cape', 'diluted_market_cape', 'decimal', 'created_at'
+        )->with('client');
+        
+        if($request->limit == 0)
+            $projects->take($request->limit);
+        
+        return $projects->active()->latest()->get();    
+    }
 
     /**
      * show
@@ -43,6 +47,7 @@ class ProjectController extends Controller
      * @return void
      */
     public function show(Request $request, $project){
+
         return Project::find($project);
     }
 
@@ -55,11 +60,12 @@ class ProjectController extends Controller
      */
     public function store(ProjectRequest $request){
       
-        $client = User::find($request->user_id);
+        $client = $request->user();
 
         $data = collect($request->all())->toArray();
 
-        $data['status'] = '1';
+        $data['status'] = '0';
+        $data['user_id'] = $client->id;
 
         if($request->logo && $request->hasfile('logo')){
             $filename = $data['project_ticker'].".png";
@@ -89,10 +95,10 @@ class ProjectController extends Controller
             'currency' => 'usd',
             'active' => 1,
             'project_id' => $project->id,
-        ]);        
+        ]);
 
 
-        return $this->responseSuccess("The Project is added successfully", $project);
+        return $this->responseSuccess("The Project is added successfully, Please wait for Admin approval", $project);
     }
 
 
@@ -128,6 +134,25 @@ class ProjectController extends Controller
         return $this->responseSuccess("The Project is updated successfully", $project);
     }
 
+    public function setRate(Request $request, $project)
+    {   
+        $request->validate([
+            'amount' => 'required|numeric',
+            'currency' => 'required',
+            'project_id' => 'required'
+        ]);
+
+
+
+        // Setting Exchange Rate
+        TokenPrice::whereProjectId($request->project_id)->update([
+            'amount' => $request->amount,
+            'currency' => $request->currency,
+        ]);
+
+        return $this->responseSuccess("The Project rate is updated successfully");
+
+    }
 
     /**
      * formatTime

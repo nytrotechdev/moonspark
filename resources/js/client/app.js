@@ -16,8 +16,10 @@ import 'vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css'
 import Img from './components/Img.vue';
 import { param } from 'jquery';
 window.toastr = require('toastr');
+import { Fragment } from 'vue-fragment'
 
 Vue.use(VueRouter);
+Vue.use(Fragment);
 Vue.use(VueToastr2);
 Vue.use(VeeValidate);
 Vue.use(VueTimeago, {
@@ -73,7 +75,7 @@ Vue.component('side-navbar', require('./components/partials/SidebarComponent.vue
 //     baseUrl = '';
 
 let baseUrl = '';
-window.axios.defaults.baseURL =  baseUrl + '/client/api/';
+window.axios.defaults.baseURL =  baseUrl + '/api/';
 
 Vue.prototype.$baseUrl = window.base_url;
 Vue.prototype.$placeApiKey = "AIzaSyAHPUufTlBkF5NfBT3uhS9K4BbW2N-mkb4";

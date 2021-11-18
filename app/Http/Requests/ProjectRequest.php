@@ -37,8 +37,8 @@ class ProjectRequest extends FormRequest
             "contract" => "required",
             "contract_link" => "required",
             "decimal" => "required",
-            "no_of_token" => "required",
-            "max_no_of_token" => "required",
+            "no_of_token" => "required|numeric",
+            "max_no_of_token" => "required|numeric",
             // "status" => "required"
         ];
     }

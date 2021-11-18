@@ -1,21 +1,36 @@
 <template>
-    <div id="wrappper" :class="`show ${show ? 'menu-toggle' : ''}`">
-        <div class="nav-header">
-            <a href="/client/dashboard" class="brand-logo">
-                <Img style="width:100%" src="/images/logo-black.png" />
-            </a>
-            <div class="nav-control">
-                <div :class="`hamburger ${show ? 'is-active' : ''}`" @click="show = !show">
-                    <span class="line"></span><span class="line"></span><span class="line"></span>
+    <div id="wrapper">
+        <div class="container">
+            <top-header></top-header>
+        </div>        
+        <router-view></router-view>
+        <footer class="footer">
+            <div class="container">
+                <h2 class="heading">quick links</h2>
+                <div class="footer_inner">
+                    <div class="row align-items-center justify-content-lg-around flex-lg-row flex-sm-column">
+                        <a href="#" class="quick_links">about</a>
+                        <a href="#" class="quick_links">announcements</a>
+                        <a href="#" class="quick_links">risks</a>
+                        <a href="#" class="quick_links">Terms & privacy policy</a>
+                        <a href="#" class="quick_links">restrictions</a>
+                        <a href="#" class="quick_links">contact</a>
+                    </div>
+                </div>
+                <div class="row justify-content-center align-items-center">
+                    <div class="social_icons">
+                        <div class="twitter" data-toggle="tooltip" data-placement="top" title="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </div>
+                        <div class="telegram" data-toggle="tooltip" data-placement="top" title="Telegram">
+                            <i class="fab fa-telegram"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <top-header></top-header>
-        <side-navbar></side-navbar>
-		<div class="content-body">
-            <router-view></router-view>
-        </div>
+        </footer>        
     </div>
+
 </template>
 <script>
     export default {

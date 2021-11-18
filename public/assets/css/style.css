@@ -106,7 +106,7 @@ a{
 
 .banner{
     position: relative;
-    background: url('../img/banner.jpg') no-repeat;
+    background: url('/assets/img/banner.jpg') no-repeat;
     background-position: center;
     background-size: cover;
     width: 100%;
@@ -392,7 +392,7 @@ form h5, form h3{
 }
 
 .submitYourProject form .form-group{
-    margin:35px 0 !important;
+    margin:3px 0 !important;
 }
 
 .submitYourProject form input.form-control{
@@ -518,7 +518,12 @@ form label{
 }
 
 form .form-group{
-    margin:25px 0 !important;
+    /* margin:25px 0 !important; */
+}
+
+.form-control:disabled, .form-control[readonly] {
+    background-color: #555555;
+    opacity: 1;
 }
 
 form input.form-control,
@@ -910,4 +915,28 @@ form select.form-control{
     .account_coin_details{
         width: 100%;
     }
+}
+
+
+.dropdown-menu.show{
+    position: absolute;
+    transform: translate3d(15px, 40px, 0px);
+    top: 0px;
+    left: 0px;
+    will-change: transform;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.dropdown-menu.show a{
+    color: black;
+}
+.loginIdBtn a .avatar{
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    margin: -8px 0;
+    float: left;
+    margin-right: 10px;
 }

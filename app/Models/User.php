@@ -6,7 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -24,6 +24,7 @@ class User extends Authenticatable
         'country',        
         'phone',
         'status',
+        'image',
         'wallet_address',
         'password',
     ];
@@ -57,5 +58,9 @@ class User extends Authenticatable
 
     public function projects(){
         return $this->hasMany(Project::class);
+    }
+
+    public function getImageAttribute($value){
+        return $value ? asset("storage/$value") : "https://ui-avatars.com/api/?background=0D8ABC&color=fff&name={$this->name}";
     }
 }
