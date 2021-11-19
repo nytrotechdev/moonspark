@@ -7,11 +7,14 @@ const DashboardComponent             = () => import(/* webpackChunkName: "client
 // Profile
 const ProfileComponent          = () => import(/* webpackChunkName:  "client-profile-view" */ './views/profile/ProfileComponent');
 
-// Task
+// Project
 const ProjectComponent          = () => import(/* webpackChunkName: "client-project-index" */ './views/project/IndexComponent');
 const ProjectCreateComponent    = () => import(/* webpackChunkName: "client-project-create" */ './views/project/CreateComponent');
 const ProjectShowComponent      = () => import(/* webpackChunkName: "client-project-show" */ './views/project/ShowComponent');
 const ProjectEditComponent      = () => import(/* webpackChunkName: "client-project-edit" */ './views/project/EditComponent');
+
+//Transaction
+const TransactionComponent      = () => import(/* webpackChunkName: "client-trans-index" */ './views/transaction/IndexComponent');
 
 // Blogs
 const BlogComponent             = () => import(/* webpackChunkName: "client-page-index" */ './views/page/IndexComponent');
@@ -83,6 +86,15 @@ const router = new VueRouter({
             component: ProjectEditComponent,
             meta: {
                 title: "Project - Edit",
+                description: ""
+            }
+        },
+        {
+            path: '/transactions',
+            name: 'transaction',
+            component: TransactionComponent,
+            meta: {
+                title: "My Transactions",
                 description: ""
             }
         },

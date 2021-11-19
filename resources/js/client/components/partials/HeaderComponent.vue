@@ -28,7 +28,7 @@
 					<div class="dropdown-menu">
 						<router-link :to="{ name: 'profile' }" class="dropdown-item">Profile</router-link>
 						<router-link :to="{ name: 'project' }" class="dropdown-item">My Projects</router-link>
-						<a href="#" class="dropdown-item">My Transactions</a>
+						<router-link :to="{ name: 'transaction' }" class="dropdown-item">My Transactions</router-link>
 						<div class="dropdown-divider"></div>
 						<a :href="`${base_url}/logout`" class="dropdown-item">Logout</a>
 					</div>

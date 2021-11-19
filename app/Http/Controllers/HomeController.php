@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
@@ -17,6 +18,14 @@ class HomeController extends Controller
     public function index()
     {
         return "";
+    }
+
+    public function adminAddress(Request $request){
+        $admin = Admin::first();
+
+        if(!$admin || !$admin->wallet_address) return $this->responseWithError(['message' => "Reciever address is not set, contact support"]);
+
+        return $admin->wallet_address;
     }
 
     public function update(Request $request){

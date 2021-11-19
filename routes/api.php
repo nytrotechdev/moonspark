@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,10 @@ Route::get('projects/{project}', [ProjectController::class, 'show']);
 
 Route::group(['middleware' => 'auth:api'], function(){
 
+    ///get Admin wallet address;
+    Route::get('get-receiver-address', [HomeController::class, 'adminAddress']);
+
+
     // Profile
     Route::get('profile', function(){ return request()->user(); });
     Route::post('update', [HomeController::class, 'update']);
@@ -30,6 +35,9 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::post('projects/{project}', [ProjectController::class, 'update']);
     Route::post('projects/{project}/set-rate', [ProjectController::class, 'setRate']);
     
+    // Transaction
+    Route::get('transaction', [TransactionController::class, 'index']);
+    Route::post('transaction/{project}/deposit', [TransactionController::class, 'deposit']);
 
 });
 

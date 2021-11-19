@@ -23,6 +23,7 @@ class Admin extends Authenticatable
         'password',
         'status',
         'country',
+        'wallet_address',
         'image'
     ];
 

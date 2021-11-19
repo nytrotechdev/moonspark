@@ -45,8 +45,7 @@ Vue.use(VuejsDialog, {
 Vue.prototype.$baseUrl = window.base_url;
 Vue.prototype.$placeApiKey = "AIzaSyAHPUufTlBkF5NfBT3uhS9K4BbW2N-mkb4";
 Vue.prototype.$user = window.user;
-Vue.prototype.$m_user = "";
-Vue.prototype.$m_web3 = "";
+Vue.prototype.$m_user = ""
 
 
 Vue.mixin({
@@ -63,8 +62,8 @@ Vue.mixin({
           const provider = 'metamask';
           
           try {
-            this.m_user = await Moralis.authenticate({ provider });            
-            this.m_web3 = await Moralis.enableWeb3({ provider });
+            this.$m_user = await Moralis.authenticate({ provider });            
+            this.$m_web3 = await Moralis.enableWeb3({ provider });
           } catch (error) {
             console.log('authenticate failed', error);
           }

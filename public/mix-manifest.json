@@ -8,5 +8,6 @@
     "/js/client/client-chunks/client-project-edit.js": "/js/client/client-chunks/client-project-edit.js",
     "/js/client/client-chunks/client-page-index.js": "/js/client/client-chunks/client-page-index.js",
     "/js/client/client-chunks/client.reminder.js": "/js/client/client-chunks/client.reminder.js",
-    "/css/client/app.css": "/css/client/app.css"
+    "/css/client/app.css": "/css/client/app.css",
+    "/js/client/client-chunks/client-trans-index.js": "/js/client/client-chunks/client-trans-index.js"
 }

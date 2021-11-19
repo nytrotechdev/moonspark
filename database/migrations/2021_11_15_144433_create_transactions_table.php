@@ -16,12 +16,16 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->string('user_id');
+            $table->tinyInteger('type')->default(0);
             $table->string('project_id');
-            $table->text('from_address');
-            $table->text('to_address');
-            $table->string('token');
-            $table->string('amount');
+            $table->longText('from_address');
+            $table->longText('to_address');
+            $table->longText('token')->nullable();
+            $table->longText('amount')->nullable();
             $table->longText('receipt')->nullable();
+            $table->longText('transaction_hash')->nullable();
+            $table->longText('screenshot')->nullable();
+            $table->longText('reason')->nullable();
             $table->tinyInteger('status');
             $table->timestamps();
         });

@@ -77,7 +77,7 @@ class ProjectController extends Controller
             unset($data['short_video']);
         }
 
-        $data['available_balance'] = $data['no_of_token'];
+        // $data['available_balance'] = $data['no_of_token'];
 
         $project = new Project();
         $project->fill($data);

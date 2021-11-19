@@ -21,6 +21,7 @@
                 </div>
                 </div>
                 <div class="coin_details">
+                    <p><span>Total Tokens</span> <span>{{ project.no_of_token }}</span></p>
                     <p><span>Available Tokens</span> <span>{{ project.available_balance }}</span></p>
                     <p><span>Price</span> <span>{{ project.token_price.amount }} {{ project.token_price.currency }} </span></p>
                     <!-- <p><span>token sales last 24 hrs</span> <span>$2,400</span></p>
@@ -31,7 +32,8 @@
                 data-toggle="modal" data-target="#setRate" class="account-section-btn btn-success">Set Rate</a>
 
                 <a href="javascript:;" 
-                data-toggle="modal" data-target="#depositToken" class="account-section-btn btn-danger">Deposit Coins</a>
+                @click="getReceiverAddress(project)"
+                class="account-section-btn btn-danger">Deposit Coins</a>
 
                 <a href="javascript:;"  class="account-section-btn btn-primary">History</a>
 
@@ -74,7 +76,7 @@
           <div class="buyCoin">
               <form action="">
                   <h3>Deposit Token</h3>
-                  <div class="form-button" v-if="!$m_user" >
+                  <div class="form-button" v-if="!moralisUser" >
                         <button @click="authenticate()" type="button" class="main-btn btn-gold">
                             <img style="width:30px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/512px-MetaMask_Fox.svg.png">
                             Connect MetaMask Wallet
@@ -82,30 +84,32 @@
                   </div>
                   <div v-else>
                     <div class="form-group">
-                        <label>recipient:</label>
-                        <input type="text" class="form-control">
+                        <label>Recipient:</label>
+                        <p style="color: #fff" v-text="deposit.receiver_address" class=""></p>
                     </div>
                     <div class="form-group">
-                        <label for="">Asset:</label>
-                        <select class="form-control">
-                            <option>candela coin</option>
-                            <option>candela coin</option>
-                            <option>candela coin</option>
-                        </select>
+                        <label>Sender: <small>(Change if You are sending from different Metamask Account)</small></label>
+                        <input type="text" v-model="deposit.sender" class="form-control">
                     </div>
+
                     <div class="form-group">
                         <label>Amount:</label>
-                        <input type="number" class="form-control">
+                        <input type="number" v-model="deposit.amount" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label class="d-flex align-items-center justify-content-between">
-                            <span>transfer fee:</span>
-                            <span>0.00001 ETH</span>
-                        </label>
+                        <label>Upload Screenshot:</label>
+                        <input accept="image/*" type="file" @change="(e) => deposit.ss = e.target.files[0]" class="form-control">
                     </div>
+                    <div class="form-group">
+                        <label>Enter Transaction ID (Hash):
+                            <a target="_blank" href="/assets/img/helpdesk_1.png">View</a>
+                        </label>
+                        <input type="text" v-model="deposit.transaction_hash" class="form-control">
+                    </div>
+
                     <div class="form-button">
                         <button type="button" class="main-btn btn-transparent" data-dismiss="modal">cancel</button>
-                        <button type="button" class="main-btn btn-gold">next</button>
+                        <button @click="depositToken" type="button" class="main-btn btn-gold">Next</button>
                     </div>
 
                   </div>
@@ -125,17 +129,23 @@
 }
 </style>
 <script>
-import Moralis from 'moralis/dist/moralis.min.js';
+import Moralis from 'moralis';
 export default {
   data() {
     return {
       projects: [],
+      currentProject: undefined,
       rate: {},
+      deposit: {
+        sender: this.$user.wallet_address,
+        receiver_address: '',
+      },
       from: "",
       to: "",
       query: "",
       table: undefined,
       user: undefined,
+      moralisUser: Moralis.User.current(),
       web3: undefined,
       type_class: ["default", "success", "warning", "danger"],
       moralis_creds: window.moralis,
@@ -145,9 +155,50 @@ export default {
   },
   mounted() {
     this.getProjects();
+    // this.getReceiverAddress();
+    // this.getTokenBalances();
   },
   methods: {
+    depositToken(){
 
+      var form_data = new FormData();
+
+      for ( var key in this.deposit ) {
+          form_data.append(key, this.deposit[key]);
+      }
+      axios
+        .post("transaction/"+this.currentProject.id+"/deposit", form_data)
+        .then(({ data }) => {
+            this.$toastr.success(data.message, "Success!");
+            $('#depositToken').modal('hide');
+            this.deposit = {
+              sender: this.$user.wallet_address,
+              receiver_address: '',
+            };
+            this.getProjects();
+        })
+        .catch((e) => {
+          console.log(e);
+          let errors = e.response.data.errors;
+          Object.keys(errors).forEach((key) => {
+            this.$toastr.error(errors[key], "Error!");
+          });
+        });      
+    },
+    getReceiverAddress(project){
+      axios.get('get-receiver-address')
+        .then(({data}) => {
+            this.deposit.receiver_address = data;
+            this.currentProject = project; 
+            $('#depositToken').modal('show');
+        }).catch( e => {
+          let errors = e.response.data.errors;
+          Object.keys(errors).forEach(key=>{
+              this.$toastr.error(errors[key], "Error!");
+          });
+        });
+
+    },
     getProjects() {
       let query = {
         status:
