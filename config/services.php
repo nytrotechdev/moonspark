@@ -30,4 +30,13 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+
+    'moralis' => [
+        "serverUrl" => "https://ftjydldokmpn.usemoralis.com:2053/server", //Server url from moralis.io
+        "appId" => "72QFiGjbBZClvklxyaSDLXg2UHHODkEgMhQJAJnY", // Application id from moralis.io    
+    ],
+
+
+    
+
 ];

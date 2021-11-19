@@ -29,21 +29,19 @@
                 <a href="javascript:;" 
                 @click="rate = project.token_price"
                 data-toggle="modal" data-target="#setRate" class="account-section-btn btn-success">Set Rate</a>
-                <a href="javascript:;"  class="account-section-btn btn-danger">Deposit Coins</a>
+
+                <a href="javascript:;" 
+                data-toggle="modal" data-target="#depositToken" class="account-section-btn btn-danger">Deposit Coins</a>
+
                 <a href="javascript:;"  class="account-section-btn btn-primary">History</a>
 
             </div>
-          </div>
-          
-          <div class="row align-items-center justify-content-center p-4 m-4">
-            <!-- <a href="" class="account-section-btn btn-success">transfer in</a>
-            <a href="" class="account-section-btn btn-danger">transfer out</a>
-            <a href="" class="account-section-btn btn-primary">history</a> -->
           </div>
         </div>
       </div>
     </section>
 
+    <!-- Set Exchange Rate Modal Start -->
     <div class="modal fade" id="setRate" tabindex="-1" role="dialog" aria-labelledby="setRateTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -67,6 +65,56 @@
         </div>
       </div>
     </div>
+    <!-- Set Exchange Rate Modal End -->
+
+    <!-- Set Deposit Modal Start -->
+    <div class="modal fade" id="depositToken" tabindex="-1" role="dialog" aria-labelledby="depositTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="buyCoin">
+              <form action="">
+                  <h3>Deposit Token</h3>
+                  <div class="form-button" v-if="!$m_user" >
+                        <button @click="authenticate()" type="button" class="main-btn btn-gold">
+                            <img style="width:30px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/512px-MetaMask_Fox.svg.png">
+                            Connect MetaMask Wallet
+                        </button>
+                  </div>
+                  <div v-else>
+                    <div class="form-group">
+                        <label>recipient:</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Asset:</label>
+                        <select class="form-control">
+                            <option>candela coin</option>
+                            <option>candela coin</option>
+                            <option>candela coin</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Amount:</label>
+                        <input type="number" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="d-flex align-items-center justify-content-between">
+                            <span>transfer fee:</span>
+                            <span>0.00001 ETH</span>
+                        </label>
+                    </div>
+                    <div class="form-button">
+                        <button type="button" class="main-btn btn-transparent" data-dismiss="modal">cancel</button>
+                        <button type="button" class="main-btn btn-gold">next</button>
+                    </div>
+
+                  </div>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Set Deposit Modal End -->
 
 
   </div>
@@ -77,28 +125,30 @@
 }
 </style>
 <script>
-import Datepicker from "vuejs-datepicker";
+import Moralis from 'moralis/dist/moralis.min.js';
 export default {
   data() {
     return {
       projects: [],
-      rate: undefined,
+      rate: {},
       from: "",
       to: "",
       query: "",
       table: undefined,
+      user: undefined,
+      web3: undefined,
       type_class: ["default", "success", "warning", "danger"],
+      moralis_creds: window.moralis,
     };
   },
   components: {
-    Datepicker,
   },
   mounted() {
     this.getProjects();
   },
   methods: {
+
     getProjects() {
-      if (this.table !== undefined) this.table.destroy();
       let query = {
         status:
           typeof this.$route.query.status !== "undefined"

@@ -28,12 +28,18 @@
 
     </style>
 
+    <script src="https://unpkg.com/moralis/dist/moralis.js"></script>
     <!-- Scripts -->
     <script type="text/javascript">
         window.base_url = "{{ url('/') }}";
         window.user = @json(auth()->user());
         window.supported_platform = @json(config('app.supported_platform'));
+        window.moralis = @json(config('services.moralis'));
         window.appname = "{{config('app.name')}}";
+        const serverUrl = "https://ftjydldokmpn.usemoralis.com:2053/server"; //Server url from moralis.io
+        const appId = "72QFiGjbBZClvklxyaSDLXg2UHHODkEgMhQJAJnY"; // Application id from moralis.io
+        window.Moralis = Moralis;
+        // Moralis.start({ serverUrl, appId });
 
     </script>
     <script defer="true" src="{{ asset('js/client/app.js') }}"></script>

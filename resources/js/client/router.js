@@ -6,7 +6,6 @@ const DashboardComponent             = () => import(/* webpackChunkName: "client
 
 // Profile
 const ProfileComponent          = () => import(/* webpackChunkName:  "client-profile-view" */ './views/profile/ProfileComponent');
-const ContactComponent          = () => import(/* webpackChunkName:  "client-profile-contact" */ './views/profile/ContactComponent');
 
 // Task
 const ProjectComponent          = () => import(/* webpackChunkName: "client-project-index" */ './views/project/IndexComponent');

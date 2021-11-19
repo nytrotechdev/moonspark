@@ -1,6 +1,7 @@
 const mix = require('laravel-mix');
 var webpack = require('webpack');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
 
 /*
  |--------------------------------------------------------------------------
@@ -18,6 +19,9 @@ if(process.env.NODE_ENV === "development" || process.env.NODE_ENV === "productio
         .vue()
         .sass('resources/sass/admin/app.scss', 'public/css/admin/')
         .webpackConfig({
+            plugins: [
+                new NodePolyfillPlugin()
+            ],
             output: {
                 publicPath: `${process.env.MIX_BASE_URL}/`,
                 chunkFilename: `js/admin/admin-chunks/[name].js`,
@@ -33,6 +37,9 @@ if(process.env.NODE_ENV === "clientdevelopment" || process.env.NODE_ENV === "cli
         .vue()
         .sass('resources/sass/client/app.scss', 'public/css/client/')
         .webpackConfig({
+            plugins: [
+                new NodePolyfillPlugin()
+            ],
             output: {
                 publicPath: `${process.env.MIX_BASE_URL}/`,
                 chunkFilename: `js/client/client-chunks/[name].js`,

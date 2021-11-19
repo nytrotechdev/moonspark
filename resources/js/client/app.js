@@ -18,8 +18,13 @@ import { param } from 'jquery';
 window.toastr = require('toastr');
 import { Fragment } from 'vue-fragment'
 
+
+import Moralis from 'moralis';
+// import Moralis from 'moralis/dist/moralis.min.js';
+
 Vue.use(VueRouter);
 Vue.use(Fragment);
+// Vue.use(Moralis);
 Vue.use(VueToastr2);
 Vue.use(VeeValidate);
 Vue.use(VueTimeago, {
@@ -36,8 +41,44 @@ Vue.use(VuejsDialog, {
     // animation: 'bounce'
 });
 
+// Vue.prototype.Moralis = Moralis;
+Vue.prototype.$baseUrl = window.base_url;
+Vue.prototype.$placeApiKey = "AIzaSyAHPUufTlBkF5NfBT3uhS9K4BbW2N-mkb4";
+Vue.prototype.$user = window.user;
+Vue.prototype.$m_user = "";
+Vue.prototype.$m_web3 = "";
+
+
 Vue.mixin({
+    mounted() {
+        this.initMoralis();
+    },    
     methods:{
+        initMoralis(){
+            let serverUrl = window.moralis.serverUrl;
+            let appId = window.moralis.appId;
+            Moralis.start({ serverUrl, appId });
+        },
+        async authenticate() {
+          const provider = 'metamask';
+          
+          try {
+            this.m_user = await Moralis.authenticate({ provider });            
+            this.m_web3 = await Moralis.enableWeb3({ provider });
+          } catch (error) {
+            console.log('authenticate failed', error);
+          }
+          // this.renderApp();
+        },
+        async logout(){
+          try {
+            await this.Moralis.User.logOut();
+          } catch (error) {
+            console.log('logOut failed', error);
+          }
+          result = '';
+          // this.renderApp();
+        },        
         dateFormat(date){
             return (date) ? date.getFullYear() + '-' + ((date.getMonth() +1).toString().padStart(2, 0)) + '-' + (date.getDate().toString().padStart(2, 0)) : '';
         },
@@ -59,10 +100,6 @@ Vue.mixin({
         }
     }
 });
-
-Vue.prototype.$baseUrl = window.base_url;
-Vue.prototype.$placeApiKey = "AIzaSyAHPUufTlBkF5NfBT3uhS9K4BbW2N-mkb4";
-Vue.prototype.$user = window.user;
 
 Vue.component('top-header', require('./components/partials/HeaderComponent.vue').default);
 Vue.component('side-navbar', require('./components/partials/SidebarComponent.vue').default);
