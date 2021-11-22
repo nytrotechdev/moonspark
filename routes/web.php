@@ -26,7 +26,11 @@ Route::prefix('admin')->name('admins.')->namespace('App\Http\Controllers\Admins'
 
     Auth::routes(['register' => false]);
 
-    Route::get('logout',function(){ Auth::guard('admin')->logout(); return redirect(url('/admin/login')); });
+    Route::get('logout',function(){ 
+        setcookie('p_token', null, -1, '/'); 
+        Auth::guard('admin')->logout(); 
+        return redirect(url('/admin/login')); 
+    });
 
     Route::view('/{home?}','layouts/admin')->middleware('auth:admin')->where('home', '.*');
 
@@ -38,6 +42,10 @@ Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('logout',function(){ Auth::logout(); return redirect(url('/login')); });
+Route::get('logout',function(){ 
+    Auth::logout(); 
+    setcookie('p_token', null, -1, '/'); 
+    return redirect(url('/login')); 
+});
 
 Route::view('/{home?}','layouts/app')->where('home', '.*')->name('landing');
