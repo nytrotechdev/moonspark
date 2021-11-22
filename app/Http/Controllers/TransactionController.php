@@ -56,4 +56,33 @@ class TransactionController extends Controller
 
         // Transaction
     }
+
+    public function transfer(Request $request, $project){
+        $request->validate([
+            'receiver_address' => "required",
+            'amount' => "required|numeric",
+            "sender" => "required",
+        ]);
+
+        $project = Project::find($project);
+
+        Transaction::create([
+            "user_id" => $request->user()->id,
+            "project_id" => $project->id,
+            "from_address" => $request->sender,
+            "to_address" => $request->receiver_address ? $this->receiver_address : $this->adminAddress($request),
+            "token" => null,
+            "amount" => $request->amount,
+            "transaction_hash" => @$request->transaction_hash,
+            "screenshot" => null,
+            "reciept_url" => null,
+            "status" => 0,
+            "type" => 1,
+            "reason" => null,
+            "payload" => $request->payload,
+        ]);
+
+        $this->responseSuccess("Token has been deposit successfully, Please wait for its confirmation");
+    }
+
 }

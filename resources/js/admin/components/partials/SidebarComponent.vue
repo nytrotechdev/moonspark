@@ -29,18 +29,12 @@
                             </template>
                         </ul>
                     </li>
-
-                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                            <i class="fa fa-money"></i>
+                    <li><router-link class="ai-icon" :to="{ name: 'transactions'}">
+                            <i class="fa fa-file"></i>
                             <span class="nav-text">Transactions</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <template >
-                                <li><router-link :to="{ name: 'transactions', query: { status: 0 } }" >Pending Transactions</router-link></li>
-                                <li><router-link :to="{ name: 'transactions', query: { status: 1 } }" >Confirmed transactions</router-link></li>
-                            </template>
-                        </ul>
+                        </router-link>
                     </li>
+
                     <li><router-link class="ai-icon" :to="{ name: 'page'}">
                             <i class="fa fa-file"></i>
                             <span class="nav-text">Pages</span>

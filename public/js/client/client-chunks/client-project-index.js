@@ -520,14 +520,20 @@ var render = function () {
                   ),
                   _vm._v(" "),
                   _c(
-                    "a",
+                    "router-link",
                     {
                       staticClass: "account-section-btn btn-primary",
-                      attrs: { href: "javascript:;" },
+                      attrs: {
+                        to: {
+                          name: "transaction",
+                          query: { project_id: project.id },
+                        },
+                      },
                     },
                     [_vm._v("History")]
                   ),
-                ]
+                ],
+                1
               )
             }),
             0

@@ -16,7 +16,7 @@
                         <div class="flex-d-custom">
                             <h2 class="text-black mb-2 font-w600 custom-big-stat">Active Projects</h2>
                             <p class="mb-0 fs-14 custom-dash-text-stats">
-                                0
+                                {{ data.active_project }}
                             </p>
                         </div>
                     </div>
@@ -31,7 +31,7 @@
                         <div class="flex-d-custom">
                             <h2 class="text-black mb-2 font-w600 custom-big-stat">Pending Projects</h2>
                             <p class="mb-0 fs-14 custom-dash-text-stats">
-                                0
+                                {{ data.pending_project }}
                             </p>
                         </div>
                     </div>
@@ -46,7 +46,7 @@
                         <div class="flex-d-custom">
                             <h2 class="text-black mb-2 font-w600 custom-big-stat">Confirmed Transaction</h2>
                             <p class="mb-0 fs-14 custom-dash-text-stats">
-                                0
+                                {{ data.active_tran }}
                             </p>
                         </div>
                     </div>
@@ -61,22 +61,22 @@
                         <div class="flex-d-custom">
                             <h2 class="text-black mb-2 font-w600 custom-big-stat">Unconfirmed Transaction</h2>
                             <p class="mb-0 fs-14 custom-dash-text-stats">
-                                0
+                                {{ data.pending_tran }}
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-xl-3 col-sm-6 m-t35">
-                <div @click="$router.push({ name: 'task', query: { status: 3 } })"  class="card card-coin">
+                <div class="card card-coin">
                     <div class="card-body text-center">
                         <div class="icon-wrp">
-                            <!-- <i class="fi-rr-time-check"></i> -->
+                            <!-- <i class="fi-rr-refresh"></i> -->
                         </div>
                         <div class="flex-d-custom">
-                            <h2 class="text-black mb-2 font-w600 custom-big-stat">Total Earning</h2>
+                            <h2 class="text-black mb-2 font-w600 custom-big-stat">Rejected Transaction</h2>
                             <p class="mb-0 fs-14 custom-dash-text-stats">
-                                0
+                                {{ data.rejected_tran }}
                             </p>
                         </div>
                     </div>
@@ -89,9 +89,25 @@
                             <!-- <i class="fi-rr-cross-circle"></i> -->
                         </div>
                         <div class="flex-d-custom">
+                            <h2 class="text-black mb-2 font-w600 custom-big-stat">No of Projects</h2>
+                            <p class="mb-0 fs-14 custom-dash-text-stats">
+                                {{ data.projects }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-sm-6 m-t35">
+                <div class="card card-coin">
+                    <div class="card-body text-center">
+                        <div class="icon-wrp">
+                            <!-- <i class="fi-rr-cross-circle"></i> -->
+                        </div>
+                        <div class="flex-d-custom">
                             <h2 class="text-black mb-2 font-w600 custom-big-stat">No of Users</h2>
                             <p class="mb-0 fs-14 custom-dash-text-stats">
-                                0
+                                {{ data.users }}
                             </p>
                         </div>
                     </div>
@@ -104,7 +120,7 @@
                 <div class="card">
                     <div class="card-header border-0 flex-wrap pb-0">
                         <div class="mb-3">
-                            <h4 class="fs-20 text-black">Today's Project ({{ reminders.length }})</h4>
+                            <h4 class="fs-20 text-black">Today's Project ({{ data.latest_project.length }})</h4>
                         </div>
                     </div>
                     <div class="card-body pb-0">
@@ -113,16 +129,20 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Title</th>
-                                        <th>Description</th>
+                                        <th>Ticker</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr
-                                    :class="rem.color ? `${rem.color} text-white` : ''"
-                                    v-for="(rem, index) in reminders" :key="index">
-                                        <td>{{rem.id}}</td>
-                                        <td>{{rem.title}}</td>
-                                        <td>{{rem.description}}</td>
+                                    v-for="(pro, index) in data.latest_project" :key="index">
+                                        <td>{{pro.id}}</td>
+                                        <td>{{project.project_name}}</td>
+                                        <td>{{project.project_ticker}}</td>
+                                        <td>
+                                            <label class="badge badge-warning" v-if="project.status == 0">Pending</label>
+                                            <label class="badge badge-success"  v-if="project.status == 1">Success</label>
+                                        </td>
                                     </tr>
                                     <tr v-if="!reminders.length">
                                         <td colspan="6">No Project added today </td>
@@ -135,26 +155,7 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="card">
-                    <div class="card-header border-0 flex-wrap pb-0">
-                        <div class="mb-3">
-                            <h4 class="fs-20 text-black">Analytics</h4>
-                            <p class="mb-0 fs-12 text-black">Will be added later</p>
-                        </div>
-                        <select class="form-control style-1 default-select">
-                            <option>Weekly (2021)</option>
-                            <option>Daily (2021)</option>
-                            <option>Yearly (2021)</option>
-                        </select>
-                    </div>
-                    <div class="card-body pb-0">
-                        <div id="marketChart" class="market-line"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
     </div>
 
 </template>
@@ -167,6 +168,10 @@
         },
         data() {
             return {
+                data: {
+                    latest_project: [],
+                    latest_transaction: [],                    
+                },
                 baseUrl: window.base_url,
                 years: Array.from({
                     length: 10
@@ -187,11 +192,7 @@
             getData() {
                 axios.get(`/dashboard?year=${this.filter}`)
                     .then(({data}) => {
-                        this.reminders = data.reminders;
-                        this.user = data.user;
-                        this.task = data.task;
-                        this.referrels = data.referrels;
-
+                        this.data = data;
                     });
             }
         },

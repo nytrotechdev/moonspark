@@ -15,7 +15,7 @@ class Transaction extends Model
         "user_id",
         "type",
         "project_id",
-        "to_address",
+        "from_address",
         "to_address",
         "token",
         "amount",
@@ -24,8 +24,12 @@ class Transaction extends Model
         "screenshot",
         "reason",
         "status",
+        "payload"
     ];
 
+    protected $casts = [
+        'payload' => 'json'
+    ];
 
     protected $appends = ['created_date', 'trim_sender', 'trim_reciever'];
 
@@ -35,6 +39,10 @@ class Transaction extends Model
 
     public function getTrimRecieverAttribute(){
         return substr($this->to_address, 0, 5)."...".substr($this->to_address, -5);
+    }
+
+    public function getScreenshotAttribute($value){
+        return ($value) ? asset("storage/$value") : "";
     }
 
     public function getCreatedDateAttribute(){

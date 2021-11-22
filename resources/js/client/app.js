@@ -17,6 +17,7 @@ import Img from './components/Img.vue';
 import { param } from 'jquery';
 window.toastr = require('toastr');
 import { Fragment } from 'vue-fragment'
+import VueClipboard from 'vue-clipboard2'
 
 
 import Moralis from 'moralis';
@@ -40,7 +41,8 @@ Vue.use(VuejsDialog, {
     cancelText: 'Cancel',
     // animation: 'bounce'
 });
-
+VueClipboard.config.autoSetContainer = true // add this line
+Vue.use(VueClipboard)
 // Vue.prototype.Moralis = Moralis;
 Vue.prototype.$baseUrl = window.base_url;
 Vue.prototype.$placeApiKey = "AIzaSyAHPUufTlBkF5NfBT3uhS9K4BbW2N-mkb4";
@@ -57,13 +59,20 @@ Vue.mixin({
             let serverUrl = window.moralis.serverUrl;
             let appId = window.moralis.appId;
             Moralis.start({ serverUrl, appId });
+            Moralis.enableWeb3();
+            Moralis.initPlugins();
+
+            if(!Moralis.User.current())
+                this.authenticate();
+
+            // console.log('here');
         },
         async authenticate() {
           const provider = 'metamask';
-          
           try {
             this.$m_user = await Moralis.authenticate({ provider });            
             this.$m_web3 = await Moralis.enableWeb3({ provider });
+            console.log(this.$m_user);
           } catch (error) {
             console.log('authenticate failed', error);
           }
@@ -78,6 +87,16 @@ Vue.mixin({
           result = '';
           // this.renderApp();
         },        
+        copyToClickBoard(content){
+          navigator.clipboard.writeText(content)
+              .then(() => {
+                this.$toastr.success("Copied", "Success!");
+          })
+              .catch(err => {
+              console.log('Something went wrong', err);
+          })
+       
+        },              
         dateFormat(date){
             return (date) ? date.getFullYear() + '-' + ((date.getMonth() +1).toString().padStart(2, 0)) + '-' + (date.getDate().toString().padStart(2, 0)) : '';
         },

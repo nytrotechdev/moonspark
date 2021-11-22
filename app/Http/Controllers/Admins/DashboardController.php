@@ -6,40 +6,33 @@ use App\Http\Controllers\Controller;
 use App\Models\Referral;
 use App\Models\Task;
 use Illuminate\Http\Request;
-use App\Models\AdminReminder as Reminder; 
+use App\Models\AdminReminder as Reminder;
+use App\Models\Project;
+use App\Models\Transaction;
+use App\Models\User;
 use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
     public function index(Request $request)
     {
-        
-        \DB::listen(function($sql) {
-            // dump($sql->sql, $sql->bindings, Carbon::now());
-        });
-
         $user = $request->user();
+
+        $project = Project::latest()->get();
+
+        $transaction = Transaction::latest()->get();
+
         return [
             'user' => $user,
-            'task' => [
-                'all_task' => Task::whereNotIn('status', [Task::$status['COMPLETE'], Task::$status['CANCEL']])->count(),
-                'active_tasks' => Task::whereStatus(Task::$status['ACTIVE'])->count(),
-                'pending_tasks' => Task::whereStatus(Task::$status['PENDING'])->count(),
-                'work_in_progress' => Task::whereStatus(Task::$status['ACTIVE'])->count(),
-                'recurring' => Task::whereType(Task::$type['SCHEDULE'])->count(),
-                'completed' => Task::whereStatus(Task::$status['COMPLETE'])->count(),
-                'cancelled' => Task::whereStatus(Task::$status['CANCEL'])->count(),
-            ],
-            "referrels" => Referral::with('client.plan')
-                            ->whereClientId($request->user()->id)
-                            ->where('registration_status', 1)
-                            ->latest()
-                            ->get(),
-            "reminders" => [],
-            "reminders" => Reminder::whereAdminId($request->user()->id)
-                        ->whereDate('utc_start', '>=' , date('Y-m-d'))
-                        ->whereDate('utc_end', '<=' , date('Y-m-d'))
-                        ->get()
+            'users' => User::count(),
+            'projects' => count($project),
+            'active_project' => $project->where('status', 0)->count(),
+            'pending_project' => $project->where('status', 1)->count(),
+            'active_tran' => $transaction->where('status', 0)->count(),
+            'pending_tran' => $transaction->where('status', 1)->count(),
+            'rejected_tran' => $transaction->where('status', 2)->count(),
+            'latest_project' => Project::whereDate('created_at', Carbon::now())->latest()->get(),
+            'latest_transaction' => Transaction::whereDate('created_at', Carbon::now())->latest()->get(),
         ];
 
 

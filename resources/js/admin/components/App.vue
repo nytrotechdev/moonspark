@@ -5,7 +5,7 @@
                 <Img style="width:100%" src="/assets/img/logo.png" />
             </a>
             <div class="nav-control">
-                <div :class="`hamburger ${show ? 'is-active' : ''}`" @click="show = !show">
+                <div :class="`hamburger nav-link nav-menu-main menu-toggle is-active is-active ${show ? 'is-active' : ''}`" @click="show = !show">
                     <span class="line"></span><span class="line"></span><span class="line"></span>
                 </div>
             </div>

@@ -77,7 +77,7 @@ class ClientController extends Controller
     {
         $user = User::find($id);
         $data = $request->only($user->getFillable());
-        if($data)
+        if($request->password)
             $data['password'] = bcrypt($request->password);
         unset($data['email']);
         $user->fill($data);

@@ -39,6 +39,16 @@ Vue.mixin({
         dateFormat(date){
             return (date) ? date.getFullYear() + '-' + ((date.getMonth() +1).toString().padStart(2, 0)) + '-' + (date.getDate().toString().padStart(2, 0)) : '';
         },
+        copyToClickBoard(content){
+            navigator.clipboard.writeText(content)
+                .then(() => {
+                  this.$toastr.success("Copied", "Success!");
+            })
+                .catch(err => {
+                console.log('Something went wrong', err);
+            })
+         
+        }, 
         humanDate(epoch){
             var myDate = new Date(Number(epoch)*1000);
             return myDate.toGMTString()+" "+myDate.toLocaleString();

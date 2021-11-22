@@ -22,4 +22,11 @@
 [data-theme-version="dark"] select.form-control option{
     background: transparent;
     color: black;
- }
+}
+
+.address_pointer{
+    cursor: pointer;
+}
+
+.tooltip > .tooltip-inner {background-color: black;}
+.tooltip > .tooltip-arrow {border-bottom-color: black;}

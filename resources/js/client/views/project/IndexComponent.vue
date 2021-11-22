@@ -35,7 +35,7 @@
                 @click="getReceiverAddress(project)"
                 class="account-section-btn btn-danger">Deposit Coins</a>
 
-                <a href="javascript:;"  class="account-section-btn btn-primary">History</a>
+                <router-link :to="{ name: 'transaction', query: { project_id : project.id } }"  class="account-section-btn btn-primary">History</router-link>
 
             </div>
           </div>

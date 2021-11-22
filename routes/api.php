@@ -38,6 +38,9 @@ Route::group(['middleware' => 'auth:api'], function(){
     // Transaction
     Route::get('transaction', [TransactionController::class, 'index']);
     Route::post('transaction/{project}/deposit', [TransactionController::class, 'deposit']);
+    Route::post('transaction/{project}/transfer', [TransactionController::class, 'transfer']);
 
+    // Exchange Rate
+    Route::post('exchange-rate', [HomeController::class, 'getExchangeRate']);
 });
 

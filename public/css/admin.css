@@ -12983,7 +12983,7 @@ a.active {
     */
 .hamburger.is-active .line:nth-child(1),
 .hamburger.is-active .line:nth-child(3) {
-  width: 10px;
+  width: 22px;
   height: 2px;
 }
 
@@ -12995,13 +12995,13 @@ a.active {
 }
 
 .hamburger.is-active .line:nth-child(1) {
-  -webkit-transform: translateY(4px) rotate(45deg);
-  transform: translateY(4px) rotate(45deg);
+  /* -webkit-transform: translateY(4px) rotate(45deg); */
+  /* transform: translateY(4px) rotate(45deg); */
 }
 
 .hamburger.is-active .line:nth-child(3) {
-  -webkit-transform: translateY(-4px) rotate(-45deg);
-  transform: translateY(-4px) rotate(-45deg);
+  /* -webkit-transform: translateY(-4px) rotate(-45deg); */
+  /* transform: translateY(-4px) rotate(-45deg); */
 }
 
 @media (min-width: 767px) {

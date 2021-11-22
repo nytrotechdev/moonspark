@@ -62,7 +62,7 @@
                                             <p>fully diluted</p>
                                         </div>
                                         <div class="row flex-column">
-                                            <p>0.0</p>
+                                            <p v-text="project.tokenPrice ? `${project.tokenPrice.amount} USD` : '1 USD'"></p>
                                             <p>{{ project.market_cape }}</p>
                                             <p>{{ project.diluted_market_cape }}</p>
                                         </div>
@@ -70,7 +70,9 @@
                                 </div>
                                 <div class="card_foot">
                                     <router-link :to="{ name: 'project.show', params: { id: project.id } }">See More</router-link>
-                                    <button class="card-btn" data-toggle="modal" data-target="#exampleModalCenter">buy</button>
+                                    <button class="card-btn" 
+                                    @click="buyToken(project)" 
+                                    >buy</button>
                                 </div>
                             </div>
                         </div>
@@ -79,10 +81,67 @@
             </div>
         </section>
 
+    <div class="modal fade" id="buyToken" tabindex="-1" role="dialog" aria-labelledby="buyTokenTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="buyCoin">
+                    <form>
+                        <h3>Proceed to Buy</h3>
+                        <div class="notice">
+                            <strong>Note:</strong> You can pay for token in Eth or BNB, Once the transaction is confirmed, 
+                            The system will transfer the token to your wallet address
+                        </div>
+                        <div class="notice">
+                            <strong>Note:</strong> Make Sure while sending Eth or BSC it is connected to appropriate 
+                            Chain Network, <a 
+                            style="color: black"
+                            href="https://moonspark.finance/wallet-guide/" target="_blank">Refer, https://moonspark.finance/wallet-guide/ </a>
+                        </div>
+
+                        <div class="form-group" v-if="currentProject.token_price && rates">
+                            <label class="d-flex align-items-center justify-content-between">
+                                <span>Tokens Fiat Price:</span>
+                                <span class="tokens_to_be_transfered"></span>
+                            </label>
+                            <label class="d-flex align-items-center justify-content-between">
+                                <button @click="initiateTransaction(1)" class="main-btn btn-silver" type="button">
+                                    <img style="width:20px" src="/assets/img/eth.png"> {{ parseFloat(rates.eth) * parseFloat(currentProject.token_price.amount) }} ETH
+                                </button>
+                            </label>
+                            <label class="d-flex align-items-center justify-content-between">
+                                <button @click="initiateTransaction(2)" class="main-btn btn-silver" type="button">
+                                    <img style="width:20px" src="/assets/img/bnblogo.png"> {{ parseFloat(rates.bnb) * parseFloat(currentProject.token_price.amount) }} BNB                                    
+                                </button>
+                            </label>
+
+                        </div>
+                        <div class="form-button">
+                            <button class="main-btn btn-transparent" data-dismiss="modal">cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>    
+
+
     </div>
 </template>
+<style>
+    .notice{
+        margin-bottom: 18px;
+        background: gold;
+        border-radius: 10px;
+        padding: 10px;        
+    }
 
+    .btn-silver {
+        background: slategray;
+        border: 1px solid slategray !important;
+    }
+</style>
 <script>
+import Moralis from 'moralis';
 // import BarChart from "./BarChart.vue";
 export default {
   components: {
@@ -93,17 +152,124 @@ export default {
       data: undefined,
       baseUrl: window.base_url,
       projects: [],
+      receiver_address: "",
+      currentProject: {
+          tokenPrice: {}
+      },
+      ethNode: "https://speedy-nodes-nyc.moralis.io/a814e6dfe3c65bf59745d0a6/eth/mainnet",
+      bscNode: "https://speedy-nodes-nyc.moralis.io/a814e6dfe3c65bf59745d0a6/bsc/mainnet",
+      rates: undefined,
     };
   },
   mounted() {
     this.getData();
+    this.getReceiverAddress();
+    this.init();
+    this.getExchangeRate();
   },
   methods: {
+    async init(){
+        if(!Moralis.User.current())
+            this.authenticate();
+        Moralis.initPlugins();
+    },
+    async changeProvider(){
+        const web3 = await Moralis.Web3.enable();
+        await web3.currentProvider.request({
+            method: "wallet_switchEthereumChain",
+            params: [{ chainId: "0x89" }]
+        });        
+    },
+    getReceiverAddress(project){
+      axios.get('get-receiver-address')
+        .then(({data}) => {
+            this.receiver_address = data;
+        }).catch( e => {
+          let errors = e.response.data.errors;
+          Object.keys(errors).forEach(key=>{
+              this.$toastr.error(errors[key], "Error!");
+          });
+        });
+
+    },
+    async initiateTransaction(type){
+        console.log(type);
+        if(!this.receiver_address){
+            this.$toastr.error("You can not send asset at this moment, Contact Support", "Error!");
+        }   
+
+        if(type == 1){
+            let amount = parseFloat(this.rates.eth) * parseFloat(this.currentProject.token_price.amount);
+            const options = {type: "native", amount: Moralis.Units.ETH(amount),  receiver: this.receiver_address };
+            let result;
+            try {
+                result = await Moralis.transfer(options);
+                this.saveTransaction(result);
+            }
+            catch(e){
+                console.log(e);
+                this.$toastr.error("The transaction can not be processed", "Error");
+                return;
+            }
+        }
+        else{
+            let amount = parseFloat(this.rates.bnb) * parseFloat(this.currentProject.token_price.amount);
+            const options = {type: "erc20", 
+                 amount: Moralis.Units.Token(amount, "18"), 
+                 receiver: this.receiver_address,
+                 contractAddress: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c"
+            };
+            let result;
+            try {
+                result = await Moralis.transfer(options);
+                this.saveTransaction(result);
+            }
+            catch(e){
+                console.log(e);
+                this.$toastr.error("The transaction can not be processed", "Error");
+                return;
+            }
+        }
+    },
+    saveTransaction(result){
+        let data = {
+            payload : result,
+            receiver_address: result.to_address,
+            amount: result.value,
+            transaction_hash: result.transaction_hash,
+            sender: result.from_address,            
+        }
+        axios   
+            .post("transaction/"+this.currentProject.id+"/transfer", data)
+            .then(({ data }) => {
+                this.$toastr.success(data.message, "Success!");
+                $('#buyToken').modal('hide');
+                this.$router.push({ name: 'transaction'} );
+            })
+            .catch((e) => {
+            console.log(e);
+            let errors = e.response.data.errors;
+            Object.keys(errors).forEach((key) => {
+                this.$toastr.error(errors[key], "Error!");
+            });
+        });      
+    },    
+    buyToken(project){
+        this.currentProject = project;
+        $('#buyToken').modal('show');
+    },
     getData() {
       axios.get(`/get-latest-projects?limit=3`).then(({ data }) => {
         this.projects = data;
       });
     },
+    async getExchangeRate() {
+        axios.post('/exchange-rate')
+            .then(({data}) => {
+                this.rates = data;
+            });
+
+    }    
   },
   watch: {
     filter: function () {

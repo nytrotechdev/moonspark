@@ -4,6 +4,7 @@ use App\Http\Controllers\Admins\PageController;
 use App\Http\Controllers\Admins\ClientController;
 use App\Http\Controllers\Admins\DashboardController;
 use App\Http\Controllers\Admins\ProjectController;
+use App\Http\Controllers\Admins\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'auth:admin_api'], function(){
@@ -23,5 +24,10 @@ Route::group(['middleware' => 'auth:admin_api'], function(){
  
     // Page
     Route::apiResource('pages', PageController::class);
+
+    //Transactions
+    Route::apiResource('transactions', TransactionController::class);
+    Route::post('transactions/{transactions}', [TransactionController::class, 'update']);
+
 
 });

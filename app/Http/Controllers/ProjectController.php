@@ -36,7 +36,7 @@ class ProjectController extends Controller
         if($request->limit == 0)
             $projects->take($request->limit);
         
-        return $projects->active()->latest()->get();    
+        return $projects->with('tokenPrice')->active()->latest()->get();    
     }
 
     /**

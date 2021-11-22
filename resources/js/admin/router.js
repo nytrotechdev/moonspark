@@ -27,6 +27,8 @@ const PageShowComponent         = () => import(/* webpackChunkName: "admin-page-
 
 //transactions
 const TransactionComponent      = () => import(/* webpackChunkName: "admin-transaction-index" */ './views/transaction/IndexComponent');
+const TransactionShowComponent  = () => import(/* webpackChunkName: "admin-transaction-show" */ './views/transaction/ShowComponent');
+const TransactionCreateComponent  = () => import(/* webpackChunkName: "admin-transaction-create" */ './views/transaction/CreateComponent');
 
 
 
@@ -139,6 +141,25 @@ const router = new VueRouter({
             component: TransactionComponent,
             meta: {
                 title: "Transaction",
+                description: ""
+            }
+        },
+        {
+            path: '/transactions/create',
+            name: 'transactions.create',
+            component: TransactionCreateComponent,
+            meta: {
+                title: "Transaction Create",
+                description: ""
+            }
+        },
+
+        {
+            path: '/transactions/:id',
+            name: 'transactions.show',
+            component: TransactionShowComponent,
+            meta: {
+                title: "Transaction Detail",
                 description: ""
             }
         },

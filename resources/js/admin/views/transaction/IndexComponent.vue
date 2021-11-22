@@ -20,9 +20,12 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
+                    <div class="card-header">
+                        <router-link :to="{ name: 'transactions.create'}" class="mt-2"><h4 class="card-title">Create Transaction</h4></router-link>
+                    </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="pageTable" class="table display" style="min-width: 845px">
+                            <table id="transTable" class="table display" style="min-width: 845px">
                                 <thead>
                                     <tr>
                                         <th>S.No</th>
@@ -31,26 +34,47 @@
                                         <th>Client</th>
                                         <th>From Account</th>
                                         <th>To Account</th>
-                                        <th>Token</th>
+                                        <th>Type</th>
+                                        <th>Tokens</th>
                                         <th>Amount</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="(page, index) in data" :key="index">
-                                        <td>{{page.id}}</td>
-                                        <td>{{page.created_date}}</td>
-                                        <td>{{page.title}}</td>
-                                        <td>{{page.mini_description}}</td>
-                                        <td>{{page.author_name}}</td>
+                                    <tr v-for="(transaction, index) in data" :key="index">
+                                        <td>{{ transaction.id }}</td>
+                                        <td>{{ transaction.created_date }}</td>
+                                        <td>{{ transaction.project.project_name }}</td>
+                                        <td>{{ transaction.client.name }}</td>
+                                        <td 
+                                        @click="copyToClickBoard(transaction.from_address)"
+                                        class="address_pointer" data-placement="top" data-toggle="tooltip" :title="transaction.from_address" >{{ transaction.trim_sender }}</td>
+                                        <td 
+                                        @click="copyToClickBoard(transaction.to_address)"
+                                        class="address_pointer" data-placement="top" data-toggle="tooltip" :title="transaction.to_address" >{{ transaction.trim_reciever }}</td>
+                                        <td>
+                                            <span v-if="transaction.type == 0">Recieve</span>
+                                            <span v-if="transaction.type == 1">Sent</span>
+                                        </td>
+                                        <td>
+                                            <span v-text="transaction.token ? transaction.token : transaction.project.project_ticker"></span>
+                                        </td>
+                                        <td>{{ transaction.amount }}</td>
+                                        <td>
+                                            <label class="badge badge-warning" v-if="transaction.status == 0">Pending</label>
+                                            <label class="badge badge-success"  v-if="transaction.status == 1">Success</label>
+                                            <label class="badge badge-danger"  v-if="transaction.status == 2">Failed</label>
+
+                                        </td>
                                         <td>
                                             <div class="d-flex">
-                                                <router-link :to="{ name: 'page.show', params: { id:  page.id } }" title="View BLog"
+                                                <router-link :to="{ name: 'transactions.show', params: { id:  transaction.id } }" title="View Transaction"
                                                     class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-eye"></i></router-link>
-                                                <a href="javascript:;" @click.prevent="deletePage(page.id)" title="delete BLog" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
                                             </div>
                                         </td>
                                     </tr>
+
                                 </tbody>
                             </table>
                         </div>
@@ -84,24 +108,22 @@
         },
         methods: {
             getTransaction() {
+                axios.get('/transactions')
+                    .then(({data}) => {
+                        this.data = data;
+                        setTimeout(() => {
+                            this.table = $('#transTable').DataTable();
+                            $('[data-toggle="tooltip"]').tooltip();
 
+                        }, 100);
+                    });
             },
-            deletePage(id) {
-                this.$dialog.confirm(`Are you sure you want to delete this page ? The Action is irreversible`).then(
-                    dialog => {
-                        axios.delete(`/blog/${id}`).then(d => {
-                            this.getPages();
-                            this.$toastr.success(d.data.message, 'Success', {});
-                            dialog.close();
-                        }).catch(d => {});
-                    })
-            }
         },
         watch: {
-            '$route' : function() {
+            $route: function () {
                 this.getTransaction();
             },
-        }
+        },
     }
 </script>
 
