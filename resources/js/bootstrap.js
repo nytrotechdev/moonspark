@@ -62,7 +62,8 @@ function deleteCookie(name) {
 
 var urlParams = new URLSearchParams(window.location.search);
 if(!getCookie('p_token')){
-    setCookie('p_token', urlParams.get('token'), 2);
+    if(urlParams.get('token'))
+        setCookie('p_token', urlParams.get('token'), 2);
 }
 
 // console.log(getCookie('p_token'));
