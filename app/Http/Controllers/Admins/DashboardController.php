@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admins;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Models\Referral;
 use App\Models\Task;
 use Illuminate\Http\Request;
@@ -35,8 +36,24 @@ class DashboardController extends Controller
             'latest_transaction' => Transaction::whereDate('created_at', Carbon::now())->latest()->get(),
         ];
 
-
-
     }
+
+    public function profile(Request $request){
+        return $request->user();
+    }
+
+    public function updateProfile(Request $request, $id)
+    {
+        $user = Admin::find($id);
+        $data = $request->only($user->getFillable());
+        if($request->password)
+            $data['password'] = bcrypt($request->password);
+        unset($data['email']);
+        $user->fill($data);
+        $user->save();
+        return response()->json(['message' => 'Profile updated successfully']);
+    }
+
+
 
 }

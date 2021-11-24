@@ -1,177 +1,139 @@
 <template>
-    <section id="configuration" class="search view-cause a-edit-profile">
-        <div class="row">
-            <div class="col-12">
-                <h1 class="">
-                    <router-link :to="{ name: 'profile' }" class="back">
-                        <i class="fa fa-angle-left"></i>
-                    </router-link> {{ $route.meta.title }}
-                </h1>
-            </div>            
-            <div class="col-12">
-                <div class="add-user">
-                    <div class="card rounded pad-20">
-                        <div class="card-content collapse show">
-                            <div class="card-body card-dashboard">
-
-                                <form data-vv-scope="submitProfile-form"  @submit.prevent="submitProfile">
-                                <div class="row user-profile">
-                                    <div class="col-md-12">
-                                        <div class="attached">
-                                            <img id="uimg" :src="user.image" class="img-full" :alt="user.name">
-                                            <button type="button" class="camera-btn" onclick="document.getElementById('upload').click()">
-                                                <i class="fa fa-camera"></i>
-                                            </button>
-                                            <input @change="onFileChange"  type="file" id="upload" name="file">
-                                        </div>
-                                        <div class="attached-bottom text-center">
-                                            <h2>{{user.name}}</h2>
-                                            <h3>{{user.email}}</h3>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div>
-
-                                    <div class="row">
-                                        <div class="col-12 form-group">
-                                            <label>First Name</label>
-                                            <input v-validate="'required'" type="text" name="first name" v-model="user.first_name" 
-                                            class="form-control" >
-                                            <span class="text-danger">{{ errors.first(`first name`) }}</span>
-                                        </div>
-
-                                        <div class="col-12 form-group">
-                                            <label>Last Name</label>
-                                            <input v-validate="'required'"  type="text" v-model="user.last_name" 
-                                            class="form-control" name="last name">
-                                            <span class="text-danger">{{ errors.first(`last name`) }}</span>
-                                        </div>
-                                        <div class="col-12 form-group">
-                                            <label for="">Phone </label>
-                                            <the-mask :mask="'+1 (###) ###-####'" id="phone" v-validate="`required|numeric|digits:10`" v-model="user.phone" class="form-control" name="phone" placeholder="+1 (xxx)-xxx-xxxx"/>
-                                            <span class="text-danger">{{ errors.first(`phone`) }}</span>
-                                        </div>
-                                        <div class="col-12 form-group">
-                                            <label for="">Date of Birth</label>
-                                            <datepicker v-validate="'required'"
-                                                    :disabled-dates="{from : new Date(Date.now() - 8640000)}"
-                                                    name="dob"
-                                                    format="M-d-yyyy" v-model="user.dob"  placeholder="Enter Date of Birth"></datepicker>
-                                            <span class="text-danger">{{ errors.first(`dob`) }}</span>
-                                        </div>
-
-                                        <div class="col-12 form-group">
-                                            <label for="">Address</label>
-                                            <input
-                                                v-validate="'required'"
-                                                ref="autocomplete"
-                                                placeholder="Address"
-                                                class="form-control"
-                                                v-model="user.address"
-                                                id="address"
-                                                name="address"
-                                                type="text" />
-                                            <span class="text-danger">{{ errors.first(`address`) }}</span>
-                                        </div>
-
-                                        <div class="col-12 form-group">
-                                            <label for="">Country</label>
-                                            <input v-validate="'required'"  type="text" name="country" v-model="user.country" placeholder="Enter Country" id="country" class="form-control">
-                                            <span class="text-danger">{{ errors.first(`country`) }}</span>
-                                        </div>
-
-                                        <div class="col-12 form-group">
-                                            <label for="">State </label>
-                                            <input v-validate="'required'"  type="text" name="state" v-model="user.state" placeholder="California" id="state" class="form-control">
-                                            <span class="text-danger">{{ errors.first(`state`) }}</span>
-                                        </div>
-
-                                        <div class="col-12 form-group">
-                                            <label for="">City </label>
-                                            <input v-validate="'required'" type="text" name="city" v-model="user.city" placeholder="Maryland" id="city" class="form-control">
-                                            <span class="text-danger">{{ errors.first(`city`) }}</span>
-                                        </div>
-
-                                        <div class="col-12 form-group">
-                                            <label for="">Zip Code</label>
-                                            <input v-validate="'required'" type="text" name="zipcode" v-model="user.zipcode" placeholder="7200" id="zipcode" class="form-control">
-                                            <span class="text-danger">{{ errors.first(`zipcode`) }}</span>
-                                        </div>
-
-                                        <div class="col-12 form-group text-center">
-                                            <button type="submit" class="blue-btn">Update</button>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                </form>
-
-                            </div>
-                        </div>
-                    </div>
+    <div class="container-fluid">
+        <!-- Add Project -->
+        <div class="row page-titles mx-0">
+            <div class="col-sm-6 p-md-0">
+                <div class="welcome-text">
+                    <h4>{{ $route.meta.title }}</h4>
                 </div>
             </div>
+            <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><router-link :to="{name: 'index'}">Home</router-link></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Profile</a></li>
+                </ol>
+            </div>
         </div>
-    </section>
+        <!-- row -->
+
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card task-card">
+                    <div class="card-body">
+                        <form id="form1" enctype="multipart/form-data">
+                            <div class="row row-sm mg-b-10 first-parent">
+                                <div class="col-sm-6 mb-3">
+                                    <label for="">Enter Name</label>
+                                    <input type="text" v-model="user.name" class="form-control" placeholder="Enter Full Name" name="name">
+                                </div>
+                                <div class="col-sm-6 mb-3">
+                                    <label for="">Enter Email address</label>
+                                    <p v-text="user.email"></p>
+                                </div>
+                                <div class="col-sm-6 mb-3">
+                                    <label for="">Enter Password</label>
+                                    <input type="password" v-model="user.password" class="form-control" placeholder="Enter Password" name="password">
+                                </div>
+                                <div class="col-sm-6 mb-3">
+                                    <label for="">Enter Country</label>
+                                    <input type="text" v-model="user.country" class="form-control" placeholder="Enter country" name="country">
+                                </div>
+                                <div class="col-sm-6 mb-3">
+                                    <label for="">Enter Contact Number</label>
+                                    <input type="text" v-model="user.phone" class="form-control" placeholder="Enter Contact Number" name="phone">
+                                </div>
+                                <div class="col-sm-6 mb-3">
+                                    <label for="">Enter Wallet Address</label>
+                                    <input type="text" v-model="user.wallet_address" class="form-control" placeholder="Enter Wallet Address" name="wallet_address">
+                                </div>
+
+                                <!-- <div class="col-sm-12 mb-3">
+                                    <div class="custom-file">
+                                        <input type="file" @change="handleFileChange" class="custom-file-input" id="customFile1" name="profile">
+                                        <label class="custom-file-label" for="customFile">Upload Profile Image
+                                            <small v-if="image"> (  {{ image.name }}  ) </small>
+                                        </label>
+
+                                    </div>
+                                </div> -->
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 mt-5 mg-t-10">
+                                    <button type="button" class="btn btn-primary float-right"
+                                        @click="store">Save</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
 </template>
-
+<style>
+.first-parent label{
+    font-weight: bold;
+}
+</style>
 <script>
-    import BarChart from "./BarChart.vue";
-    import {TheMask} from 'vue-the-mask'
-    import Datepicker from 'vuejs-datepicker';
 
-    export  default {
-        components: { TheMask, Datepicker },
-        data(){
+    export default {
+        data() {
             return {
-                user: window.user,
+                user: undefined,
+                image: '',
+                cv: '',
+                baseUrl : window.axios.defaults.baseURL,
+
             }
         },
+        components: {
+
+        },
         mounted() {
+            this.getUser();
         },
         methods: {
-            submitProfile(scope){
-                this.$validator.validateAll(scope).then((result) => {
-                    if (!result)
-                        return;
-                    this.save();
-                });
+            getUser(){
+                axios.get('/profile')
+                    .then(({data}) => this.user = data );
+            },  
+            handleFileChange(e){
+                this.image = e.target.files[0];
+                console.log(e.target.files[0]);
             },
-            onFileChange(e) {
-                var files = e.target.files || e.dataTransfer.files;
-                let this_ = this;
-                if (files[0]) {
-                    var reader = new FileReader();
-                    reader.onload = function(e) {
-                        document.getElementById('uimg').setAttribute('src', e.target.result);
-                        this_.user['image'] = e.target.result;
-                    }
-                    reader.readAsDataURL(files[0]);
+            handleCVChange(e){
+                this.cv = e.target.files[0];
+            },
+            store(){
+                let formData = new FormData();
 
-                }
-            },
-            save(){
-                console.log('bdf');
-                axios.post(`/update-me`, this.user)
-                    .then(data => {
-                         this.$toastr.success(data.data.message, "Success !");
-                         this.$router.push({name: 'profile'});
+                formData.append("name", this.user.name);
+                formData.append("email", this.user.email);
+                formData.append("password", this.user.password);
+                formData.append("phone", this.user.phone);
+                formData.append("country", this.user.country);
+                formData.append("wallet_address", this.user.wallet_address);
+                formData.append("image", this.image);
+                axios.post('/user/'+this.$route.params.id, formData)
+                    .then(({data}) => {
+                        this.$toastr.success(data.message, 'Success');
+                        // this.fetchJob();
                     }).catch( e => {
                     let errors = e.response.data.errors;
+
                     Object.keys(errors).forEach(key=>{
                         this.$toastr.error(errors[key], "Error!");
                     });
                 });
-                //this.$toastr.success('success', 'hello world')
-            },
+            }
         },
-        watch: {
-        }
+        watch: {}
     }
 </script>
-
-<style>
-
-</style>

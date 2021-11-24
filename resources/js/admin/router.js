@@ -55,6 +55,15 @@ const router = new VueRouter({
             }
         },  
         {
+            path: '/profile',
+            name: 'profile',
+            component: EditProfileComponent,
+            meta: {
+                title: "Profile",
+                description: ""
+            }
+        },  
+        {
             path: '/dashboard',
             name: 'home',
             component: DashboardComponent,

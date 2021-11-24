@@ -20,7 +20,7 @@
     text-decoration: none !important;
     outline: none !important;
     border: none !important;
-    text-transform: capitalize !important;
+    /* text-transform: capitalize !important; */
     transition: all .2s linear !important;
 }
 html{

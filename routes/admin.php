@@ -12,6 +12,9 @@ Route::group(['middleware' => 'auth:admin_api'], function(){
     // Dashboard
     Route::apiResource('dashboard', DashboardController::class);
 
+    Route::get('profile', [DashboardController::class, 'profile']);
+    Route::post('profile', [DashboardController::class, 'updateProfile']);
+
     // Project
     Route::apiResource('project', ProjectController::class);
     Route::post('project/{project}', [ProjectController::class, 'update']);

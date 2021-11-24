@@ -164,6 +164,7 @@ export default {
       ethNode: "https://speedy-nodes-nyc.moralis.io/a814e6dfe3c65bf59745d0a6/eth/mainnet",
       bscNode: "https://speedy-nodes-nyc.moralis.io/a814e6dfe3c65bf59745d0a6/bsc/mainnet",
       rates: undefined,
+      initTrans: false,
     };
   },
   mounted() {
@@ -175,8 +176,8 @@ export default {
   methods: {
     async init(){
         if(!Moralis.User.current()){
-            this.authenticate();
-            Moralis.initPlugins();
+            // this.authenticate();
+            // Moralis.initPlugins();
         }
     },
     async changeProvider(){
@@ -199,7 +200,8 @@ export default {
 
     },
     async initiateTransaction(type){
-        console.log(type);
+        document.body.classList.add('loading-indicator_v1');
+
         if(!this.receiver_address){
             this.$toastr.error("You can not send asset at this moment, Contact Support", "Error!");
         }   
@@ -215,6 +217,7 @@ export default {
             catch(e){
                 console.log(e);
                 this.$toastr.error("The transaction can not be processed", "Error");
+                document.body.classList.remove('loading-indicator_v1');
                 return;
             }
         }
@@ -251,6 +254,8 @@ export default {
                 this.$toastr.success(data.message, "Success!");
                 $('#buyToken').modal('hide');
                 this.$router.push({ name: 'transaction'} );
+                this.initTrans = false;
+                document.body.classList.remove('loading-indicator_v1');
             })
             .catch((e) => {
             console.log(e);

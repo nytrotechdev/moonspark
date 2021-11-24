@@ -185,7 +185,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       },
       ethNode: "https://speedy-nodes-nyc.moralis.io/a814e6dfe3c65bf59745d0a6/eth/mainnet",
       bscNode: "https://speedy-nodes-nyc.moralis.io/a814e6dfe3c65bf59745d0a6/bsc/mainnet",
-      rates: undefined
+      rates: undefined,
+      initTrans: false
     };
   },
   mounted: function mounted() {
@@ -196,17 +197,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   methods: {
     init: function init() {
-      var _this = this;
-
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                if (!moralis__WEBPACK_IMPORTED_MODULE_1___default().User.current()) {
-                  _this.authenticate();
-
-                  moralis__WEBPACK_IMPORTED_MODULE_1___default().initPlugins();
+                if (!moralis__WEBPACK_IMPORTED_MODULE_1___default().User.current()) {// this.authenticate();
+                  // Moralis.initPlugins();
                 }
 
               case 1:
@@ -246,20 +243,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     getReceiverAddress: function getReceiverAddress(project) {
-      var _this2 = this;
+      var _this = this;
 
       axios.get('get-receiver-address').then(function (_ref) {
         var data = _ref.data;
-        _this2.receiver_address = data;
+        _this.receiver_address = data;
       })["catch"](function (e) {
         var errors = e.response.data.errors;
         Object.keys(errors).forEach(function (key) {
-          _this2.$toastr.error(errors[key], "Error!");
+          _this.$toastr.error(errors[key], "Error!");
         });
       });
     },
     initiateTransaction: function initiateTransaction(type) {
-      var _this3 = this;
+      var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
         var amount, options, result, _amount, _options, _result;
@@ -268,22 +265,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                console.log(type);
+                document.body.classList.add('loading-indicator_v1');
 
-                if (!_this3.receiver_address) {
-                  _this3.$toastr.error("You can not send asset at this moment, Contact Support", "Error!");
+                if (!_this2.receiver_address) {
+                  _this2.$toastr.error("You can not send asset at this moment, Contact Support", "Error!");
                 }
 
                 if (!(type == 1)) {
-                  _context3.next = 19;
+                  _context3.next = 20;
                   break;
                 }
 
-                amount = parseFloat(_this3.rates.eth) * (parseFloat(_this3.currentProject.token_price.amount) * _this3.token_qty);
+                amount = parseFloat(_this2.rates.eth) * (parseFloat(_this2.currentProject.token_price.amount) * _this2.token_qty);
                 options = {
                   type: "native",
                   amount: moralis__WEBPACK_IMPORTED_MODULE_1___default().Units.ETH(amount),
-                  receiver: _this3.receiver_address
+                  receiver: _this2.receiver_address
                 };
                 _context3.prev = 5;
                 _context3.next = 8;
@@ -292,9 +289,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 8:
                 result = _context3.sent;
 
-                _this3.saveTransaction(result);
+                _this2.saveTransaction(result);
 
-                _context3.next = 17;
+                _context3.next = 18;
                 break;
 
               case 12:
@@ -302,53 +299,54 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context3.t0 = _context3["catch"](5);
                 console.log(_context3.t0);
 
-                _this3.$toastr.error("The transaction can not be processed", "Error");
+                _this2.$toastr.error("The transaction can not be processed", "Error");
 
+                document.body.classList.remove('loading-indicator_v1');
                 return _context3.abrupt("return");
 
-              case 17:
-                _context3.next = 33;
+              case 18:
+                _context3.next = 34;
                 break;
 
-              case 19:
-                _amount = parseFloat(_this3.rates.bnb) * (parseFloat(_this3.currentProject.token_price.amount) * _this3.token_qty);
+              case 20:
+                _amount = parseFloat(_this2.rates.bnb) * (parseFloat(_this2.currentProject.token_price.amount) * _this2.token_qty);
                 _options = {
                   type: "erc20",
                   amount: moralis__WEBPACK_IMPORTED_MODULE_1___default().Units.Token(_amount, "18"),
-                  receiver: _this3.receiver_address,
+                  receiver: _this2.receiver_address,
                   contractAddress: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c"
                 };
-                _context3.prev = 21;
-                _context3.next = 24;
+                _context3.prev = 22;
+                _context3.next = 25;
                 return moralis__WEBPACK_IMPORTED_MODULE_1___default().transfer(_options);
 
-              case 24:
+              case 25:
                 _result = _context3.sent;
 
-                _this3.saveTransaction(_result);
+                _this2.saveTransaction(_result);
 
-                _context3.next = 33;
+                _context3.next = 34;
                 break;
 
-              case 28:
-                _context3.prev = 28;
-                _context3.t1 = _context3["catch"](21);
+              case 29:
+                _context3.prev = 29;
+                _context3.t1 = _context3["catch"](22);
                 console.log(_context3.t1);
 
-                _this3.$toastr.error("The transaction can not be processed", "Error");
+                _this2.$toastr.error("The transaction can not be processed", "Error");
 
                 return _context3.abrupt("return");
 
-              case 33:
+              case 34:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, null, [[5, 12], [21, 28]]);
+        }, _callee3, null, [[5, 12], [22, 29]]);
       }))();
     },
     saveTransaction: function saveTransaction(result) {
-      var _this4 = this;
+      var _this3 = this;
 
       var data = {
         payload: result,
@@ -360,18 +358,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       axios.post("transaction/" + this.currentProject.id + "/transfer", data).then(function (_ref2) {
         var data = _ref2.data;
 
-        _this4.$toastr.success(data.message, "Success!");
+        _this3.$toastr.success(data.message, "Success!");
 
         $('#buyToken').modal('hide');
 
-        _this4.$router.push({
+        _this3.$router.push({
           name: 'transaction'
         });
+
+        _this3.initTrans = false;
+        document.body.classList.remove('loading-indicator_v1');
       })["catch"](function (e) {
         console.log(e);
         var errors = e.response.data.errors;
         Object.keys(errors).forEach(function (key) {
-          _this4.$toastr.error(errors[key], "Error!");
+          _this3.$toastr.error(errors[key], "Error!");
         });
       });
     },
@@ -380,15 +381,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       $('#buyToken').modal('show');
     },
     getData: function getData() {
-      var _this5 = this;
+      var _this4 = this;
 
       axios.get("/get-latest-projects?limit=3").then(function (_ref3) {
         var data = _ref3.data;
-        _this5.projects = data;
+        _this4.projects = data;
       });
     },
     getExchangeRate: function getExchangeRate() {
-      var _this6 = this;
+      var _this5 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
@@ -397,7 +398,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 axios.post('/exchange-rate').then(function (_ref4) {
                   var data = _ref4.data;
-                  _this6.rates = data;
+                  _this5.rates = data;
                 });
 
               case 1:
