@@ -164,6 +164,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
  // import BarChart from "./BarChart.vue";
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -174,6 +178,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       data: undefined,
       baseUrl: window.base_url,
       projects: [],
+      token_qty: 1,
       receiver_address: "",
       currentProject: {
         tokenPrice: {}
@@ -198,10 +203,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                if (!moralis__WEBPACK_IMPORTED_MODULE_1___default().User.current()) _this.authenticate();
-                moralis__WEBPACK_IMPORTED_MODULE_1___default().initPlugins();
+                if (!moralis__WEBPACK_IMPORTED_MODULE_1___default().User.current()) {
+                  _this.authenticate();
 
-              case 2:
+                  moralis__WEBPACK_IMPORTED_MODULE_1___default().initPlugins();
+                }
+
+              case 1:
               case "end":
                 return _context.stop();
             }
@@ -271,7 +279,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   break;
                 }
 
-                amount = parseFloat(_this3.rates.eth) * parseFloat(_this3.currentProject.token_price.amount);
+                amount = parseFloat(_this3.rates.eth) * (parseFloat(_this3.currentProject.token_price.amount) * _this3.token_qty);
                 options = {
                   type: "native",
                   amount: moralis__WEBPACK_IMPORTED_MODULE_1___default().Units.ETH(amount),
@@ -303,7 +311,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 break;
 
               case 19:
-                _amount = parseFloat(_this3.rates.bnb) * parseFloat(_this3.currentProject.token_price.amount);
+                _amount = parseFloat(_this3.rates.bnb) * (parseFloat(_this3.currentProject.token_price.amount) * _this3.token_qty);
                 _options = {
                   type: "erc20",
                   amount: moralis__WEBPACK_IMPORTED_MODULE_1___default().Units.Token(_amount, "18"),
@@ -715,6 +723,32 @@ var render = function () {
                   _vm._v(" "),
                   _vm._m(4),
                   _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Enter Number of Tokens")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.token_qty,
+                          expression: "token_qty",
+                        },
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "number" },
+                      domProps: { value: _vm.token_qty },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.token_qty = $event.target.value
+                        },
+                      },
+                    }),
+                  ]),
+                  _vm._v(" "),
                   _vm.currentProject.token_price && _vm.rates
                     ? _c("div", { staticClass: "form-group" }, [
                         _vm._m(5),
@@ -732,7 +766,7 @@ var render = function () {
                                 staticClass: "main-btn btn-silver",
                                 attrs: { type: "button" },
                                 on: {
-                                  click: function ($event) {
+                                  click: function () {
                                     return _vm.initiateTransaction(1)
                                   },
                                 },
@@ -743,12 +777,13 @@ var render = function () {
                                   attrs: { src: "/assets/img/eth.png" },
                                 }),
                                 _vm._v(
-                                  " " +
+                                  "\n                                " +
                                     _vm._s(
                                       parseFloat(_vm.rates.eth) *
-                                        parseFloat(
+                                        (parseFloat(
                                           _vm.currentProject.token_price.amount
-                                        )
+                                        ) *
+                                          _vm.token_qty)
                                     ) +
                                     " ETH\n                            "
                                 ),
@@ -770,7 +805,7 @@ var render = function () {
                                 staticClass: "main-btn btn-silver",
                                 attrs: { type: "button" },
                                 on: {
-                                  click: function ($event) {
+                                  click: function () {
                                     return _vm.initiateTransaction(2)
                                   },
                                 },
@@ -784,9 +819,10 @@ var render = function () {
                                   " " +
                                     _vm._s(
                                       parseFloat(_vm.rates.bnb) *
-                                        parseFloat(
+                                        (parseFloat(
                                           _vm.currentProject.token_price.amount
-                                        )
+                                        ) *
+                                          _vm.token_qty)
                                     ) +
                                     " BNB                                    \n                            "
                                 ),

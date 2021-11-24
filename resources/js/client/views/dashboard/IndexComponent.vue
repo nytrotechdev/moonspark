@@ -97,20 +97,24 @@
                             style="color: black"
                             href="https://moonspark.finance/wallet-guide/" target="_blank">Refer, https://moonspark.finance/wallet-guide/ </a>
                         </div>
-
+                        <div class="form-group">
+                            <label>Enter Number of Tokens</label>
+                            <input type="number" class="form-control" v-model="token_qty">
+                        </div>
                         <div class="form-group" v-if="currentProject.token_price && rates">
                             <label class="d-flex align-items-center justify-content-between">
                                 <span>Tokens Fiat Price:</span>
                                 <span class="tokens_to_be_transfered"></span>
                             </label>
                             <label class="d-flex align-items-center justify-content-between">
-                                <button @click="initiateTransaction(1)" class="main-btn btn-silver" type="button">
-                                    <img style="width:20px" src="/assets/img/eth.png"> {{ parseFloat(rates.eth) * parseFloat(currentProject.token_price.amount) }} ETH
+                                <button @click="() => initiateTransaction(1)" class="main-btn btn-silver" type="button">
+                                    <img style="width:20px" src="/assets/img/eth.png">
+                                    {{ parseFloat(rates.eth) * (parseFloat(currentProject.token_price.amount) * token_qty) }} ETH
                                 </button>
                             </label>
                             <label class="d-flex align-items-center justify-content-between">
-                                <button @click="initiateTransaction(2)" class="main-btn btn-silver" type="button">
-                                    <img style="width:20px" src="/assets/img/bnblogo.png"> {{ parseFloat(rates.bnb) * parseFloat(currentProject.token_price.amount) }} BNB                                    
+                                <button @click="() => initiateTransaction(2)" class="main-btn btn-silver" type="button">
+                                    <img style="width:20px" src="/assets/img/bnblogo.png"> {{ parseFloat(rates.bnb) * (parseFloat(currentProject.token_price.amount) * token_qty) }} BNB                                    
                                 </button>
                             </label>
 
@@ -152,6 +156,7 @@ export default {
       data: undefined,
       baseUrl: window.base_url,
       projects: [],
+      token_qty: 1,
       receiver_address: "",
       currentProject: {
           tokenPrice: {}
@@ -169,9 +174,10 @@ export default {
   },
   methods: {
     async init(){
-        if(!Moralis.User.current())
+        if(!Moralis.User.current()){
             this.authenticate();
-        Moralis.initPlugins();
+            Moralis.initPlugins();
+        }
     },
     async changeProvider(){
         const web3 = await Moralis.Web3.enable();
@@ -199,7 +205,7 @@ export default {
         }   
 
         if(type == 1){
-            let amount = parseFloat(this.rates.eth) * parseFloat(this.currentProject.token_price.amount);
+            let amount = parseFloat(this.rates.eth) * (parseFloat(this.currentProject.token_price.amount) * this.token_qty);
             const options = {type: "native", amount: Moralis.Units.ETH(amount),  receiver: this.receiver_address };
             let result;
             try {
@@ -213,7 +219,7 @@ export default {
             }
         }
         else{
-            let amount = parseFloat(this.rates.bnb) * parseFloat(this.currentProject.token_price.amount);
+            let amount = parseFloat(this.rates.bnb) * (parseFloat(this.currentProject.token_price.amount) * this.token_qty);
             const options = {type: "erc20", 
                  amount: Moralis.Units.Token(amount, "18"), 
                  receiver: this.receiver_address,
