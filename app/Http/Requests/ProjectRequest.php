@@ -24,7 +24,7 @@ class ProjectRequest extends FormRequest
     public function rules()
     {
         return [
-            "user_id" => "required",
+            // "user_id" => "required",
             "project_name" => "required",
             "project_ticker" => "required",
             "logo" => "required",
