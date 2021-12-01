@@ -20,22 +20,32 @@
                     </div>
                 </div>
                 </div>
-                <div class="coin_details">
-                    <p><span>Total Tokens</span> <span>{{ project.no_of_token }}</span></p>
-                    <p><span>Available Tokens</span> <span>{{ project.available_balance }}</span></p>
-                    <p><span>Price</span> <span>{{ project.token_price.amount }} {{ project.token_price.currency }} </span></p>
-                    <!-- <p><span>token sales last 24 hrs</span> <span>$2,400</span></p>
-                    <p><span>token sales to date</span> <span>$37,678</span></p> -->
+                  <div class="coin_details">
+                      <p><span>Total Tokens</span> <span>{{ project.no_of_token }}</span></p>
+                      <p><span>Available Tokens</span> <span>{{ project.available_balance }}</span></p>
+                      <p><span>Price</span> <span>{{ project.token_price.amount }} {{ project.token_price.currency }} </span></p>
+                      <!-- <p><span>token sales last 24 hrs</span> <span>$2,400</span></p>
+                      <p><span>token sales to date</span> <span>$37,678</span></p> -->
+                  </div>
+
+                <div v-if="project.status == 1">
+                  <a href="javascript:;" 
+                  @click="rate = project.token_price"
+                  data-toggle="modal" data-target="#setRate" class="account-section-btn btn-success">Set Rate</a>
+
+                  <a href="javascript:;" 
+                  @click="getReceiverAddress(project)"
+                  class="account-section-btn btn-danger">Deposit Coins</a>
+
+                  <router-link :to="{ name: 'transaction', query: { project_id : project.id } }"  class="account-section-btn btn-primary">History</router-link>
+
                 </div>
-                <a href="javascript:;" 
-                @click="rate = project.token_price"
-                data-toggle="modal" data-target="#setRate" class="account-section-btn btn-success">Set Rate</a>
+                <div v-else>
+                  <div class="alert alert-warning mt-2">
+                    Your Project is under Review
+                  </div>
+                </div>
 
-                <a href="javascript:;" 
-                @click="getReceiverAddress(project)"
-                class="account-section-btn btn-danger">Deposit Coins</a>
-
-                <router-link :to="{ name: 'transaction', query: { project_id : project.id } }"  class="account-section-btn btn-primary">History</router-link>
 
             </div>
           </div>

@@ -682,6 +682,70 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -712,21 +776,23 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.post("projects", form_data).then(function (_ref) {
         var data = _ref.data;
-
-        _this.$toastr.success("Project is created succesfully", "Success!");
-
-        _this.$router.push({
-          name: "projects.mine",
-          query: {
-            status: 1
-          }
-        });
+        $('#successModal').modal('show'); // this.$toastr.success("Project is created succesfully", "Success!");
+        // this.$router.push({ name: "projects.mine" , query: { status: 1 } });
       })["catch"](function (e) {
         console.log(e);
         var errors = e.response.data.errors;
         Object.keys(errors).forEach(function (key) {
           _this.$toastr.error(errors[key], "Error!");
         });
+      });
+    },
+    redirectTo: function redirectTo() {
+      $('#successModal').modal('hide');
+      this.$router.push({
+        name: "projects",
+        query: {
+          status: 1
+        }
       });
     }
   },
@@ -751,7 +817,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nh6{\n    color: #fff;\n    font-weight: bold;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nh6{\n    color: #fff;\n    font-weight: bold;\n}\n#successModal .body {\n    background: var(--gray);\n    padding: 10px;\n    border-radius: 25px;\n    width: 450px;\n}\n#successModal .iconholder {\njustify-content: center;\ndisplay: flex;\n}\n#successModal .iconholder img{\nwidth: 100px;\n}\n#successModal .body h1{\n    color: #fff;\n    font-size: 30px;\n    text-align: center;\n    margin-top: 10px\n}\n#successModal .body p{\n    color: #fff;\n    text-align: center;\n    margin-top: 10px;\n    padding: 10px;\n}\n#successModal .body .form-button{\n    text-align: center;\n    justify-content: center;\n}\n#successModal .body .form-button button{\n    width: 50%;\n    padding: 10px;\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -2655,6 +2721,51 @@ var render = function () {
         ]),
       ]),
     ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "successModal",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "successModalTitle",
+          "aria-hidden": "true",
+        },
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-dialog modal-dialog-centered",
+            attrs: { role: "document" },
+          },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "body" }, [
+                _c("form", { attrs: { action: "" } }, [
+                  _vm._m(5),
+                  _vm._v(" "),
+                  _vm._m(6),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-button" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "main-btn btn-gold",
+                        on: { click: _vm.redirectTo },
+                      },
+                      [_vm._v("Ok")]
+                    ),
+                  ]),
+                ]),
+              ]),
+            ]),
+          ]
+        ),
+      ]
+    ),
   ])
 }
 var staticRenderFns = [
@@ -2726,6 +2837,32 @@ var staticRenderFns = [
       _c("br"),
       _vm._v(" "),
       _c("h6", [_vm._v("Information on your cryptocurrency:")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "iconholder" }, [
+      _c("img", { attrs: { src: "/success-icon.png" } }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("h1", [_vm._v("Success !")]),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v(
+          "Your project has been submitted successfully and is under review by Admin !"
+        ),
+        _c("br"),
+        _vm._v(
+          "\n                      Once it is approved, you will be able to deposit token and set Exchange Rate for this project & Investor will be able to buy it"
+        ),
+      ]),
     ])
   },
 ]

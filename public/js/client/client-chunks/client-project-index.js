@@ -144,6 +144,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -487,53 +497,66 @@ var render = function () {
                     ]),
                   ]),
                   _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "account-section-btn btn-success",
-                      attrs: {
-                        href: "javascript:;",
-                        "data-toggle": "modal",
-                        "data-target": "#setRate",
-                      },
-                      on: {
-                        click: function ($event) {
-                          _vm.rate = project.token_price
-                        },
-                      },
-                    },
-                    [_vm._v("Set Rate")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "account-section-btn btn-danger",
-                      attrs: { href: "javascript:;" },
-                      on: {
-                        click: function ($event) {
-                          return _vm.getReceiverAddress(project)
-                        },
-                      },
-                    },
-                    [_vm._v("Deposit Coins")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "router-link",
-                    {
-                      staticClass: "account-section-btn btn-primary",
-                      attrs: {
-                        to: {
-                          name: "transaction",
-                          query: { project_id: project.id },
-                        },
-                      },
-                    },
-                    [_vm._v("History")]
-                  ),
-                ],
-                1
+                  project.status == 1
+                    ? _c(
+                        "div",
+                        [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "account-section-btn btn-success",
+                              attrs: {
+                                href: "javascript:;",
+                                "data-toggle": "modal",
+                                "data-target": "#setRate",
+                              },
+                              on: {
+                                click: function ($event) {
+                                  _vm.rate = project.token_price
+                                },
+                              },
+                            },
+                            [_vm._v("Set Rate")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "account-section-btn btn-danger",
+                              attrs: { href: "javascript:;" },
+                              on: {
+                                click: function ($event) {
+                                  return _vm.getReceiverAddress(project)
+                                },
+                              },
+                            },
+                            [_vm._v("Deposit Coins")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "account-section-btn btn-primary",
+                              attrs: {
+                                to: {
+                                  name: "transaction",
+                                  query: { project_id: project.id },
+                                },
+                              },
+                            },
+                            [_vm._v("History")]
+                          ),
+                        ],
+                        1
+                      )
+                    : _c("div", [
+                        _c("div", { staticClass: "alert alert-warning mt-2" }, [
+                          _vm._v(
+                            "\n                  Your Project is under Review\n                "
+                          ),
+                        ]),
+                      ]),
+                ]
               )
             }),
             0

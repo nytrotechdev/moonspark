@@ -658,6 +658,29 @@
         </div>
       </div>
     </section>
+    <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="body">
+                <form action="">
+                    <div class="iconholder">
+                        <img src="/success-icon.png">
+                    </div>
+                    <div class="form-group">
+                        <h1>Success !</h1>
+                        <p>Your project has been submitted successfully and is under review by Admin !<br>
+                        Once it is approved, you will be able to deposit token and set Exchange Rate for this project & Investor will be able to buy it</p>
+                    </div>
+                    <div class="form-button">
+                        <button 
+                        @click="redirectTo"
+                        class="main-btn btn-gold">Ok</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
+    </div>    
   </div>
 </template>
 
@@ -666,6 +689,47 @@
         color: #fff;
         font-weight: bold;        
     }
+    #successModal .body {
+        background: var(--gray);
+        padding: 10px;
+        border-radius: 25px;
+        width: 450px;    
+    }
+
+    #successModal .iconholder {
+    justify-content: center;
+    display: flex;
+    }
+
+
+    #successModal .iconholder img{
+    width: 100px;
+    }
+
+    #successModal .body h1{
+        color: #fff;
+        font-size: 30px;
+        text-align: center;
+        margin-top: 10px
+    }
+
+    #successModal .body p{
+        color: #fff;
+        text-align: center;
+        margin-top: 10px;
+        padding: 10px;
+    }
+
+    #successModal .body .form-button{
+        text-align: center;
+        justify-content: center;
+    }
+
+    #successModal .body .form-button button{
+        width: 50%;
+        padding: 10px;
+    }
+
 </style>
 
 <script>
@@ -693,7 +757,6 @@ export default {
       window.location.href = this.base_url + "/login";
     },
     store() {
-
       var form_data = new FormData();
 
       for ( var key in this.project ) {
@@ -703,8 +766,9 @@ export default {
       axios
         .post("projects", form_data)
         .then(({ data }) => {
-            this.$toastr.success("Project is created succesfully", "Success!");
-            this.$router.push({ name: "projects.mine" , query: { status: 1 } });
+            $('#successModal').modal('show');
+            // this.$toastr.success("Project is created succesfully", "Success!");
+            // this.$router.push({ name: "projects.mine" , query: { status: 1 } });
         })
         .catch((e) => {
           console.log(e);
@@ -714,6 +778,10 @@ export default {
           });
         });
     },
+    redirectTo(){
+        $('#successModal').modal('hide');
+        this.$router.push({ name: "projects" , query: { status: 1 } });
+    }
   },
   watch: {},
 };
