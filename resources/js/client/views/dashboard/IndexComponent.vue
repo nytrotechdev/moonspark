@@ -1,8 +1,13 @@
 <template>
     <div>
         <section class="banner">
+            <video autoplay loop muted>
+                <!-- <source src="/assets/img/video2.mp4" type="video/webm"> -->
+                <source src="/assets/img/video2.mp4" type="video/mp4">
+            </video>
         <div class="container-fluid">
             <div class="banner-body">
+            
             <div class="row align-items-center justify-content-center">
                 <div class="col-lg-6 col-md-7 col-sm-12">
                 <div class="banner-text">

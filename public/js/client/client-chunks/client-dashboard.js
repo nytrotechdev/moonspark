@@ -168,6 +168,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
  // import BarChart from "./BarChart.vue";
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -571,6 +576,19 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("section", { staticClass: "banner" }, [
+      _c(
+        "video",
+        {
+          attrs: { autoplay: "", loop: "", muted: "" },
+          domProps: { muted: true },
+        },
+        [
+          _c("source", {
+            attrs: { src: "/assets/img/video2.mp4", type: "video/mp4" },
+          }),
+        ]
+      ),
+      _vm._v(" "),
       _c("div", { staticClass: "container-fluid" }, [
         _c("div", { staticClass: "banner-body" }, [
           _c(
