@@ -11,12 +11,18 @@
     padding: 0;
     margin: 0;
     font-family: 'Lato', sans-serif;
+    /* font-size: 85.5%; */
     text-decoration: none !important;
     outline: none !important;
     border: none !important;
-    /* text-transform: capitalize !important; */
+    text-transform: capitalize !important;
     transition: all .2s linear !important;
 }
+
+input, textarea {
+    text-transform: none !important;
+}
+
 html{
     scroll-behavior: smooth;
 }
@@ -104,7 +110,9 @@ a{
     display: none;
 }
 
-.banner{
+
+
+.homebanner{
     position: relative;
     /* background: url('/assets/img/banner.jpg') no-repeat; */
     background-position: center;
@@ -114,6 +122,18 @@ a{
     height: 100vh;
     overflow: hidden;
 }
+
+.banner{
+    position: relative;
+    background: url('/assets/img/banner.jpg') no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    padding: 200px 100px;
+    /* height: 100vh; */
+    overflow: hidden;
+}
+
 video {
     position: absolute;
     top: 0;
@@ -139,11 +159,12 @@ video {
     color: white;
 }
 .banner-img{
-    width: 360px;
+    width: 400px;
+    margin: 0 auto;
 }
 .banner-img img{
     width: 100%;
-    margin-left: 70%;
+    /* margin-left: 70%; */
 }
 
 .buyCrypto{
@@ -180,6 +201,7 @@ video {
     margin: 20px 0;
     background: var(--gray);
     border-radius: 35px;
+    border-top: 6px solid #ffd700 !important;
     width: 100%;
 }
 
@@ -227,8 +249,8 @@ video {
 }
 .card_body .coin_details{
     display: flex;
-    align-items: center;
-    justify-content: space-evenly;
+    flex-direction: column;
+    justify-content: space-between;
     margin: 10px 0;
 }
 .card_body .coin_details p{
@@ -236,7 +258,7 @@ video {
     font-size: 18px;
     font-weight: 500;
     margin: 10px 0;
-    text-align: center;
+    /* text-align: center; */
 }
 
 .crypto_card .card_foot{
@@ -249,12 +271,12 @@ video {
 .card_foot a{
     color: gold;
     text-transform: uppercase;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 400;
     font-family: Georgia,serif;
 }
 .card_foot .card-btn{
-    padding: 12px 70px;
+    padding: 5px 60px 5px 60px!important;
     text-transform: uppercase !important;
     font-size: 30px !important;
     color: var(--black);
@@ -298,6 +320,7 @@ video {
     align-items: center;
     justify-content: space-between;
     padding: 30px;
+    font-size: 30px;
 }
 .social_icons .twitter{
     background: #55acee;
@@ -459,6 +482,7 @@ form textarea.form-control{
     background-size: cover;
     padding: 110px 0;
     text-align: center;
+    overflow: hidden;
 }
 .wallet_guide_banner h2,.head_banner h2{
     color: white;
@@ -471,6 +495,7 @@ form textarea.form-control{
     position: relative;
     padding: 50px 0;
 }
+
 .textBox h2{
     color: var(--black);
     font-size: 32px;
@@ -479,10 +504,19 @@ form textarea.form-control{
     padding: 60px 0;
 }
 
+.overflow-hidden{
+    overflow: hidden;
+}
+
+/* .walletGuide .wpb_wrapper{
+    overflow-x: hidden;
+} */
+
 .walletGuide .wpb_wrapper img{
     margin: 30px auto;
     display: flex;
     justify-self: center;
+
 }
 
 /********SignUp page********/
@@ -692,7 +726,8 @@ form select.form-control{
     background: var(--gray);
     border-radius: 35px;
     box-shadow: var(--box-shadow);
-    width: 400px;
+    border: 10px solid #03060e !important;
+    /* width: 400px; */
 }
 .account_coin_details .coin_head{
     display: flex;
@@ -749,7 +784,7 @@ form select.form-control{
 }
 .coin_details p{
     color: white;
-    display: flex;
+    /* display: flex; */
     align-items: center;
     justify-content: space-between;
 }
@@ -767,8 +802,18 @@ form select.form-control{
     padding: 30px;
     background: var(--gray);
     border-radius: 20px;
-    width: 500px;
+    width: 700px;
 }
+.myproject_summary .form{
+    position: relative;
+    padding: 30px;
+    background: var(--gray);
+    border-radius: 20px;
+    /* width: 500px; */
+}
+
+
+
 
 
 
@@ -797,7 +842,8 @@ form select.form-control{
     .header .main-btn{
         margin-left: 10px;
         padding: 13px 25px;
-    } 
+    }
+     
 }
 
 @media(max-width:1200px){
@@ -805,7 +851,7 @@ form select.form-control{
         justify-content: center;
     }
     .header .nav a{
-        margin: 0 7px;
+        margin: 0 6px;
     }
     .header .main-btn{
         margin-left: 8px;
@@ -813,6 +859,9 @@ form select.form-control{
     }
     .header .logo{
         width: 200px;
+    }
+    .homebanner{
+        padding: 150px 70px;
     } 
 }
 
@@ -882,15 +931,21 @@ form select.form-control{
     .banner-img{
         width: 300px;
     }
-    .banner-img img{
+    /* .banner-img img{
         margin-left: 20%;
+    } */
+    .homebanner{
+        padding: 100px 50px;
+    }
+    .banner-body{
+        padding: 20% 0;
     }
 
 }
 
 @media(max-width:768px){
-    .banner{
-        padding: 150px 50px;
+    .homebanner{
+        padding: 80px 40px;
     }
     .banner-img{
         margin-top: 30px;
@@ -908,6 +963,9 @@ form select.form-control{
 }
 
 @media(max-width:575px){
+    .homebanner{
+        padding: 70px 30px;
+    }
     .footer .footer_inner .row{
         flex-direction: column;
     }
@@ -924,6 +982,9 @@ form select.form-control{
     }
     .account_coin_details{
         width: 100%;
+    }
+    .homebanner{
+        padding: 60px 20px;
     }
 }
 

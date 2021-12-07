@@ -9,12 +9,12 @@
                 <h2 class="heading">quick links</h2>
                 <div class="footer_inner">
                     <div class="row align-items-center justify-content-lg-around flex-lg-row flex-sm-column">
-                        <a href="#" class="quick_links">about</a>
-                        <a href="#" class="quick_links">announcements</a>
-                        <a href="#" class="quick_links">risks</a>
-                        <a href="#" class="quick_links">Terms & privacy policy</a>
-                        <a href="#" class="quick_links">restrictions</a>
-                        <a href="#" class="quick_links">contact</a>
+                        <router-link :to="{ name: 'about'}" class="quick_links">about</router-link>
+                        <router-link :to="{ name: 'announcement'}" class="quick_links">announcements</router-link>
+                        <router-link :to="{ name: 'risk'}" class="quick_links">risks</router-link>
+                        <router-link :to="{ name: 'term'}" class="quick_links">Terms & privacy policy</router-link>
+                        <router-link :to="{ name: 'restriction'}" class="quick_links">restrictions</router-link>
+                        <router-link :to="{ name: 'contact'}" class="quick_links">contact</router-link>
                     </div>
                 </div>
                 <div class="row justify-content-center align-items-center">

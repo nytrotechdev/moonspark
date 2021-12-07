@@ -52,9 +52,19 @@ Vue.prototype.$m_user = ""
 
 Vue.mixin({
     mounted() {
-        this.initMoralis();
+        // this.initMoralis();
+        this.scrollMeTo();
     },    
     methods:{
+        scrollMeTo() {
+          var queryElement = this.$route.query.target;
+          if(typeof queryElement !== 'undefined'){
+            var element = document.getElementById(queryElement);
+            var top = element.offsetTop;        
+            window.scrollTo(0, top);
+  
+          }
+        },
         initMoralis(){
             let serverUrl = window.moralis.serverUrl;
             let appId = window.moralis.appId;
@@ -62,8 +72,8 @@ Vue.mixin({
             Moralis.enableWeb3();
             Moralis.initPlugins();
 
-            if(!Moralis.User.current())
-                this.authenticate();
+            // if(!Moralis.User.current())
+            //     this.authenticate();
 
             // console.log('here');
         },
@@ -115,6 +125,9 @@ Vue.mixin({
         },
         buildqueryparams(params){
             return (new URLSearchParams(params)).toString()
+        },
+        numberFormat(number, digit){
+            return new Intl.NumberFormat('en-IN', { maximumSignificantDigits: digit }).format(number)
         }
     }
 });

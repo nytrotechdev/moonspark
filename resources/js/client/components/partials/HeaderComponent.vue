@@ -9,14 +9,14 @@
 		</router-link>
 
 		<nav class="nav">
-			<router-link :to="{ name: 'index' }" >Buy Crypto</router-link>
+			<router-link :to="{ name: 'index', query: { target: 'buy_crypto' } }" >Buy Crypto</router-link>
 			<!-- Protected Route Start -->
-			<router-link v-if="user" :to="{ name: 'project.create' }" >submit your project</router-link>
-			<a v-else :href="`${base_url}/login`" >submit your project</a>
+			<router-link :to="{ name: 'project.create' }" >submit your project</router-link>
+			<!-- <a v-else :href="`${base_url}/login`" >submit your project</a> -->
 			<!-- Protected Route End -->
 
-			<router-link :to="{ name: 'index' }" >wallet guide</router-link>
-			<router-link :to="{ name: 'index' }" >earn</router-link>
+			<router-link :to="{ name: 'wallet-guide' }" >wallet guide</router-link>
+			<router-link :to="{ name: 'earn' }" >earn</router-link>
 			<Fragment v-if="!user">
 				<a class="main-btn btn-white" :href="`${base_url}/login`" >Login</a>
 				<a class="main-btn btn-gold" :href="`${base_url}/register`" >Register</a>
@@ -52,6 +52,15 @@
                 user: window.user
             }
         },
+        mounted() {
+			let menu = document.querySelector('#menu-btn');
+			let navbar = document.querySelector('.nav');
+
+			menu.onclick = () =>{
+				menu.classList.toggle('fa-times');
+				navbar.classList.toggle('active');
+			}
+		},
         components: { NotificationsComponent, Fragment },
     }
 </script>

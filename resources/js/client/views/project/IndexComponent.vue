@@ -135,7 +135,7 @@
 </template>
 <style>
 .account_coin_details {
-  margin-right: 15px;
+  /* margin-right: 15px; */
 }
 </style>
 <script>
@@ -155,7 +155,7 @@ export default {
       query: "",
       table: undefined,
       user: undefined,
-      moralisUser: Moralis.User.current(),
+      moralisUser: true,
       web3: undefined,
       type_class: ["default", "success", "warning", "danger"],
       moralis_creds: window.moralis,
@@ -215,7 +215,7 @@ export default {
           typeof this.$route.query.status !== "undefined"
             ? this.$route.query.status
             : "",
-        title: this.query,
+        title: this.query || '',
       };
       axios
         .get(`/projects?${this.buildqueryparams(query)}`)

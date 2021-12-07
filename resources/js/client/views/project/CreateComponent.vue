@@ -1,6 +1,8 @@
 <template>
   <div>
-    <section class="banner"></section>
+    <section class="banner">
+      <h1 style="text-align: center" class="">{{ $route.meta.title }}</h1>
+    </section>
     <section class="submitYourProject">
       <div class="container">
         <div class="row align-items-center justify-content-center">
@@ -144,631 +146,885 @@
                 misleading. You take responsibility for the information
                 contained in this form. All given fields are mandatory.
               </p>
-                    <div class="row row-sm mg-b-10 first-parent">
-                        <div class="form-group col-md-12">
-                        <label>Project Name:</label>
-                        <input
-                            type="text"
-                            name="Project-name"
-                            v-model="project.project_name"
-                            class="form-control"
-                            aria-required="true"
-                            aria-invalid="false"
-                        />
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label>Project Ticker:</label>
-                        <input
-                            type="text"
-                            name="Project-ticker"
-                            v-model="project.project_ticker"
-                            class="form-control"
-                            aria-required="true"
-                            aria-invalid="false"
-                        />
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label>Project Logo:</label>
-                        <input
-                            type="file"
-                            @change="(e) => project.logo = e.target.files[0]"
-                            aria-required="true"
-                            aria-invalid="false"
-                        />
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label> Project Summary:</label>
-                        <textarea
-                            name="your-message"
-                            cols="20"
-                            rows="4"
-                            v-model="project.project_detail"
-                            class="form-control"
-                        />
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label>Funds raised to date</label>
-                        <input
-                            type="text"
-                            v-model="project.fund_raised_todate"
-                            value=""
-                            class="form-control"
-                            aria-invalid="false"
-                        />
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label>Total raised to date:</label>
-                        <input
-                            type="text"
-                            v-model="project.total_raised_todate"
-                            value=""
-                            class="form-control"
-                            aria-invalid="false"
-                        />
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label>Platform:</label>
-                        <select v-model="project.project_type" class="form-control">
-                            <option v-for="(platform, pid) in supported_platform" :value="platform" :key="pid">{{ platform }}</option>
-                        </select>
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label> Token use case: </label>
-                        <textarea
-                            name="token-use-case"
-                            v-model="project.token_usecase"
-                            class="form-control"
-                        />
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label>Website URL</label>
-                        <input
-                            type="text"
-                            name="Website-URL"
-                            v-model="project.website"
-                            class="form-control"
-                            aria-required="true"
-                            aria-invalid="false"
-                        />
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label>Medium link:</label>
-                        <input
-                            type="text"
-                            name="Medium-link"
-                            v-model="project.medium"
-                            class="form-control"
-                            aria-required="true"
-                            aria-invalid="false"
-                        />
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label>Twitter link:</label>
-                        <input
-                            type="text"
-                            name="Twitter-link"
-                            v-model="project.twitter"
-                            class="form-control"
-                            aria-required="true"
-                            aria-invalid="false"
-                        />
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label>Telegram group:</label>
-                        <input
-                            type="text"
-                            name="Telegram-group"
-                            v-model="project.telegram"
-                            class="form-control"
-                            aria-required="true"
-                            aria-invalid="false"
-                        />
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label>Your TG Handle:</label>
-                        <input
-                            type="text"
-                            name="Your-TG-Handle"
-                            v-model="project.tg_handle"
-                            class="form-control"
-                            aria-required="true"
-                            aria-invalid="false"
-                        />
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label>Your email address:</label>
-                        <input
-                            type="email"
-                            name="your-email"
-                            v-model="project.email"
-                            class="form-control"
-                            aria-required="true"
-                            aria-invalid="false"
-                        />
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label>Name of CEO:</label>
-                        <input
-                            type="text"
-                            name="Name-CEO"
-                            v-model="project.name_of_ceo"
-                            class="form-control"
-                            aria-required="true"
-                            aria-invalid="false"
-                        />
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label>Name of CTO:</label>
-                        <input
-                            type="text"
-                            name="Name-CTO"
-                            v-model="project.name_of_cto"
-                            class="form-control"
-                            aria-required="true"
-                            aria-invalid="false"
-                        />
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label> Short Bio of CEO:</label>
-                        <textarea
-                            v-model="project.bio_of_ceo"
-                            name="Short-CEO"
-                            rows="2"
-                            class="form-control"
-                        ></textarea>
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label>Short Bio of CTO</label>
-                        <textarea
-                            name="Short-CTO"
-                            rows="2"
-                            v-model="project.bio_of_cto"
-                            class="form-control"
-                        ></textarea>
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label>Short Video Presentatio</label>
-                        <input
-                            type="file"
-                            @change="(e) => project.short_video = e.target.files[0]"
-                            name="ShortVideoPresentation"
-                            aria-invalid="false"
-                        />
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label> Is business Incorporation ?</label>
-                        <br/>
-                        <label>
-                            <input type="radio"
-                                v-model="project.project_business_incorporated"
-                                value="yes"
-                                name="Incorporation-details"
-                            >&nbsp;Yes
-                        </label>
-                        <label class="ml-2">
-                            <input type="radio"
-                                v-model="project.project_business_incorporated"
-                                value="no"
-                                name="Incorporation-details"
-                            >&nbsp;No
-                        </label>
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label>If Incorporation ! Where ?:</label>
-                        <textarea
-                            v-model="project.project_business_incorporated_where"
-                            name="Incorporation-details"
-                            class="form-control"
-                        ></textarea>
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label> Is business licensed ?</label>
-                        <br/>
-                        <label>
-                            <input type="radio"
-                                v-model="project.project_business_lic"
-                                value="yes"
-                                name="Business-licensed"
-                            >&nbsp;Yes
-                        </label>
-                        <label class="ml-2">
-                            <input type="radio"
-                                v-model="project.project_business_lic"
-                                value="no"
-                                name="Business-licensed"
-                            >&nbsp;No
-                        </label>
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label>If Business licensed ! Details ?</label
-                        ><textarea
-                            v-model="project.project_business_lic_list"
-                            name="Business-details"
-                            class="form-control"
-                        ></textarea>
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label>License Plans</label
-                        ><textarea
-                            v-model="project.project_business_lic_plan"
-                            name="Plans-details"
-                            class="form-control"></textarea
-                        >
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label>Tokenomics details</label
-                        ><textarea
-                            name="Tokenomics-details"
-                            v-model="project.tokenomics_detail"
-                            class="form-control"
-                        ></textarea
-                        >
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label>Project business model</label
-                        ><textarea
-                            name="business-model"
-                            v-model="project.project_business_model"
-                            class="form-control"
-                        ></textarea>
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label
-                            >Legal Opinion letter on utility vs. security token</label
-                        >
-                        <input
-                            type="text"
-                            v-model="project.legal_opinion"
-                            name="Legal-Opinion-letter"
-                            class="form-control"
-                            aria-required="true"
-                            aria-invalid="false"
-                        />
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label>
-                            Names and titles of core team members and LinkedIn Bios</label>
-                        <textarea
-                            name="Bios"
-                            v-model="project.core_team"
-                            class="form-control"
-                        ></textarea>
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label>Short summary of the teams experience</label
-                        ><textarea
-                            name="teams"
-                            v-model="project.summary"
-                            class="form-control"></textarea>
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label>Has the smart contract been audited?</label>
-                        <br/>
-                        <label>
-                            <input type="radio"
-                                v-model="project.smart_contract_audited"
-                                value="yes"
-                                name="smart_contract_audited"
-                            >&nbsp;Yes
-                        </label>
-                        <label class="ml-2">
-                            <input type="radio"
-                                v-model="project.smart_contract_audited"
-                                value="no"
-                                name="smart_contract_audited"
-                            >&nbsp;No
-                        </label>
-                        </div>                
-                        <div class="form-group col-md-12">
-                        <label> Smart contract audit information:</label>
-                        <textarea
-                            name="smart-contract"
-                            v-model="project.smart_contract_audited_text"
-                            class="form-control"
-                        ></textarea>
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label>Is there a MVP</label>
-                        <br/>
-                        <label>
-                            <input type="radio"
-                                v-model="project.mvp"
-                                value="yes"
-                                name="mvp"
-                            >&nbsp;Yes
-                        </label>
-                        <label class="ml-2">
-                            <input type="radio"
-                                v-model="project.mvp"
-                                value="no"
-                                name="mvp"
-                            >&nbsp;No
-                        </label>
-                        </div>                
-                        <div class="form-group col-md-12">
-                        <label>Whitepaper</label>
-                        <input
-                            type="text"
-                            name="Whitepaper"
-                            v-model="project.whitepaper_link"
-                            class="form-control"
-                            aria-required="true"
-                            aria-invalid="false"
-                        />
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label>Total followers across all social channels:</label>
-                        <input
-                            type="text"
-                            name="social-channels"
-                            v-model="project.total_follower"
-                            class="form-control"
-                            aria-required="true"
-                            aria-invalid="false"
-                        />
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label>Partnerships in place:</label>
-                        <input
-                            type="text"
-                            name="Partnerships"
-                            v-model="project.partnership"
-                            class="form-control"
-                            aria-required="true"
-                            aria-invalid="false"
-                        />
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label>
-                            Key components of project roadmap over the next 90 days:</label
-                        >
-                        <textarea
-                            v-model="project.relevant_info"
-                            name="roadmap"
-                            class="form-control"
-                        ></textarea>
-                        </div>
-                        <div class="form-group col-md-12">
-                            <br/>
-                            <h6>Questions about the Development Team:</h6>                    
-                        </div>
+              <div class="row row-sm mg-b-10 first-parent">
+                <div class="form-group col-md-12">
+                  <label>Project Name:</label>
+                  <input
+                    type="text"
+                    name="Project-name"
+                    v-model="project.project_name"
+                    class="form-control"
+                    aria-required="true"
+                    aria-invalid="false"
+                  />
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Project Ticker:</label>
+                  <input
+                    type="text"
+                    name="Project-ticker"
+                    v-model="project.project_ticker"
+                    class="form-control"
+                    aria-required="true"
+                    aria-invalid="false"
+                  />
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Project Logo:</label>
+                  <input
+                    type="file"
+                    @change="(e) => (project.logo = e.target.files[0])"
+                    aria-required="true"
+                    aria-invalid="false"
+                  />
+                </div>
+                <div class="form-group col-md-12">
+                  <label> Project Summary:</label>
+                  <textarea
+                    name="your-message"
+                    cols="20"
+                    rows="4"
+                    v-model="project.project_detail"
+                    class="form-control"
+                  />
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Funds raised to date</label>
+                  <input
+                    type="text"
+                    v-model="project.fund_raised_todate"
+                    value=""
+                    class="form-control"
+                    aria-invalid="false"
+                  />
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Total raised to date:</label>
+                  <input
+                    type="text"
+                    v-model="project.total_raised_todate"
+                    value=""
+                    class="form-control"
+                    aria-invalid="false"
+                  />
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Platform:</label>
+                  <select v-model="project.project_type" class="form-control">
+                    <option
+                      v-for="(platform, pid) in supported_platform"
+                      :value="platform"
+                      :key="pid"
+                    >
+                      {{ platform }}
+                    </option>
+                  </select>
+                </div>
+                <div class="form-group col-md-12">
+                  <label> Token use case: </label>
+                  <textarea
+                    name="token-use-case"
+                    v-model="project.token_usecase"
+                    class="form-control"
+                  />
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Website URL</label>
+                  <input
+                    type="text"
+                    name="Website-URL"
+                    v-model="project.website"
+                    class="form-control"
+                    aria-required="true"
+                    aria-invalid="false"
+                  />
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Medium link:</label>
+                  <input
+                    type="text"
+                    name="Medium-link"
+                    v-model="project.medium"
+                    class="form-control"
+                    aria-required="true"
+                    aria-invalid="false"
+                  />
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Twitter link:</label>
+                  <input
+                    type="text"
+                    name="Twitter-link"
+                    v-model="project.twitter"
+                    class="form-control"
+                    aria-required="true"
+                    aria-invalid="false"
+                  />
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Telegram group:</label>
+                  <input
+                    type="text"
+                    name="Telegram-group"
+                    v-model="project.telegram"
+                    class="form-control"
+                    aria-required="true"
+                    aria-invalid="false"
+                  />
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Your TG Handle:</label>
+                  <input
+                    type="text"
+                    name="Your-TG-Handle"
+                    v-model="project.tg_handle"
+                    class="form-control"
+                    aria-required="true"
+                    aria-invalid="false"
+                  />
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Your email address:</label>
+                  <input
+                    type="email"
+                    name="your-email"
+                    v-model="project.email"
+                    class="form-control"
+                    aria-required="true"
+                    aria-invalid="false"
+                  />
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Name of CEO:</label>
+                  <input
+                    type="text"
+                    name="Name-CEO"
+                    v-model="project.name_of_ceo"
+                    class="form-control"
+                    aria-required="true"
+                    aria-invalid="false"
+                  />
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Name of CTO:</label>
+                  <input
+                    type="text"
+                    name="Name-CTO"
+                    v-model="project.name_of_cto"
+                    class="form-control"
+                    aria-required="true"
+                    aria-invalid="false"
+                  />
+                </div>
+                <div class="form-group col-md-12">
+                  <label> Short Bio of CEO:</label>
+                  <textarea
+                    v-model="project.bio_of_ceo"
+                    name="Short-CEO"
+                    rows="2"
+                    class="form-control"
+                  ></textarea>
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Short Bio of CTO</label>
+                  <textarea
+                    name="Short-CTO"
+                    rows="2"
+                    v-model="project.bio_of_cto"
+                    class="form-control"
+                  ></textarea>
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Short Video Presentatio</label>
+                  <input
+                    type="file"
+                    @change="(e) => (project.short_video = e.target.files[0])"
+                    name="ShortVideoPresentation"
+                    aria-invalid="false"
+                  />
+                </div>
+                <div class="form-group col-md-12">
+                  <label> Is business Incorporation ?</label>
+                  <br />
+                  <label>
+                    <input
+                      type="radio"
+                      v-model="project.project_business_incorporated"
+                      value="yes"
+                      name="Incorporation-details"
+                    />&nbsp;Yes
+                  </label>
+                  <label class="ml-2">
+                    <input
+                      type="radio"
+                      v-model="project.project_business_incorporated"
+                      value="no"
+                      name="Incorporation-details"
+                    />&nbsp;No
+                  </label>
+                </div>
+                <div class="form-group col-md-12">
+                  <label>If Incorporation ! Where ?:</label>
+                  <textarea
+                    v-model="project.project_business_incorporated_where"
+                    name="Incorporation-details"
+                    class="form-control"
+                  ></textarea>
+                </div>
+                <div class="form-group col-md-12">
+                  <label> Is business licensed ?</label>
+                  <br />
+                  <label>
+                    <input
+                      type="radio"
+                      v-model="project.project_business_lic"
+                      value="yes"
+                      name="Business-licensed"
+                    />&nbsp;Yes
+                  </label>
+                  <label class="ml-2">
+                    <input
+                      type="radio"
+                      v-model="project.project_business_lic"
+                      value="no"
+                      name="Business-licensed"
+                    />&nbsp;No
+                  </label>
+                </div>
+                <div class="form-group col-md-12">
+                  <label>If Business licensed ! Details ?</label
+                  ><textarea
+                    v-model="project.project_business_lic_list"
+                    name="Business-details"
+                    class="form-control"
+                  ></textarea>
+                </div>
+                <div class="form-group col-md-12">
+                  <label>License Plans</label
+                  ><textarea
+                    v-model="project.project_business_lic_plan"
+                    name="Plans-details"
+                    class="form-control"
+                  ></textarea>
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Tokenomics details</label
+                  ><textarea
+                    name="Tokenomics-details"
+                    v-model="project.tokenomics_detail"
+                    class="form-control"
+                  ></textarea>
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Project business model</label
+                  ><textarea
+                    name="business-model"
+                    v-model="project.project_business_model"
+                    class="form-control"
+                  ></textarea>
+                </div>
+                <div class="form-group col-md-12">
+                  <label
+                    >Legal Opinion letter on utility vs. security token</label
+                  >
+                  <input
+                    type="text"
+                    v-model="project.legal_opinion"
+                    name="Legal-Opinion-letter"
+                    class="form-control"
+                    aria-required="true"
+                    aria-invalid="false"
+                  />
+                </div>
+                <div class="form-group col-md-12">
+                  <label>
+                    Names and titles of core team members and LinkedIn
+                    Bios</label
+                  >
+                  <textarea
+                    name="Bios"
+                    v-model="project.core_team"
+                    class="form-control"
+                  ></textarea>
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Short summary of the teams experience</label
+                  ><textarea
+                    name="teams"
+                    v-model="project.summary"
+                    class="form-control"
+                  ></textarea>
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Has the smart contract been audited?</label>
+                  <br />
+                  <label>
+                    <input
+                      type="radio"
+                      v-model="project.smart_contract_audited"
+                      value="yes"
+                      name="smart_contract_audited"
+                    />&nbsp;Yes
+                  </label>
+                  <label class="ml-2">
+                    <input
+                      type="radio"
+                      v-model="project.smart_contract_audited"
+                      value="no"
+                      name="smart_contract_audited"
+                    />&nbsp;No
+                  </label>
+                </div>
+                <div class="form-group col-md-12">
+                  <label> Smart contract audit information:</label>
+                  <textarea
+                    name="smart-contract"
+                    v-model="project.smart_contract_audited_text"
+                    class="form-control"
+                  ></textarea>
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Is there a MVP</label>
+                  <br />
+                  <label>
+                    <input
+                      type="radio"
+                      v-model="project.mvp"
+                      value="yes"
+                      name="mvp"
+                    />&nbsp;Yes
+                  </label>
+                  <label class="ml-2">
+                    <input
+                      type="radio"
+                      v-model="project.mvp"
+                      value="no"
+                      name="mvp"
+                    />&nbsp;No
+                  </label>
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Whitepaper</label>
+                  <input
+                    type="text"
+                    name="Whitepaper"
+                    v-model="project.whitepaper_link"
+                    class="form-control"
+                    aria-required="true"
+                    aria-invalid="false"
+                  />
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Total followers across all social channels:</label>
+                  <input
+                    type="text"
+                    name="social-channels"
+                    v-model="project.total_follower"
+                    class="form-control"
+                    aria-required="true"
+                    aria-invalid="false"
+                  />
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Partnerships in place:</label>
+                  <input
+                    type="text"
+                    name="Partnerships"
+                    v-model="project.partnership"
+                    class="form-control"
+                    aria-required="true"
+                    aria-invalid="false"
+                  />
+                </div>
+                <div class="form-group col-md-12">
+                  <label>
+                    Key components of project roadmap over the next 90
+                    days:</label
+                  >
+                  <textarea
+                    v-model="project.relevant_info"
+                    name="roadmap"
+                    class="form-control"
+                  ></textarea>
+                </div>
+                <div class="form-group col-md-12">
+                  <br />
+                  <h6>Questions about the Development Team:</h6>
+                </div>
 
-                        <div class="form-group col-md-12">
-                        <label>Names of Core Developers</label>
-                        <input
-                            type="text"
-                            name="Core-Developers"
-                            v-model="project.core_developer"
-                            class="form-control"
-                            aria-required="true"
-                            aria-invalid="false"
-                        />
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label>Split between full-time and part-time:</label>
-                        <input
-                            type="text"
-                            name="full-time-part"
-                            v-model="project.split"
-                            class="form-control"
-                            aria-required="true"
-                            aria-invalid="false"
-                        />
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label>Security concerns:</label>
-                        <input
-                            type="text"
-                            name="concerns"
-                            v-model="project.security_concerns"
-                            class="form-control"
-                            aria-required="true"
-                            aria-invalid="false"
-                        />
-                        </div>
-                        <div class="form-group col-md-12">
-                            <br/>
-                            <h6>Information on your cryptocurrency:</h6>
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label>Contract:</label>
-                        <input
-                            type="text"
-                            name="Contract"
-                            v-model="project.contract"
-                            class="form-control"
-                            aria-required="true"
-                            aria-invalid="false"
-                        />
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label>Contract Scan Link:</label>
-                        <input
-                            type="text"
-                            name="scan_linl"
-                            v-model="project.contract_link"
-                            class="form-control"
-                            aria-required="true"
-                            aria-invalid="false"
-                        />
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label>Decimals:</label>
-                        <input
-                            type="number"
-                            name="Decimals"
-                            v-model="project.decimal"
-                            class="form-control"
-                            aria-invalid="false"
-                        />
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label>Number of tokens in circulation:</label>
-                        <input
-                            type="number"
-                            name="circulation"
-                            v-model="project.no_of_token"
-                            class="form-control"
-                            aria-invalid="false"
-                        />
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label>Max number of tokens:</label>
-                        <input
-                            type="number"
-                            name="Max-number-tokens"
-                            v-model="project.max_no_of_token"
-                            class="form-control"
-                            aria-invalid="false"
-                        />
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label>Market cap:</label>
-                        <input
-                            type="text"
-                            name="Market-cap"
-                            v-model="project.market_cape"
-                            class="form-control"
-                            aria-required="true"
-                            aria-invalid="false"
-                        />
-                        </div>
-                        <div class="form-group col-md-12">
-                        <label>Fully diluted market cap:</label>
-                        <input
-                            type="text"
-                            name="Fully-diluted-market-cap"
-                            v-model="project.diluted_market_cape"
-                            class="form-control"
-                            aria-required="true"
-                            aria-invalid="false"
-                        />
-                        </div>
-                    </div>
-                    <div class="form_button mt-2 text-right">
-                        <button
-                        type="button"
-                        @click="store"
-                        class="main-btn btn-gold px-5 py-3"
-                        id=""
-                        >Submit</button>
-                    </div>
+                <div class="form-group col-md-12">
+                  <label>Names of Core Developers</label>
+                  <input
+                    type="text"
+                    name="Core-Developers"
+                    v-model="project.core_developer"
+                    class="form-control"
+                    aria-required="true"
+                    aria-invalid="false"
+                  />
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Split between full-time and part-time:</label>
+                  <input
+                    type="text"
+                    name="full-time-part"
+                    v-model="project.split"
+                    class="form-control"
+                    aria-required="true"
+                    aria-invalid="false"
+                  />
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Security concerns:</label>
+                  <input
+                    type="text"
+                    name="concerns"
+                    v-model="project.security_concerns"
+                    class="form-control"
+                    aria-required="true"
+                    aria-invalid="false"
+                  />
+                </div>
+                <div class="form-group col-md-12">
+                  <br />
+                  <h6>Information on your cryptocurrency:</h6>
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Contract:</label>
+                  <input
+                    type="text"
+                    name="Contract"
+                    v-model="project.contract"
+                    class="form-control"
+                    aria-required="true"
+                    aria-invalid="false"
+                  />
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Contract Scan Link:</label>
+                  <input
+                    type="text"
+                    name="scan_linl"
+                    v-model="project.contract_link"
+                    class="form-control"
+                    aria-required="true"
+                    aria-invalid="false"
+                  />
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Decimals:</label>
+                  <input
+                    type="number"
+                    name="Decimals"
+                    v-model="project.decimal"
+                    class="form-control"
+                    aria-invalid="false"
+                  />
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Number of tokens in circulation:</label>
+                  <input
+                    type="number"
+                    name="circulation"
+                    v-model="project.no_of_token"
+                    class="form-control"
+                    aria-invalid="false"
+                  />
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Max number of tokens:</label>
+                  <input
+                    type="number"
+                    name="Max-number-tokens"
+                    v-model="project.max_no_of_token"
+                    class="form-control"
+                    aria-invalid="false"
+                  />
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Market cap:</label>
+                  <input
+                    type="text"
+                    name="Market-cap"
+                    v-model="project.market_cape"
+                    class="form-control"
+                    aria-required="true"
+                    aria-invalid="false"
+                  />
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Fully diluted market cap:</label>
+                  <input
+                    type="text"
+                    name="Fully-diluted-market-cap"
+                    v-model="project.diluted_market_cape"
+                    class="form-control"
+                    aria-required="true"
+                    aria-invalid="false"
+                  />
+                </div>
+              </div>
+              <div class="form_button mt-2 text-right">
+                <button
+                  type="button"
+                  @click="store"
+                  class="main-btn btn-gold px-5 py-3"
+                  id=""
+                >
+                  Submit
+                </button>
+              </div>
             </form>
           </div>
         </div>
       </div>
     </section>
-    <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+    <!-- Success Modal -->
+    <div
+      class="modal fade"
+      id="successModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="successModalTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <div class="body">
-                <form action="">
-                    <div class="iconholder">
-                        <img src="/success-icon.png">
-                    </div>
-                    <div class="form-group">
-                        <h1>Success !</h1>
-                        <p>Your project has been submitted successfully and is under review by Admin !<br>
-                        Once it is approved, you will be able to deposit token and set Exchange Rate for this project & Investor will be able to buy it</p>
-                    </div>
-                    <div class="form-button">
-                        <button 
-                        @click="redirectTo"
-                        class="main-btn btn-gold">Ok</button>
-                    </div>
-                </form>
+          <div class="body">
+            <form action="">
+              <div class="iconholder">
+                <img src="/success-icon.png" />
+              </div>
+              <div class="form-group">
+                <h1>Success !</h1>
+                <p>
+                  Your project has been submitted successfully and is under
+                  review by Admin !<br />
+                  Once it is approved, you will be able to deposit token and set
+                  Exchange Rate for this project & Investor will be able to buy
+                  it
+                </p>
+              </div>
+              <div class="form-button">
+                <button @click="redirectTo" class="main-btn btn-gold">
+                  Ok
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Login Modal -->
+    <div
+      class="modal fade"
+      id="loginModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="successModalTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content signup-form-container">
+          <form method="POST" action="/login">
+            <h3>Login</h3>
+            <div class="form-group">
+              <label for="email" class="col-form-label text-md-right"
+                >E-Mail Address</label
+              >
+              <input
+                id="email"
+                type="email"
+                class="form-control"
+                name="email"
+                v-model="login.email"
+                required=""
+                autocomplete="email"
+                autofocus=""
+              />
             </div>
+
+            <div class="form-group">
+              <label for="password" class="form-label text-md-right"
+                >Password</label
+              >
+
+              <input
+                id="password"
+                type="password"
+                class="form-control"
+                v-model="login.password"
+                required=""
+                autocomplete="current-password"
+              />
+            </div>
+
+            <div class="form-group">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  name="remember"
+                  id="remember"
+                />
+
+                <label class="form-check-label" for="remember">
+                  Remember Me
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group row mb-0">
+              <button type="button" @click="postLogin" class="main-btn btn-gold">Login</button>
+
+              <a 
+                @click="() => hideModal('#loginModal')"
+                data-toggle="modal" data-target="#registerModal"
+                class="btn btn-link" href="javascript:;">
+                Dont Have an Account ? Sign Up
+              </a>
+            </div>
+          </form>
         </div>
+      </div>
+    </div>
+    <!-- Register Modal -->
+    <div
+      class="modal fade"
+      id="registerModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="successModalTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content signup-form-container">
+          <form method="POST" action="http://localhost:8000/register">
+            <h3>Register</h3>
+
+            <div class="form-group">
+              <label for="name" class="col-form-label text-md-right"
+                >Name</label
+              >
+
+              <div class="">
+                <input
+                  id="name"
+                  type="text"
+                  class="form-control"
+                  name="name"
+                  v-model="signup.name"
+                  required=""
+                  autocomplete="name"
+                  autofocus=""
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="email" class="col-form-label text-md-right"
+                >E-Mail Address</label
+              >
+
+              <div class="">
+                <input
+                  id="email"
+                  type="email"
+                  class="form-control"
+                  name="email"
+                  v-model="signup.email"
+                  required=""
+                  autocomplete="email"
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="password" class="col-form-label text-md-right"
+                >Password</label
+              >
+
+              <div class="">
+                <input
+                  id="password"
+                  type="password"
+                  class="form-control"
+                  name="password"
+                  v-model="signup.password"
+                  required=""
+                  autocomplete="new-password"
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="password-confirm" class="col-form-label text-md-right"
+                >Confirm Password</label
+              >
+
+              <div class="">
+                <input
+                  id="password-confirm"
+                  type="password"
+                  class="form-control"
+                  name="password_confirmation"
+                  v-model="signup.password_confirmation"
+                  required=""
+                  autocomplete="new-password"
+                />
+              </div>
+            </div>
+
+            <div class="form-group mb-0">
+              <div class="mt-4">
+                <button type="button" @click="postRegister" class="main-btn btn-gold">
+                  Register
+                </button>
+                <a 
+                    @click="() => hideModal('#registerModal')"
+                    data-toggle="modal" data-target="#loginModal"
+                    class="btn btn-link" href="javascript:;">
+                    already Have an Account ? Login Up
+                </a>
+
+              </div>
+            </div>
+          </form>
         </div>
-    </div>    
+      </div>
+    </div>
   </div>
 </template>
 
 <style>
-    h6{
-        color: #fff;
-        font-weight: bold;        
-    }
-    #successModal .body {
-        background: var(--gray);
-        padding: 10px;
-        border-radius: 25px;
-        width: 450px;    
-    }
-
-    #successModal .iconholder {
-    justify-content: center;
-    display: flex;
-    }
-
-
-    #successModal .iconholder img{
-    width: 100px;
-    }
-
-    #successModal .body h1{
-        color: #fff;
-        font-size: 30px;
-        text-align: center;
-        margin-top: 10px
-    }
-
-    #successModal .body p{
-        color: #fff;
-        text-align: center;
-        margin-top: 10px;
-        padding: 10px;
-    }
-
-    #successModal .body .form-button{
-        text-align: center;
-        justify-content: center;
-    }
-
-    #successModal .body .form-button button{
-        width: 50%;
-        padding: 10px;
-    }
-
+h6 {
+  color: #fff;
+  font-weight: bold;
+}
+#loginModal .body,
+#successModal .body {
+  background: var(--gray);
+  padding: 10px;
+  border-radius: 25px;
+  width: 450px;
+}
+#loginModal .iconholder,
+#successModal .iconholder {
+  justify-content: center;
+  display: flex;
+}
+#loginModal .iconholder img,
+#successModal .iconholder img {
+  width: 100px;
+}
+#loginModal .body h1,
+#successModal .body h1 {
+  color: #fff;
+  font-size: 30px;
+  text-align: center;
+  margin-top: 10px;
+}
+#loginModal .body p,
+#successModal .body p {
+  color: #fff;
+  text-align: center;
+  margin-top: 10px;
+  padding: 10px;
+}
+#loginModal .body .form-button,
+#successModal .body .form-button {
+  text-align: center;
+  justify-content: center;
+}
+#loginModal .body .form-button button,
+#loginModal .body .form-button a,
+#successModal .body .form-button button {
+  width: 50%;
+  padding: 10px;
+}
 </style>
 
 <script>
-
 export default {
   data() {
     return {
-      project: {},
+      project: JSON.parse(localStorage.getItem('createProject')) || {},
       supported_platform: window.supported_platform,
       base_url: window.base_url,
       user: window.user,
+      login: {},
+      signup: {},
     };
   },
   components: {},
-  created() {
-    this.checkIfLoggedIn();
-  },
+  created() {},
   mounted() {
-      
+    // this.checkIfLoggedIn();
   },
   methods: {
+    hideModal(elem){
+        $(elem).modal('hide');
+    },
+    postLogin(){
+        axios.post(`${base_url}/login`, {
+            email: this.login.email,
+            password: this.login.password
+        })
+        .then(({ data }) => {
+            this.$toastr.success("You are logged in successfully", "Success!");
+            localStorage.setItem('createProject', JSON.stringify(this.project));
+            window.location.reload();
+        })
+        .catch((e) => {
+          console.log(e);
+          let errors = e.response.data.errors;
+          Object.keys(errors).forEach((key) => {
+            this.$toastr.error(errors[key], "Error!");
+          });
+        });        
+    },
+    postRegister(){
+        axios.post(`${base_url}/register`, {
+            email: this.signup.email,
+            password: this.signup.password,
+            password_confirmation: this.signup.password_confirmation,
+            name: this.signup.name            
+        })
+        .then(({ data }) => {
+            this.$toastr.success("You have sign up to our platform successfully", "Success!");
+            localStorage.setItem('createProject', JSON.stringify(this.project));
+            window.location.reload();
+        })
+        .catch((e) => {
+          console.log(e);
+          let errors = e.response.data.errors;
+          Object.keys(errors).forEach((key) => {
+            this.$toastr.error(errors[key], "Error!");
+          });
+        });     
+    },
     checkIfLoggedIn() {
       if (window.user) return;
 
-      window.location.href = this.base_url + "/login";
+      $("#loginModal").modal("show");
+
+      return;
+      //   window.location.href = this.base_url + "/login";
     },
     store() {
+      this.checkIfLoggedIn();
+
       var form_data = new FormData();
 
-      for ( var key in this.project ) {
-          form_data.append(key, this.project[key]);
+      for (var key in this.project) {
+        form_data.append(key, this.project[key]);
       }
 
       axios
         .post("projects", form_data)
         .then(({ data }) => {
-            $('#successModal').modal('show');
-            // this.$toastr.success("Project is created succesfully", "Success!");
-            // this.$router.push({ name: "projects.mine" , query: { status: 1 } });
+          localStorage.getItem('createProject');
+          $("#successModal").modal("show");
         })
         .catch((e) => {
           console.log(e);
@@ -778,10 +1034,10 @@ export default {
           });
         });
     },
-    redirectTo(){
-        $('#successModal').modal('hide');
-        this.$router.push({ name: "projects" , query: { status: 1 } });
-    }
+    redirectTo() {
+      $("#successModal").modal("hide");
+      this.$router.push({ name: "projects", query: { status: 1 } });
+    },
   },
   watch: {},
 };

@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -82,6 +83,8 @@ class RegisterController extends Controller
     protected function registered(Request $request, $user)
     {
         $token = $user->createToken(config('app.name'))->accessToken;
+
+        Auth::loginUsingId($user->id);
         
         setcookie('p_token', $token, time() + (86400 * 30), "/"); // 86400 = 1 day
 

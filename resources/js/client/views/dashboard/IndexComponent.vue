@@ -1,6 +1,6 @@
 <template>
     <div>
-        <section class="banner">
+        <section class="homebanner">
             <video autoplay loop muted>
                 <!-- <source src="/assets/img/video2.mp4" type="video/webm"> -->
                 <source src="/assets/img/video2.mp4" type="video/mp4">
@@ -12,8 +12,8 @@
                 <div class="col-lg-6 col-md-7 col-sm-12">
                 <div class="banner-text">
                     <h1>
-                    Invest in <br /><span>cryptocurrencies</span> <br />
-                    of the future
+                    Invest in <br /><span>Cryptocurrencies</span> <br />
+                    of the Future
                     </h1>
                     <p>
                     Invest in up and coming cryptocurrencies commission, spread
@@ -61,15 +61,17 @@
                                         </p>
                                     </div>
                                     <div class="coin_details">
-                                        <div class="row flex-column">
-                                            <p>price</p>
-                                            <p>market cap</p>
-                                            <p>fully diluted</p>
+                                        <div class="row">
+                                            <p class="col-6">Price</p>
+                                            <p class="col-6 text-right" v-text="project.tokenPrice ? `$${project.tokenPrice.amount}` : '$1'"></p>
+                                        </div>    
+                                        <div class="row">
+                                            <p class="col-6">Market Cap</p>
+                                            <p class="col-6 text-right">${{ numberFormat(project.market_cape) }}</p>
                                         </div>
-                                        <div class="row flex-column">
-                                            <p v-text="project.tokenPrice ? `${project.tokenPrice.amount} USD` : '1 USD'"></p>
-                                            <p>{{ project.market_cape }}</p>
-                                            <p>{{ project.diluted_market_cape }}</p>
+                                        <div class="row">
+                                            <p class="col-6">Fully Diluted</p>
+                                            <p class="col-6 text-right">${{ numberFormat(project.diluted_market_cape) }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -89,7 +91,26 @@
     <div class="modal fade" id="buyToken" tabindex="-1" role="dialog" aria-labelledby="buyTokenTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <div class="buyCoin">
+                <div class="buyCoin" v-if="!metamaskuser">
+                    <form>
+                        <h3>Proceed to Buy</h3>
+                        <div class="notice">
+                            <strong>Note:</strong> Plese Connect Metamask Wallet to proceed
+                        </div>
+                        <div class="notice">
+                            <strong>Note:</strong> Make Sure while sending Eth or BSC it is connected to appropriate 
+                            Chain Network, <a 
+                            style="color: black"
+                            href="https://moonspark.finance/wallet-guide/" target="_blank">Refer, https://moonspark.finance/wallet-guide/ </a>
+                        </div>
+                        <div class="form-button connect-metamask">
+                            <button @click="init" type="button" class="main-btn btn-gold">
+                                <img style="width:30px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/512px-MetaMask_Fox.svg.png">
+                            Connect MetaMask Wallet</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="buyCoin" v-else>
                     <form>
                         <h3>Proceed to Buy</h3>
                         <div class="notice">
@@ -155,6 +176,7 @@ import Moralis from 'moralis';
 export default {
   components: {
     // BarChart,
+    Moralis
   },
   data() {
     return {
@@ -170,19 +192,44 @@ export default {
       bscNode: "https://speedy-nodes-nyc.moralis.io/a814e6dfe3c65bf59745d0a6/bsc/mainnet",
       rates: undefined,
       initTrans: false,
+      metamaskuser: localStorage.getItem('metamask_user'),
+      moralisUser: undefined,
     };
   },
   mounted() {
     this.getData();
     this.getReceiverAddress();
-    this.init();
+    // this.init();
     this.getExchangeRate();
   },
   methods: {
     async init(){
-        if(!Moralis.User.current()){
-            // this.authenticate();
-            // Moralis.initPlugins();
+        let lsmu = localStorage.getItem('metamask_user');
+        console.log(typeof lsmu, lsmu);
+        if(typeof lsmu == 'undefined' && typeof lsmu !== "object" && lsmu !== ""){
+            alert('sdsv')
+            this.metamaskuser = localStorage.getItem('metamask_user');
+        }
+        else{
+            this.initMoralis();
+            let user = await Moralis.User.currentAsync();
+            if (!user) {
+                console.log('i am here');
+                let metamaskuser = await Moralis.authenticate({ signingMessage: "Log in using Moonspark.Finance" })
+                .then( (user) => {
+                    console.log("logged in user:", user);
+                    localStorage.setItem('metamask_user', user.id);
+                    this.metamaskuser = user.id
+                })
+                .catch( (error) => {
+                    console(error);
+                });
+            }
+            else{
+                console.log('but i am here too', user);
+                localStorage.setItem('metamask_user', user.id);
+                this.metamaskuser = user.id;
+            }        
         }
     },
     async changeProvider(){
@@ -270,9 +317,28 @@ export default {
             });
         });      
     },    
-    buyToken(project){
-        this.currentProject = project;
-        $('#buyToken').modal('show');
+    async buyToken(project){
+        //check if user is logged In or Not
+        // this.initMoralis();
+        // let m = await Moralis.User.currentAsync();
+        // if(m) this.metamaskuser = m.id;
+
+        try{
+            let user = await axios('profile');
+            this.currentProject = project;
+
+            $('#buyToken').modal('show');
+
+        }catch(e){
+            //unathenticated
+            console.log(e.response.data);
+            window.location.href = "/login";
+        }
+
+
+
+
+
     },
     getData() {
       axios.get(`/get-latest-projects?limit=3`).then(({ data }) => {
@@ -291,6 +357,9 @@ export default {
     filter: function () {
       this.getData();
     },
+    $route: function(){
+        this.scrollMeTo();        
+    }
   },
 };
 </script>

@@ -22,6 +22,15 @@ const BlogComponent             = () => import(/* webpackChunkName: "client-page
 //faqs
 const FaqComponent              = () => import(/* webpackChunkName: "client.reminder" */ './views/faq/IndexComponent');
 
+//pages
+const AboutUs = () => import(/* webpackChunkName: "client.about" */ './views/page/AboutUsComponent');
+const ContactUs = () => import(/* webpackChunkName: "client.ContactUs" */ './views/page/ContactUs');
+const Risk = () => import(/* webpackChunkName: "client.Risk" */ './views/page/Risk');
+const Restriction = () => import(/* webpackChunkName: "client.Restriction" */ './views/page/Restriction');
+const Terms = () => import(/* webpackChunkName: "client.Terms" */ './views/page/Terms');
+const CommingSoon = () => import(/* webpackChunkName: "client.commingsoon" */ './views/page/CommingSoon');
+const WalletGuide = () => import(/* webpackChunkName: "client.WalletGuide" */ './views/page/WalletGuide');
+
 const router = new VueRouter({
     mode: 'history',
     base: `${process.env.NODE_ENV === 'production' ? process.env.MIX_PRODUCTION_BASE : process.env.MIX_BASE_URL}/`,
@@ -35,6 +44,90 @@ const router = new VueRouter({
                 description: ""
             }
         },
+        {
+            path: '/about-us',
+            name: 'about',
+            component: AboutUs,
+            meta: {
+                title: "About Us",
+                description: ""
+            }
+        },
+        {
+            path: '/announcements',
+            name: 'announcement',
+            component: CommingSoon,
+            meta: {
+                title: "Announcements",
+                description: ""
+            }
+        },
+        {
+            path: '/risks',
+            name: 'risk',
+            component: Risk,
+            meta: {
+                title: "Risk",
+                description: ""
+            }
+        },
+        {
+            path: '/wallet-guide',
+            name: 'wallet-guide',
+            component: WalletGuide,
+            meta: {
+                title: "Wallet Guide",
+                description: ""
+            }
+        },
+        {
+            path: '/earn',
+            name: 'earn',
+            component: CommingSoon,
+            meta: {
+                title: "Earn",
+                description: ""
+            }
+        },
+        
+        {
+            path: '/restrictions',
+            name: 'restriction',
+            component: Restriction,
+            meta: {
+                title: "Restriction",
+                description: ""
+            }
+        },
+        {
+            path: '/terms-privacy-policy/',
+            name: 'term',
+            component: Terms,
+            meta: {
+                title: "Terms",
+                description: ""
+            }
+        },
+   
+        {
+            path: '/contact',
+            name: 'contact',
+            component: ContactUs,
+            meta: {
+                title: "Contact Us",
+                description: ""
+            }
+        },
+
+        {
+            path: '/#buy_crypto',
+            name: 'buycrypto',
+            component: DashboardComponent,
+            meta: {
+                title: "Dashboard",
+                description: ""
+            }
+        },        
         {
             path: '/dashboard',
             name: 'home',

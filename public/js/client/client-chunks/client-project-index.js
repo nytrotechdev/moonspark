@@ -170,7 +170,7 @@ __webpack_require__.r(__webpack_exports__);
       query: "",
       table: undefined,
       user: undefined,
-      moralisUser: moralis__WEBPACK_IMPORTED_MODULE_0___default().User.current(),
+      moralisUser: true,
       web3: undefined,
       type_class: ["default", "success", "warning", "danger"],
       moralis_creds: window.moralis
@@ -231,7 +231,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var query = {
         status: typeof this.$route.query.status !== "undefined" ? this.$route.query.status : "",
-        title: this.query
+        title: this.query || ''
       };
       axios.get("/projects?".concat(this.buildqueryparams(query))).then(function (_ref3) {
         var data = _ref3.data;
@@ -289,7 +289,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.account_coin_details {\n  margin-right: 15px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.account_coin_details {\n  /* margin-right: 15px; */\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
