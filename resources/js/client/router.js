@@ -160,7 +160,7 @@ const router = new VueRouter({
             name: 'project.create',
             component: ProjectCreateComponent,
             meta: {
-                title: "Project - Create",
+                title: "SUBMIT YOUR PROJECT",
                 description: ""
             }
         },

@@ -481,7 +481,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context4.t0 = _context4["catch"](0);
                 //unathenticated
                 console.log(_context4.t0.response.data);
-                window.location.href = "/login";
+                window.location.href = "/register";
 
               case 12:
               case "end":
@@ -765,8 +765,8 @@ var render = function () {
                             staticClass: "col-6 text-right",
                             domProps: {
                               textContent: _vm._s(
-                                project.tokenPrice
-                                  ? "$" + project.tokenPrice.amount
+                                project.token_price
+                                  ? "$" + project.token_price.amount
                                   : "$1"
                               ),
                             },

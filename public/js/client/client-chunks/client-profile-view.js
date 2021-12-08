@@ -135,6 +135,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {},
   data: function data() {
@@ -462,15 +474,15 @@ var render = function () {
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group col-md-12" }, [
-                        _c("label", [_vm._v("Name:")]),
+                        _c("label", [_vm._v("First Name:")]),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.user.name,
-                              expression: "user.name",
+                              value: _vm.user.first_name,
+                              expression: "user.first_name",
                             },
                           ],
                           staticClass: "form-control",
@@ -480,13 +492,52 @@ var render = function () {
                             "aria-required": "true",
                             "aria-invalid": "false",
                           },
-                          domProps: { value: _vm.user.name },
+                          domProps: { value: _vm.user.first_name },
                           on: {
                             input: function ($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.$set(_vm.user, "name", $event.target.value)
+                              _vm.$set(
+                                _vm.user,
+                                "first_name",
+                                $event.target.value
+                              )
+                            },
+                          },
+                        }),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group col-md-12" }, [
+                        _c("label", [_vm._v("Last Name:")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.user.last_name,
+                              expression: "user.last_name",
+                            },
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            name: "name",
+                            "aria-required": "true",
+                            "aria-invalid": "false",
+                          },
+                          domProps: { value: _vm.user.last_name },
+                          on: {
+                            input: function ($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.user,
+                                "last_name",
+                                $event.target.value
+                              )
                             },
                           },
                         }),

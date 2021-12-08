@@ -552,6 +552,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -584,7 +587,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nh6 {\n  color: #fff;\n  font-weight: bold;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nh6 {\n  color: #fff;\n  font-weight: bold;\n}\nimg{\n  text-align: center;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -736,10 +739,10 @@ var staticRenderFns = [
     return _c(
       "div",
       {
-        staticClass: "container-fluid pl-5 pr-5 mt-5 pb-5 mb-2 overflow-hidden",
+        staticClass: "container-fluid pl-5 pr-5 mt-5 pb-3 mb-1 overflow-hidden",
       },
       [
-        _c("div", { staticClass: "wrapper pl-4 pr-5 mt-5 " }, [
+        _c("div", { staticClass: "wrapper pl-4 " }, [
           _c("div", { staticClass: "wpb_wrapper" }, [
             _c(
               "h2",
@@ -785,50 +788,57 @@ var staticRenderFns = [
                   _c("strong", [_vm._v("We are going to show you how to:")]),
                 ]),
                 _vm._v(" "),
-                _c("ol", [
-                  _c(
-                    "li",
-                    {
-                      staticStyle: { "font-weight": "400" },
-                      attrs: { "aria-level": "1" },
-                    },
-                    [
-                      _c("span", { staticStyle: { "font-weight": "400" } }, [
-                        _vm._v("Set up your MetaMask Wallet"),
-                      ]),
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "li",
-                    {
-                      staticStyle: { "font-weight": "400" },
-                      attrs: { "aria-level": "1" },
-                    },
-                    [
-                      _c("span", { staticStyle: { "font-weight": "400" } }, [
-                        _vm._v(
-                          "Set up a new token or technically known as a customized\n                  token – this will cover most of the small tokens featured on\n                  this platform"
-                        ),
-                      ]),
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "li",
-                    {
-                      staticStyle: { "font-weight": "400" },
-                      attrs: { "aria-level": "1" },
-                    },
-                    [
-                      _c("span", { staticStyle: { "font-weight": "400" } }, [
-                        _vm._v(
-                          "How to set up Binance Smart Chain – some cryptocurrencies\n                  will be on the Binance Smart Chain and will require you to\n                  set this up in your wallet."
-                        ),
-                      ]),
-                    ]
-                  ),
-                ]),
+                _c(
+                  "ol",
+                  {
+                    staticClass: "pl-4 ml-4",
+                    staticStyle: { "line-height": "30px" },
+                  },
+                  [
+                    _c(
+                      "li",
+                      {
+                        staticStyle: { "font-weight": "400" },
+                        attrs: { "aria-level": "1" },
+                      },
+                      [
+                        _c("span", { staticStyle: { "font-weight": "400" } }, [
+                          _vm._v("Set up your MetaMask Wallet"),
+                        ]),
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "li",
+                      {
+                        staticStyle: { "font-weight": "400" },
+                        attrs: { "aria-level": "1" },
+                      },
+                      [
+                        _c("span", { staticStyle: { "font-weight": "400" } }, [
+                          _vm._v(
+                            "Set up a new token or technically known as a customized\n                  token – this will cover most of the small tokens featured on\n                  this platform"
+                          ),
+                        ]),
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "li",
+                      {
+                        staticStyle: { "font-weight": "400" },
+                        attrs: { "aria-level": "1" },
+                      },
+                      [
+                        _c("span", { staticStyle: { "font-weight": "400" } }, [
+                          _vm._v(
+                            "How to set up Binance Smart Chain – some cryptocurrencies\n                  will be on the Binance Smart Chain and will require you to\n                  set this up in your wallet."
+                          ),
+                        ]),
+                      ]
+                    ),
+                  ]
+                ),
                 _vm._v(" "),
                 _c("p", [
                   _c("b", [
@@ -935,22 +945,24 @@ var staticRenderFns = [
                     ),
                     _c("br"),
                     _vm._v(" "),
-                    _c("img", {
-                      staticClass: "wp-image-316 size-full aligncenter",
-                      attrs: {
-                        loading: "lazy",
-                        src: "https://moonspark.finance/wp-content/uploads/2021/10/metamask.jpg",
-                        alt: "",
-                        width: "636",
-                        height: "424",
-                        srcset:
-                          "https://wordpress.moonspark.finance/wp-content/uploads/2021/10/metamask.jpg" +
-                          " 636w, " +
-                          "https://wordpress.moonspark.finance/wp-content/uploads/2021/10/metamask-300x200.jpg" +
-                          " 300w",
-                        sizes: "(max-width: 636px) 100vw, 636px",
-                      },
-                    }),
+                    _c("div", { staticClass: "d-100 text-center" }, [
+                      _c("img", {
+                        staticClass: "wp-image-316 size-full aligncenter",
+                        attrs: {
+                          loading: "lazy",
+                          src: "https://moonspark.finance/wp-content/uploads/2021/10/metamask.jpg",
+                          alt: "",
+                          width: "636",
+                          height: "424",
+                          srcset:
+                            "https://wordpress.moonspark.finance/wp-content/uploads/2021/10/metamask.jpg" +
+                            " 636w, " +
+                            "https://wordpress.moonspark.finance/wp-content/uploads/2021/10/metamask-300x200.jpg" +
+                            " 300w",
+                          sizes: "(max-width: 636px) 100vw, 636px",
+                        },
+                      }),
+                    ]),
                   ]),
                 ]),
                 _vm._v(" "),
@@ -997,7 +1009,8 @@ var staticRenderFns = [
                   ]),
                 ]),
                 _vm._v(" "),
-                _c("p", [
+                _c("p"),
+                _c("div", { staticClass: "d-100 text-center" }, [
                   _c("img", {
                     staticClass: "size-full wp-image-317 aligncenter",
                     attrs: {
@@ -1015,6 +1028,8 @@ var staticRenderFns = [
                     },
                   }),
                 ]),
+                _vm._v(" "),
+                _c("p"),
                 _vm._v(" "),
                 _c("p", [_vm._v(" ")]),
                 _vm._v(" "),
@@ -1096,7 +1111,8 @@ var staticRenderFns = [
                   ]),
                 ]),
                 _vm._v(" "),
-                _c("p", [
+                _c("p"),
+                _c("div", { staticClass: "d-100 text-center" }, [
                   _c("img", {
                     staticClass: "size-full wp-image-318 aligncenter",
                     attrs: {
@@ -1114,6 +1130,8 @@ var staticRenderFns = [
                     },
                   }),
                 ]),
+                _vm._v(" "),
+                _c("p"),
                 _vm._v(" "),
                 _c("p", [
                   _c("span", { staticStyle: { "font-weight": "400" } }, [
@@ -1214,22 +1232,24 @@ var staticRenderFns = [
                         ),
                         _c("br"),
                         _vm._v(" "),
-                        _c("img", {
-                          staticClass: "aligncenter size-full wp-image-320",
-                          attrs: {
-                            loading: "lazy",
-                            src: "https://moonspark.finance/wp-content/uploads/2021/10/savtbl.jpg",
-                            alt: "",
-                            width: "604",
-                            height: "96",
-                            srcset:
-                              "https://wordpress.moonspark.finance/wp-content/uploads/2021/10/savtbl.jpg" +
-                              " 604w, " +
-                              "https://wordpress.moonspark.finance/wp-content/uploads/2021/10/savtbl-300x48.jpg" +
-                              " 300w",
-                            sizes: "(max-width: 604px) 100vw, 604px",
-                          },
-                        }),
+                        _c("div", { staticClass: "d-100 text-center" }, [
+                          _c("img", {
+                            staticClass: "aligncenter size-full wp-image-320",
+                            attrs: {
+                              loading: "lazy",
+                              src: "https://moonspark.finance/wp-content/uploads/2021/10/savtbl.jpg",
+                              alt: "",
+                              width: "604",
+                              height: "96",
+                              srcset:
+                                "https://wordpress.moonspark.finance/wp-content/uploads/2021/10/savtbl.jpg" +
+                                " 604w, " +
+                                "https://wordpress.moonspark.finance/wp-content/uploads/2021/10/savtbl-300x48.jpg" +
+                                " 300w",
+                              sizes: "(max-width: 604px) 100vw, 604px",
+                            },
+                          }),
+                        ]),
                       ]),
                     ]
                   ),
@@ -1346,7 +1366,8 @@ var staticRenderFns = [
                 _c("p", [
                   _vm._v("\n              Let’s change that."),
                   _c("br"),
-                  _vm._v(" "),
+                ]),
+                _c("div", { staticClass: "d-100 text-center" }, [
                   _c("img", {
                     staticClass: "aligncenter size-full wp-image-322",
                     attrs: {
@@ -1365,14 +1386,17 @@ var staticRenderFns = [
                       sizes: "(max-width: 714px) 100vw, 714px",
                     },
                   }),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c("strong", [
-                    _vm._v("1. Select the “Settings” from the dropdown menu."),
-                  ]),
+                ]),
+                _c("br"),
+                _vm._v(" "),
+                _c("strong", [
+                  _vm._v("1. Select the “Settings” from the dropdown menu."),
                 ]),
                 _vm._v(" "),
-                _c("p", [
+                _c("p"),
+                _vm._v(" "),
+                _c("p"),
+                _c("div", { staticClass: "d-100 text-center" }, [
                   _c("img", {
                     staticClass: "aligncenter size-full wp-image-323",
                     attrs: {
@@ -1391,13 +1415,15 @@ var staticRenderFns = [
                       sizes: "(max-width: 712px) 100vw, 712px",
                     },
                   }),
-                  _c("br"),
-                  _vm._v(
-                    "\n              2. On the “Settings” page, locate the “Networks” menu.\n            "
-                  ),
                 ]),
+                _c("br"),
+                _vm._v(
+                  "\n              2. On the “Settings” page, locate the “Networks” menu.\n            "
+                ),
+                _c("p"),
                 _vm._v(" "),
-                _c("p", [
+                _c("p"),
+                _c("div", { staticClass: "d-100 text-center" }, [
                   _c("img", {
                     staticClass: "aligncenter size-full wp-image-324",
                     attrs: {
@@ -1417,6 +1443,8 @@ var staticRenderFns = [
                     },
                   }),
                 ]),
+                _vm._v(" "),
+                _c("p"),
                 _vm._v(" "),
                 _c("p", [
                   _c("strong", [
@@ -1457,7 +1485,8 @@ var staticRenderFns = [
                   ]),
                 ]),
                 _vm._v(" "),
-                _c("p", [
+                _c("p"),
+                _c("div", { staticClass: "d-100 text-center" }, [
                   _c("img", {
                     staticClass: "aligncenter size-full wp-image-325",
                     attrs: {
@@ -1478,13 +1507,16 @@ var staticRenderFns = [
                   }),
                 ]),
                 _vm._v(" "),
+                _c("p"),
+                _vm._v(" "),
                 _c("p", [
                   _c("strong", [
                     _vm._v("(An example of connecting to the mainnet.)"),
                   ]),
                 ]),
                 _vm._v(" "),
-                _c("p", [
+                _c("p"),
+                _c("div", { staticClass: "d-100 text-center" }, [
                   _c("img", {
                     staticClass: "aligncenter size-full wp-image-326",
                     attrs: {
@@ -1504,6 +1536,8 @@ var staticRenderFns = [
                     },
                   }),
                 ]),
+                _vm._v(" "),
+                _c("p"),
                 _vm._v(" "),
                 _c("p", [
                   _c("strong", [

@@ -798,26 +798,44 @@
       aria-hidden="true"
     >
       <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content signup-form-container">
+        <div class="modal-content signup-form-container modal-lg">
           <form method="POST" action="http://localhost:8000/register">
             <h3>Register</h3>
 
-            <div class="form-group">
-              <label for="name" class="col-form-label text-md-right"
-                >Name</label
-              >
-
-              <div class="">
-                <input
-                  id="name"
-                  type="text"
-                  class="form-control"
-                  name="name"
-                  v-model="signup.name"
-                  required=""
-                  autocomplete="name"
-                  autofocus=""
-                />
+            <div class="row">
+              <div class="col-6 form-group">
+                <label for="name" class="col-form-label text-md-right"
+                  >First Name</label
+                >
+                <div class="">
+                  <input
+                    id="name"
+                    type="text"
+                    class="form-control"
+                    name="first_name"
+                    v-model="signup.first_name"
+                    required=""
+                    autocomplete="name"
+                    autofocus=""
+                  />
+                </div>
+              </div>
+              <div class="col-6 form-group">
+                <label for="name" class="col-form-label text-md-right"
+                  >Last Name</label
+                >
+                <div class="">
+                  <input
+                    id="name"
+                    type="text"
+                    class="form-control"
+                    name="last_name"
+                    v-model="signup.last_name"
+                    required=""
+                    autocomplete="name"
+                    autofocus=""
+                  />
+                </div>
               </div>
             </div>
 
@@ -840,38 +858,53 @@
             </div>
 
             <div class="form-group">
-              <label for="password" class="col-form-label text-md-right"
-                >Password</label
+              <label for="email" class="col-form-label text-md-right"
+                >Countries</label
               >
 
               <div class="">
-                <input
-                  id="password"
-                  type="password"
-                  class="form-control"
-                  name="password"
-                  v-model="signup.password"
-                  required=""
-                  autocomplete="new-password"
-                />
+                <select class="form-control" name="country">
+                    <option value="">Select Country</option>
+                    <option v-for="(country, cid) in countries" :value="country.code" :key="cid">{{ country.name }}</option>                            
+                </select>
               </div>
-            </div>
+            </div>            
 
-            <div class="form-group">
-              <label for="password-confirm" class="col-form-label text-md-right"
-                >Confirm Password</label
-              >
+            <div class="row ">
+              <div class="col-6 form-group">
+                <label for="password" class="col-form-label text-md-right"
+                  >Password</label
+                >
 
-              <div class="">
-                <input
-                  id="password-confirm"
-                  type="password"
-                  class="form-control"
-                  name="password_confirmation"
-                  v-model="signup.password_confirmation"
-                  required=""
-                  autocomplete="new-password"
-                />
+                <div class="">
+                  <input
+                    id="password"
+                    type="password"
+                    class="form-control"
+                    name="password"
+                    v-model="signup.password"
+                    required=""
+                    autocomplete="new-password"
+                  />
+                </div>
+              </div>
+
+              <div class="col-6 form-group">
+                <label for="password-confirm" class="col-form-label text-md-right"
+                  >Confirm Password</label
+                >
+
+                <div class="">
+                  <input
+                    id="password-confirm"
+                    type="password"
+                    class="form-control"
+                    name="password_confirmation"
+                    v-model="signup.password_confirmation"
+                    required=""
+                    autocomplete="new-password"
+                  />
+                </div>
               </div>
             </div>
 
@@ -951,6 +984,7 @@ export default {
       project: JSON.parse(localStorage.getItem('createProject')) || {},
       supported_platform: window.supported_platform,
       base_url: window.base_url,
+      countries: window.countries,
       user: window.user,
       login: {},
       signup: {},
@@ -988,7 +1022,10 @@ export default {
             email: this.signup.email,
             password: this.signup.password,
             password_confirmation: this.signup.password_confirmation,
-            name: this.signup.name            
+            last_name: this.signup.last_name,
+            first_name: this.signup.first_name,
+            country: this.signup.country,
+
         })
         .then(({ data }) => {
             this.$toastr.success("You have sign up to our platform successfully", "Success!");
@@ -1013,6 +1050,8 @@ export default {
     },
     store() {
       this.checkIfLoggedIn();
+
+      if (!window.user) return;
 
       var form_data = new FormData();
 

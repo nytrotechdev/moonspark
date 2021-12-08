@@ -16,15 +16,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Admin::firstOrCreate([
-            'email' => "admin@gmail.com",
-        ],[
-            "name" => "Admin",
-            "email" => "admin@gmail.com",
-            "password" => Hash::make('admin123'),
-            'status' => 1,
-            'created_at' => Carbon::now(),
-        ]);
+        // Admin::firstOrCreate([
+        //     'email' => "admin@gmail.com",
+        // ],[
+        //     "name" => "Admin",
+        //     "email" => "admin@gmail.com",
+        //     "password" => Hash::make('admin123'),
+        //     'status' => 1,
+        //     'created_at' => Carbon::now(),
+        // ]);
+
+        $this->call([
+            CountriesTableSeeder::class,
+        ]);          
+
         // \App\Models\User::factory(10)->create();
     }
 }

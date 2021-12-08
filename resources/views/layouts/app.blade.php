@@ -35,6 +35,7 @@
     <script type="text/javascript">
         window.base_url = "{{ url('/') }}";
         window.user = @json(auth()->user());
+        window.countries = @json(DB::table('countries')->get());
         window.supported_platform = @json(config('app.supported_platform'));
         window.moralis = @json(config('services.moralis'));
         window.appname = "{{config('app.name')}}";

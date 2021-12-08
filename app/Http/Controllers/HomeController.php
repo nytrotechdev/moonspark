@@ -81,7 +81,8 @@ class HomeController extends Controller
         $user = $request->user();
 
         $request->validate([
-            "name" => "required",
+            "first_name" => "required",
+            "last_name" => "required",
         ]);
 
 

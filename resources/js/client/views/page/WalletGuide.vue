@@ -3,8 +3,8 @@
     <section class="banner">
       <h1 style="text-align: center" class="">{{ $route.meta.title }}</h1>
     </section>
-    <div class="container-fluid pl-5 pr-5 mt-5 pb-5 mb-2 overflow-hidden">
-      <div class="wrapper pl-4 pr-5 mt-5 ">
+    <div class="container-fluid pl-5 pr-5 mt-5 pb-3 mb-1 overflow-hidden">
+      <div class="wrapper pl-4 ">
         <div class="wpb_wrapper">
           <h2
             style="
@@ -46,7 +46,7 @@
                 >
               </p>
               <p><strong>We are going to show you how to:</strong></p>
-              <ol>
+              <ol class="pl-4 ml-4" style="line-height: 30px">
                 <li style="font-weight: 400" aria-level="1">
                   <span style="font-weight: 400"
                     >Set up your MetaMask Wallet</span
@@ -133,7 +133,7 @@
                   already, you can select “Import wallet” and then you will be
                   asked to input your 12 word seed phrase to link your account;
                   we’ll tackle the seed phrase below.<br />
-                  <img
+                  <div class="d-100 text-center"><img
                     loading="lazy"
                     class="wp-image-316 size-full aligncenter"
                     src="https://moonspark.finance/wp-content/uploads/2021/10/metamask.jpg"
@@ -145,7 +145,7 @@
                       https://wordpress.moonspark.finance/wp-content/uploads/2021/10/metamask-300x200.jpg 300w
                     "
                     sizes="(max-width: 636px) 100vw, 636px"
-                /></span>
+                /></div></span>
               </p>
               <p>
                 <span style="font-weight: 400"
@@ -178,7 +178,7 @@
                 >
               </p>
               <p>
-                <img
+                <div class="d-100 text-center"><img
                   loading="lazy"
                   class="size-full wp-image-317 aligncenter"
                   src="https://moonspark.finance/wp-content/uploads/2021/10/secret.jpg"
@@ -190,7 +190,7 @@
                     https://wordpress.moonspark.finance/wp-content/uploads/2021/10/secret-300x200.jpg 300w
                   "
                   sizes="(max-width: 512px) 100vw, 512px"
-                />
+                /></div>
               </p>
               <p>&nbsp;</p>
               <p><b>&nbsp;</b></p>
@@ -241,7 +241,7 @@
                 >
               </p>
               <p>
-                <img
+                <div class="d-100 text-center"><img
                   loading="lazy"
                   class="size-full wp-image-318 aligncenter"
                   src="https://moonspark.finance/wp-content/uploads/2021/10/metamask2.jpg"
@@ -253,7 +253,7 @@
                     https://wordpress.moonspark.finance/wp-content/uploads/2021/10/metamask2-300x200.jpg 300w
                   "
                   sizes="(max-width: 636px) 100vw, 636px"
-                />
+                /></div>
               </p>
               <p>
                 <span style="font-weight: 400"
@@ -319,7 +319,7 @@
                     >, select link »Tokens« on the right side and click on »View
                     Tokens«. Click on EOS token and all the info can be found
                     there.<br />
-                    <img
+                    <div class="d-100 text-center"><img
                       loading="lazy"
                       class="aligncenter size-full wp-image-320"
                       src="https://moonspark.finance/wp-content/uploads/2021/10/savtbl.jpg"
@@ -331,7 +331,7 @@
                         https://wordpress.moonspark.finance/wp-content/uploads/2021/10/savtbl-300x48.jpg 300w
                       "
                       sizes="(max-width: 604px) 100vw, 604px"
-                  /></span>
+                  /></div></span>
                 </li>
                 <li style="font-weight: 400" aria-level="1">
                   <span style="font-weight: 400"
@@ -404,7 +404,7 @@
               </p>
               <p>
                 Let’s change that.<br />
-                <img
+                <div class="d-100 text-center"><img
                   loading="lazy"
                   class="aligncenter size-full wp-image-322"
                   src="https://moonspark.finance/wp-content/uploads/2021/10/unnamed.png"
@@ -417,13 +417,13 @@
                     https://wordpress.moonspark.finance/wp-content/uploads/2021/10/unnamed-607x1024.png 607w
                   "
                   sizes="(max-width: 714px) 100vw, 714px"
-                /><br />
+                /></div><br />
                 <strong
                   >1. Select the “Settings” from the dropdown menu.</strong
                 >
               </p>
               <p>
-                <img
+                <div class="d-100 text-center"><img
                   loading="lazy"
                   class="aligncenter size-full wp-image-323"
                   src="https://moonspark.finance/wp-content/uploads/2021/10/setting.png"
@@ -436,11 +436,11 @@
                     https://wordpress.moonspark.finance/wp-content/uploads/2021/10/setting-607x1024.png 607w
                   "
                   sizes="(max-width: 712px) 100vw, 712px"
-                /><br />
+                /></div><br />
                 2. On the “Settings” page, locate the “Networks” menu.
               </p>
               <p>
-                <img
+                <div class="d-100 text-center"><img
                   loading="lazy"
                   class="aligncenter size-full wp-image-324"
                   src="https://moonspark.finance/wp-content/uploads/2021/10/addneteork.png"
@@ -453,7 +453,7 @@
                     https://wordpress.moonspark.finance/wp-content/uploads/2021/10/addneteork-611x1024.png 611w
                   "
                   sizes="(max-width: 716px) 100vw, 716px"
-                />
+                /></div>
               </p>
               <p>
                 <strong
@@ -476,7 +476,7 @@
                 <a href="https://bscscan.com/">https://bscscan.com</a>
               </p>
               <p>
-                <img
+                <div class="d-100 text-center"><img
                   loading="lazy"
                   class="aligncenter size-full wp-image-325"
                   src="https://moonspark.finance/wp-content/uploads/2021/10/information.png"
@@ -489,11 +489,11 @@
                     https://wordpress.moonspark.finance/wp-content/uploads/2021/10/information-608x1024.png 608w
                   "
                   sizes="(max-width: 714px) 100vw, 714px"
-                />
+                /></div>
               </p>
               <p><strong>(An example of connecting to the mainnet.)</strong></p>
               <p>
-                <img
+                <div class="d-100 text-center"><img
                   loading="lazy"
                   class="aligncenter size-full wp-image-326"
                   src="https://moonspark.finance/wp-content/uploads/2021/10/bnb.png"
@@ -506,7 +506,7 @@
                     https://wordpress.moonspark.finance/wp-content/uploads/2021/10/bnb-610x1024.png 610w
                   "
                   sizes="(max-width: 714px) 100vw, 714px"
-                />
+                /></div>
               </p>
               <p>
                 <strong
@@ -537,6 +537,9 @@
 h6 {
   color: #fff;
   font-weight: bold;
+}
+img{
+  text-align: center;
 }
 </style>
 <script>

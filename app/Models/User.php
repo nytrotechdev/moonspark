@@ -19,6 +19,8 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'first_name',
+        'last_name',
         'email',
         'phone',
         'country',        
@@ -50,6 +52,10 @@ class User extends Authenticatable
 
     protected $appends = ['created_date'];
 
+    public function getNameAttribute()
+    {
+        return $this->first_name.' '.$this->last_name;
+    }
 
     public function getCreatedDateAttribute(){
         // return $this->created_at;

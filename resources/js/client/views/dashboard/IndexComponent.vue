@@ -63,7 +63,7 @@
                                     <div class="coin_details">
                                         <div class="row">
                                             <p class="col-6">Price</p>
-                                            <p class="col-6 text-right" v-text="project.tokenPrice ? `$${project.tokenPrice.amount}` : '$1'"></p>
+                                            <p class="col-6 text-right" v-text="project.token_price ? `$${project.token_price.amount}` : '$1'"></p>
                                         </div>    
                                         <div class="row">
                                             <p class="col-6">Market Cap</p>
@@ -332,7 +332,7 @@ export default {
         }catch(e){
             //unathenticated
             console.log(e.response.data);
-            window.location.href = "/login";
+            window.location.href = "/register";
         }
 
 

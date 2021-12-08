@@ -20,16 +20,28 @@
                 </div>
 
                 <div class="form-group col-md-12">
-                  <label>Name:</label>
+                  <label>First Name:</label>
                   <input
                     type="text"
                     name="name"
-                    v-model="user.name"
+                    v-model="user.first_name"
                     class="form-control"
                     aria-required="true"
                     aria-invalid="false"
                   />
                 </div>
+                <div class="form-group col-md-12">
+                  <label>Last Name:</label>
+                  <input
+                    type="text"
+                    name="name"
+                    v-model="user.last_name"
+                    class="form-control"
+                    aria-required="true"
+                    aria-invalid="false"
+                  />
+                </div>
+
                 <div class="form-group col-md-12">
                   <label>Email:</label>
                   <input
