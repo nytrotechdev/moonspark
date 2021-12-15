@@ -3,10 +3,9 @@
 @import '../../../public/vendor/datatables/css/jquery.dataTables.min.css';
 @import '../../../public/css/admin.css';
 @import 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css';
-
-.btn-pri{
+.btn-pri {
     background-color: #fb0000;
-    border-color: #fb0000;    
+    border-color: #fb0000;
 }
 
 .btn-pri:hover {
@@ -15,18 +14,44 @@
     border-color: #b70909;
 }
 
-.dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate{
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter,
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_processing,
+.dataTables_wrapper .dataTables_paginate {
     color: #fff !important;
 }
 
-[data-theme-version="dark"] select.form-control option{
+[data-theme-version="dark"] select.form-control option {
     background: transparent;
     color: black;
 }
 
-.address_pointer{
+.address_pointer {
     cursor: pointer;
 }
 
-.tooltip > .tooltip-inner {background-color: black;}
-.tooltip > .tooltip-arrow {border-bottom-color: black;}
+.tooltip>.tooltip-inner {
+    background-color: black;
+}
+
+.tooltip>.tooltip-arrow {
+    border-bottom-color: black;
+}
+
+.ps::-webkit-scrollbar {
+    width: 8px;
+    /* width of the entire scrollbar */
+}
+
+.ps::-webkit-scrollbar-track {
+    background: #f1eeee;
+    /* color of the tracking area */
+}
+
+.ps::-webkit-scrollbar-thumb {
+    background-color: #b41e22;
+    /* color of the scroll thumb */
+    border-radius: 200px;
+    /* roundness of the scroll thumb */
+}

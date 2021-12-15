@@ -12,6 +12,12 @@ Route::group(['middleware' => 'auth:admin_api'], function(){
     // Dashboard
     Route::apiResource('dashboard', DashboardController::class);
 
+    // Notifications
+    Route::get('get-notifications', [DashboardController::class, 'getNotifications']);
+    Route::get('my-notifications', [DashboardController::class, 'myNotifications']);
+    Route::get('send-notifications', [DashboardController::class, 'sendNotifications']);
+    Route::get('clear-notifications', [DashboardController::class, 'clearNotifications']);
+
     Route::get('profile', [DashboardController::class, 'profile']);
     Route::post('profile', [DashboardController::class, 'updateProfile']);
 

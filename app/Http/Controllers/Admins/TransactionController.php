@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\Project;
 use App\Models\Transaction;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -23,9 +24,25 @@ class TransactionController extends Controller
 
         $tr = Transaction::find($transaction);
 
+        $user = User::whereId($tr->user_id)->get();
+
+        $project = Project::find($tr->project_id);
+
         $tr->status = $request->status;
         $tr->reason = $request->reason;
         $tr->save();
+
+        if($request->status == 1) $status = "confirmed";
+
+        else $status = "rejected";
+
+        $this->notify([
+            "name" => $user->name,
+            "title" => "Your Transaction is $status for {$project->project_name}",
+            "text" => "Your Transaction is $status for {$project->project_name}",
+            "transaction_id" => $tr->id,
+            "transaction_type" => get_class($tr),
+        ], $user, 'transaction_status');
 
         return $this->responseSuccess("Status has been updated successfully");
     }
@@ -50,7 +67,9 @@ class TransactionController extends Controller
             $sspath = str_replace('public/','',$path);
         }
 
-        Transaction::create([
+        $user = User::whereId($project->user_id)->get();
+
+        $tr = Transaction::create([
             "user_id" => $request->client_id,
             "project_id" => $project->id,
             "from_address" => $request->from_address,
@@ -66,6 +85,14 @@ class TransactionController extends Controller
             "payload" => null,
         ]);
 
+        $this->notify([
+            "name" => $user->name,
+            "title" => "Admin has transfer token to your wallet for {$project->project_name}",
+            "text" => "Admin has transfer token to your wallet for {$project->project_name}",
+            "transaction_id" => $tr->id,
+            "transaction_type" => get_class($tr),
+        ], $user, 'transaction_status');
+        
         return $this->responseSuccess("Transfer has been done successfully");
     }
 }

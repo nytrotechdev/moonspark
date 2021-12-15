@@ -1,41 +1,36 @@
 <template>
-    <li class="dropdown dropdown-notification nav-item">
-        <a class="nav-link nav-link-label" href="#" data-toggle="dropdown">
-            <i class="ficon ft-bell"></i>
-            <span v-if="notifications && notifications.length>0" class="badge">{{ notifications.length }}</span>
+    <li class="nav-item dropdown notification_dropdown">
+        <a class="ai-icon" href="javascript:;" data-toggle="dropdown">
+            <i class="fa fa-bell"></i>
+            <span v-if="notifications && notifications.length>0" 
+                    class="badge light text-white bg-primary rounded-circle">{{ notifications.length }}</span>
         </a>
-        <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
-            <li class="dropdown-menu-header">
-                <h6 class="dropdown-header m-0"><span class="grey darken-2">Notifications</span></h6>
-            </li>
-            <li class="dropdown-menu-footer">
-                <router-link class="dropdown-item text-muted text-center" :to="{ name: 'notifications'}">
-                    VIEW ALL Notifications
-                </router-link>
-            </li>
-
-
-            <li v-bind:key="index" v-if="notifications && notifications.length>0" class="scrollable-container media-list ps-container ps-theme-dark ps-active-y"
-                v-for="(notification, index) in notifications" :key="notification.id">
-                <a @click.prevent="redirectTo(index)" href="javascript:void(0)">
-                    <div class="media">
-                        <div class="media-left align-self-center">
-                            <i class="ft-plus-square icon-bg-circle bg-cyan"></i>
-                        </div>
-                        <div class="media-body">
-                            <h6 class="media-heading">{{ notification.data.subject }}</h6>
-                            <p class="notification-text font-small-3 text-muted">{{ notification.data.notifcation_text }}</p>
-                            <small>
-                                <timeago class="media-meta text-muted" :datetime="notification.created_at"></timeago>
-                            </small>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li v-if="notifications && notifications.length>0" class="dropdown-menu-footer">
-                <a @click.prevent="markAllRead" class="dropdown-item text-muted text-center" href="javascript:void(0)">Read all notifications</a>
-            </li>
-        </ul>
+        <div class="dropdown-menu dropdown-menu-right">
+            <div id="dlab_W_Notification1" class="widget-media dz-scroll p-3 height380 ps">
+                <ul class="timeline">
+                    <li style="list-style:none" v-bind:key="index" v-if="notifications && notifications.length>0" 
+                            class="scrollable-container media-list ps-container ps-theme-dark ps-active-y"
+                        v-for="(notification, index) in notifications" :key="notification.id">
+                        <a @click.prevent="redirectTo(index)" href="javascript:void(0)">
+                            <div class="timeline-panel">
+                                <div class="media-body">
+                                    <h6 class="media-heading">{{ notification.data.subject }}</h6>
+                                    <small>
+                                        <timeago class="media-meta text-muted" :datetime="notification.created_at"></timeago>
+                                    </small>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    
+                    <li style="list-style:none" class="">
+                        <router-link class="dropdown-item text-muted text-center" :to="{ name: 'notifications'}">
+                            View all notifications
+                        </router-link>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </li>
 </template>
 <style>
@@ -48,6 +43,9 @@
         background: #482051;
         width: 20px;
     }
+    .ps {
+        overflow: auto !important;
+    }    
 </style>
 <script>
 

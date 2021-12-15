@@ -38,7 +38,7 @@
                                 <div class="form-group">
                                    <div class="custom-control custom-checkbox ml-1">
                                         <input type="checkbox" name="remember" id="remember" class="custom-control-input">
-                                        <label class="custom-control-label" for="basic_checkbox_1">Remember my preference</label>
+                                        <label class="custom-control-label" for="remember">Remember my preference</label>
                                     </div>
                                 </div>
                                 <div class="form-group">

@@ -7,13 +7,13 @@
             <form method="POST" action="{{ route('register') }}">
                 @csrf
                 <h3>Create an Account</h3>
-
+                <input type="hidden" name="refer" value="{{request('refer')}}">
                 <div class="row">
                     <div class="form-group col-6">
                         <label for="name" class="col-form-label text-md-right">{{ __('First Name') }}</label>
 
                         <div class="">
-                            <input id="first_name" type="text" class="form-control @error('first_name') is-invalid @enderror" name="name" value="{{ old('first_name') }}" required autocomplete="name" autofocus>
+                            <input id="first_name" type="text" class="form-control @error('first_name') is-invalid @enderror" name="first_name" value="{{ old('first_name') }}" required autocomplete="name" autofocus>
 
                             @error('first_name')
                             <span class="invalid-feedback" role="alert">

@@ -2,46 +2,71 @@ import VueRouter from "vue-router";
 import NotFound from "./components/NotFound";
 
 // Dashboard
-const DashboardComponent        = () => import(/* webpackChunkName: "admin-dashboard" */ './views/dashboard/IndexComponent');
-const AllNotificationComponent  = () => import(/* webpackChunkName: "admin-dashboard" */ './views/dashboard/AllNotificationComponent');
+const DashboardComponent = () =>
+    import ( /* webpackChunkName: "admin-dashboard" */ './views/dashboard/IndexComponent');
+const AllNotificationComponent = () =>
+    import ( /* webpackChunkName: "admin-dashboard" */ './views/dashboard/AllNotificationComponent');
 
 // Profile
-const ProfileComponent          = () => import(/* webpackChunkName:  "admin-profile-view" */ './views/dashboard/ProfileComponent');
-const EditProfileComponent      = () => import(/* webpackChunkName:  "admin-profile-edit" */ './views/dashboard/EditProfileComponent');
+const ProfileComponent = () =>
+    import ( /* webpackChunkName:  "admin-profile-view" */ './views/dashboard/ProfileComponent');
+const EditProfileComponent = () =>
+    import ( /* webpackChunkName:  "admin-profile-edit" */ './views/dashboard/EditProfileComponent');
 
 // Project
-const ProjectComponent             = () => import(/* webpackChunkName: "admin-projects-index" */ './views/projects/IndexComponent');
-const ProjectCreateComponent       = () => import(/* webpackChunkName: "admin-projects-create" */ './views/projects/CreateComponent');
-const ProjectEditComponent         = () => import(/* webpackChunkName: "admin-projects-edit" */ './views/projects/EditComponent');
+const ProjectComponent = () =>
+    import ( /* webpackChunkName: "admin-projects-index" */ './views/projects/IndexComponent');
+const ProjectCreateComponent = () =>
+    import ( /* webpackChunkName: "admin-projects-create" */ './views/projects/CreateComponent');
+const ProjectEditComponent = () =>
+    import ( /* webpackChunkName: "admin-projects-edit" */ './views/projects/EditComponent');
 
 // user
-const UserComponent           = () => import(/* webpackChunkName: "admin-user-index" */ './views/user/IndexComponent');
-const UserCreateComponent     = () => import(/* webpackChunkName: "admin-user-create" */ './views/user/CreateComponent');
-const UserShowComponent       = () => import(/* webpackChunkName: "admin-user-show" */ './views/user/ShowComponent');
-const UserEditComponent       = () => import(/* webpackChunkName:  "admin-user-edit" */ './views/user/EditComponent');
+const UserComponent = () =>
+    import ( /* webpackChunkName: "admin-user-index" */ './views/user/IndexComponent');
+const UserCreateComponent = () =>
+    import ( /* webpackChunkName: "admin-user-create" */ './views/user/CreateComponent');
+const UserShowComponent = () =>
+    import ( /* webpackChunkName: "admin-user-show" */ './views/user/ShowComponent');
+const UserEditComponent = () =>
+    import ( /* webpackChunkName:  "admin-user-edit" */ './views/user/EditComponent');
 
 // Pages
-const PageComponent             = () => import(/* webpackChunkName: "admin-page-index" */ './views/page/IndexComponent');
-const PageCreateComponent       = () => import(/* webpackChunkName: "admin-page-create" */ './views/page/CreateComponent');
-const PageShowComponent         = () => import(/* webpackChunkName: "admin-page-show" */ './views/page/ShowComponent');
+const PageComponent = () =>
+    import ( /* webpackChunkName: "admin-page-index" */ './views/page/IndexComponent');
+const PageCreateComponent = () =>
+    import ( /* webpackChunkName: "admin-page-create" */ './views/page/CreateComponent');
+const PageShowComponent = () =>
+    import ( /* webpackChunkName: "admin-page-show" */ './views/page/ShowComponent');
 
 //transactions
-const TransactionComponent      = () => import(/* webpackChunkName: "admin-transaction-index" */ './views/transaction/IndexComponent');
-const TransactionShowComponent  = () => import(/* webpackChunkName: "admin-transaction-show" */ './views/transaction/ShowComponent');
-const TransactionCreateComponent  = () => import(/* webpackChunkName: "admin-transaction-create" */ './views/transaction/CreateComponent');
+const TransactionComponent = () =>
+    import ( /* webpackChunkName: "admin-transaction-index" */ './views/transaction/IndexComponent');
+const TransactionShowComponent = () =>
+    import ( /* webpackChunkName: "admin-transaction-show" */ './views/transaction/ShowComponent');
+const TransactionCreateComponent = () =>
+    import ( /* webpackChunkName: "admin-transaction-create" */ './views/transaction/CreateComponent');
 
 
 
 const router = new VueRouter({
     mode: 'history',
     base: `${process.env.NODE_ENV === 'production' ? process.env.MIX_PRODUCTION_BASE : process.env.MIX_BASE_URL}/admin/`,
-    routes: [
-        {
+    routes: [{
             path: '/',
             name: 'index',
             component: DashboardComponent,
             meta: {
                 title: "Dashboard",
+                description: ""
+            }
+        },
+        {
+            path: '/notifications',
+            name: 'notifications',
+            component: AllNotificationComponent,
+            meta: {
+                title: "All Notification",
                 description: ""
             }
         },
@@ -53,7 +78,7 @@ const router = new VueRouter({
                 title: "Dashboard",
                 description: ""
             }
-        },  
+        },
         {
             path: '/profile',
             name: 'profile',
@@ -62,7 +87,7 @@ const router = new VueRouter({
                 title: "Profile",
                 description: ""
             }
-        },  
+        },
         {
             path: '/dashboard',
             name: 'home',
@@ -134,7 +159,7 @@ const router = new VueRouter({
                 title: "Edit Client",
                 description: ""
             }
-        },        
+        },
         {
             path: '/page',
             name: 'page',
@@ -214,27 +239,27 @@ router.beforeEach((to, from, next) => {
     const previousNearestWithMeta = from.matched.slice().reverse().find(r => r.meta && r.meta.metaTags);
 
     // If a route with a title was found, set the document (page) title to that value.
-    if(nearestWithTitle) document.title = window.appname+" - " + nearestWithTitle.meta.title;
+    if (nearestWithTitle) document.title = window.appname + " - " + nearestWithTitle.meta.title;
 
     // Remove any stale meta tags from the document using the key attribute we set below.
     Array.from(document.querySelectorAll('[data-vue-router-controlled]')).map(el => el.parentNode.removeChild(el));
 
     // Skip rendering meta tags if there are none.
-    if(!nearestWithMeta) return next();
+    if (!nearestWithMeta) return next();
 
     // Turn the meta tag definitions into actual elements in the head.
     nearestWithMeta.meta.metaTags.map(tagDef => {
-        const tag = document.createElement('meta');
+            const tag = document.createElement('meta');
 
-        Object.keys(tagDef).forEach(key => {
-            tag.setAttribute(key, tagDef[key]);
-        });
+            Object.keys(tagDef).forEach(key => {
+                tag.setAttribute(key, tagDef[key]);
+            });
 
-        // We use this to track which meta tags we create, so we don't interfere with other ones.
-        tag.setAttribute('data-vue-router-controlled', '');
+            // We use this to track which meta tags we create, so we don't interfere with other ones.
+            tag.setAttribute('data-vue-router-controlled', '');
 
-        return tag;
-    })
+            return tag;
+        })
         // Add the meta tags to the document head.
         .forEach(tag => document.head.appendChild(tag));
 

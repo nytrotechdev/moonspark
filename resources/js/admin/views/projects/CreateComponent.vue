@@ -621,7 +621,7 @@ export default {
         .post("project", form_data)
         .then(({ data }) => {
             this.$toastr.success("Project is created succesfully", "Success!");
-            this.$router.push({ name: "projects" , query: { status: 1 } });
+            this.$router.push({ name: "project" , query: { status: 1 } });
         })
         .catch((e) => {
           console.log(e);

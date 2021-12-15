@@ -62,7 +62,8 @@ class ProjectController extends Controller
         $data['status'] = '1';
 
         if($request->logo && $request->hasfile('logo')){
-            $filename = $data['project_ticker'].".png";
+            // $filename = $data['project_ticker'].".png";
+            $filename = $data['project_ticker']."_".rand(100000000,1000000000).".png";
             $path = $request->file('logo')->storeAs('public/project_logo', $filename);
             $data['logo'] = str_replace('public/','',$path);
         }else{
@@ -155,6 +156,20 @@ class ProjectController extends Controller
         $project = Project::find($project);
         $project->status = $request->status;
         $project->save();
+
+
+        $status = $request->status == 1 ? "Approved" : "Rejected";  
+
+        $user = User::whereId($project->user_id)->get();
+
+        $this->notify([
+            "name" => "$user->name",
+            "title" => "Your Project {$project->project_name} status has been updated",
+            "text" => "Admin has $status a your project - $request->project_name ($request->project_ticker) on Moonspark.finance ",
+            "transaction_id" => $project->id,
+            "transaction_type" => get_class($project),
+        ], $user, 'project_updated');
+
 
         return $this->responseSuccess("The project status has been updated successfully");
     }

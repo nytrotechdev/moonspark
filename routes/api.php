@@ -25,6 +25,11 @@ Route::group(['middleware' => 'auth:api'], function(){
     ///get Admin wallet address;
     Route::get('get-receiver-address', [HomeController::class, 'adminAddress']);
 
+   // Notifications
+   Route::get('get-notifications', [HomeController::class, 'getNotifications']);
+   Route::get('my-notifications', [HomeController::class, 'myNotifications']);
+   Route::get('send-notifications', [HomeController::class, 'sendNotifications']);
+   Route::get('clear-notifications', [HomeController::class, 'clearNotifications']);
 
     // Profile
     Route::get('profile', function(){ return request()->user(); });

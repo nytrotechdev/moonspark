@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -10,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -77,7 +79,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => @$data['name'],
+            // 'last_name' => @$data['name'],
             "first_name" => $data['first_name'],
             "last_name" => $data['last_name'],
             "country" => $data['country'],            
@@ -102,6 +104,17 @@ class RegisterController extends Controller
         setcookie('p_token', $token, time() + (86400 * 30), "/"); // 86400 = 1 day
 
         if($request->expectsJson()) return $this->responseSuccess(['user' =>$user, 'token' => $token ]);
+
+        $this->notify([
+            'name' => "Admin",
+            "title" => "{$user->name} registered on platform",
+            "text" => $user->name." has registered on Moonspark.finance ",
+            "transaction_id" => $user->id,
+            "transaction_type" => get_class($user),
+        ], Admin::all(), 'registration');
+
+
+        if($request->query('refer')) return Redirect::to($request->refer);
 
         return redirect(url($this->redirectTo));
     }    

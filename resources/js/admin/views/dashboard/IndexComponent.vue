@@ -137,11 +137,11 @@
                                     <tr
                                     v-for="(pro, index) in data.latest_project" :key="index">
                                         <td>{{pro.id}}</td>
-                                        <td>{{project.project_name}}</td>
-                                        <td>{{project.project_ticker}}</td>
+                                        <td>{{pro.project_name}}</td>
+                                        <td>{{pro.project_ticker}}</td>
                                         <td>
-                                            <label class="badge badge-warning" v-if="project.status == 0">Pending</label>
-                                            <label class="badge badge-success"  v-if="project.status == 1">Success</label>
+                                            <label class="badge badge-warning" v-if="pro.status == 0">Pending</label>
+                                            <label class="badge badge-success"  v-if="pro.status == 1">Success</label>
                                         </td>
                                     </tr>
                                     <tr v-if="!reminders.length">

@@ -38,7 +38,7 @@ class TransactionController extends Controller
 
         $path = $request->file('ss')->store("public/project/{$project->id}/transactions");
 
-        Transaction::create([
+        $transaction = Transaction::create([
             "user_id" => $request->user()->id,
             "project_id" => $project->id,
             "from_address" => $request->sender,
@@ -51,6 +51,16 @@ class TransactionController extends Controller
             "status" => 0,
             "reason" => null,
         ]);
+
+        $this->notify([
+            'name' => "Admin",
+            "title" => "Tokens Deposit for {$project->project_name}",
+            "text" => $request->user()->name." has deposited {$request->amount} Tokens for Project - {$project->project_name} on Moonspark.finance ",
+            "transaction_id" => $transaction->id,
+            "transaction_type" => get_class($transaction),
+        ], Admin::all(), 'token_deposit');
+
+        
 
         $this->responseSuccess("Token has been deposit successfully, Please wait for its confirmation");
 
@@ -66,7 +76,7 @@ class TransactionController extends Controller
 
         $project = Project::find($project);
 
-        Transaction::create([
+        $transaction = Transaction::create([
             "user_id" => $request->user()->id,
             "project_id" => $project->id,
             "from_address" => $request->sender,
@@ -82,7 +92,16 @@ class TransactionController extends Controller
             "payload" => $request->payload,
         ]);
 
-        $this->responseSuccess("Token has been deposit successfully, Please wait for its confirmation");
+        $this->notify([
+            'name' => "Admin",
+            "title" => "Tokens Transfered for {$project->project_name}",
+            "text" => $request->user()->name." has deposited {$request->amount} Tokens for Project - {$project->project_name} on Moonspark.finance ",
+            "transaction_id" => $transaction->id,
+            "transaction_type" => get_class($transaction),
+        ], Admin::all(), 'token_deposit');
+
+
+        $this->responseSuccess("Token has been transfered successfully, Please wait for its confirmation");
     }
 
 }

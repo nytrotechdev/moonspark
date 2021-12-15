@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Controller;
+use App\Models\Admin;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +18,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 $admin_namespace = "";
+
+
+Route::prefix('admin')->name('admins.')->namespace('App\Http\Controllers\Admins')->group(function(){
+
+    Auth::routes(['register' => false]);
+
+    Route::get('logout',function(){ 
+        setcookie('p_token', null, -1, '/'); 
+        Auth::guard('admin')->logout(); 
+        return redirect('admin/login'); 
+    });
+
+    Route::view('/{home?}','layouts/admin')->middleware('auth:admin')->where('home', '.*');
+
+});
 
 
 function ip_info($ip = NULL, $purpose = "location", $deep_detect = TRUE) {
@@ -83,7 +101,9 @@ function ip_info($ip = NULL, $purpose = "location", $deep_detect = TRUE) {
 }
 
 // $region = ip_info("110.93.237.119", "Country Code");
-$region = ip_info("Visitor", "Country Code");
+// $region = ip_info("Visitor", "Country Code");
+
+$region = "PK";
 
 if($region == 'US' || $region == 'CA')
 {
@@ -112,18 +132,5 @@ if($region == 'US' || $region == 'CA')
 
 // Route::name('admins.')->group(['prefix' => 'admin', 'name' => 'admins.',  'namespace' => 'App\Http\Controllers\Admins' ], function(){
 
-Route::prefix('admin')->name('admins.')->namespace('App\Http\Controllers\Admins')->group(function(){
-
-    Auth::routes(['register' => false]);
-
-    Route::get('logout',function(){ 
-        setcookie('p_token', null, -1, '/'); 
-        Auth::guard('admin')->logout(); 
-        return redirect(url('/admin/login')); 
-    });
-
-    Route::view('/{home?}','layouts/admin')->middleware('auth:admin')->where('home', '.*');
-
-});
 
 

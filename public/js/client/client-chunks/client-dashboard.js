@@ -16,9 +16,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moralis__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moralis */ "./node_modules/moralis/index.js");
 /* harmony import */ var moralis__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moralis__WEBPACK_IMPORTED_MODULE_1__);
 /* provided dependency */ var console = __webpack_require__(/*! ./node_modules/console-browserify/index.js */ "./node_modules/console-browserify/index.js");
-
-
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -222,71 +222,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   mounted: function mounted() {
+    this.checkWeb3();
     this.getData();
     this.getReceiverAddress(); // this.init();
 
     this.getExchangeRate();
   },
   methods: {
-    init: function init() {
+    checkWeb3: function checkWeb3() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var lsmu, user, metamaskuser;
+        var ethereum;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                lsmu = localStorage.getItem('metamask_user');
-                console.log(_typeof(lsmu), lsmu);
+                ethereum = window.ethereum;
 
-                if (!(typeof lsmu == 'undefined' && _typeof(lsmu) !== "object" && lsmu !== "")) {
-                  _context.next = 7;
-                  break;
+                if (!ethereum || !ethereum.on) {
+                  _this.metamaskuser = "";
+                } else {
+                  //displayMessage("00", "Metamask is Installed");
+                  _this.setWeb3Environment();
                 }
 
-                alert('sdsv');
-                _this.metamaskuser = localStorage.getItem('metamask_user');
-                _context.next = 21;
-                break;
-
-              case 7:
-                _this.initMoralis();
-
-                _context.next = 10;
-                return moralis__WEBPACK_IMPORTED_MODULE_1___default().User.currentAsync();
-
-              case 10:
-                user = _context.sent;
-
-                if (user) {
-                  _context.next = 18;
-                  break;
-                }
-
-                console.log('i am here');
-                _context.next = 15;
-                return moralis__WEBPACK_IMPORTED_MODULE_1___default().authenticate({
-                  signingMessage: "Log in using Moonspark.Finance"
-                }).then(function (user) {
-                  console.log("logged in user:", user);
-                  localStorage.setItem('metamask_user', user.id);
-                  _this.metamaskuser = user.id;
-                })["catch"](function (error) {
-                  console(error);
-                });
-
-              case 15:
-                metamaskuser = _context.sent;
-                _context.next = 21;
-                break;
-
-              case 18:
-                console.log('but i am here too', user);
-                localStorage.setItem('metamask_user', user.id);
-                _this.metamaskuser = user.id;
-
-              case 21:
+              case 2:
               case "end":
                 return _context.stop();
             }
@@ -294,170 +255,108 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
-    changeProvider: function changeProvider() {
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-        var web3;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                _context2.next = 2;
-                return moralis__WEBPACK_IMPORTED_MODULE_1___default().Web3.enable();
-
-              case 2:
-                web3 = _context2.sent;
-                _context2.next = 5;
-                return web3.currentProvider.request({
-                  method: "wallet_switchEthereumChain",
-                  params: [{
-                    chainId: "0x89"
-                  }]
-                });
-
-              case 5:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }))();
+    updateCallBack: function updateCallBack(params) {
+      console.log(params, "Update Callback");
     },
-    getReceiverAddress: function getReceiverAddress(project) {
+    setWeb3Environment: function setWeb3Environment() {
       var _this2 = this;
 
-      axios.get('get-receiver-address').then(function (_ref) {
-        var data = _ref.data;
-        _this2.receiver_address = data;
-      })["catch"](function (e) {
-        var errors = e.response.data.errors;
-        Object.keys(errors).forEach(function (key) {
-          _this2.$toastr.error(errors[key], "Error!");
-        });
-      });
+      web3 = new Web3(window.ethereum);
+      web3.currentProvider.on('connect', this.updateCallBack);
+      web3.currentProvider.on('close', this.updateCallBack);
+      window.ethereum.on('accountsChanged', /*#__PURE__*/function () {
+        var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(accounts) {
+          var user;
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+            while (1) {
+              switch (_context2.prev = _context2.next) {
+                case 0:
+                  if (accounts[0]) {
+                    _context2.next = 4;
+                    break;
+                  }
+
+                  _this2.metamaskuser = "";
+                  _context2.next = 8;
+                  break;
+
+                case 4:
+                  _context2.next = 6;
+                  return moralis__WEBPACK_IMPORTED_MODULE_1___default().User.current();
+
+                case 6:
+                  user = _context2.sent;
+                  _this2.metamaskuser = user.id;
+
+                case 8:
+                case "end":
+                  return _context2.stop();
+              }
+            }
+          }, _callee2);
+        }));
+
+        return function (_x) {
+          return _ref.apply(this, arguments);
+        };
+      }());
+      this.getNetwork();
+      this.monitorNetwork();
     },
-    initiateTransaction: function initiateTransaction(type) {
+    unsetUser: function unsetUser() {
+      this.metamaskuser = "";
+    },
+    getNetwork: function getNetwork() {
       var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
-        var amount, options, result, _amount, _options, _result;
-
+        var chainID;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                document.body.classList.add('loading-indicator_v1');
+                _context3.next = 2;
+                return web3.eth.net.getId();
 
-                if (!_this3.receiver_address) {
-                  _this3.$toastr.error("You can not send asset at this moment, Contact Support", "Error!");
+              case 2:
+                chainID = _context3.sent;
+                _context3.next = 5;
+                return web3.eth.getAccounts(function (err, accounts) {
+                  if (err != null) _this3.unsetUser();else if (accounts.length == 0) _this3.unsetUser();else console.log("User is logged in to MetaMask");
+                });
+
+              case 5:
+                if (!chainID) {
+                  _this3.metamaskuser = "";
                 }
 
-                if (!(type == 1)) {
-                  _context3.next = 20;
-                  break;
-                }
-
-                amount = parseFloat(_this3.rates.eth) * (parseFloat(_this3.currentProject.token_price.amount) * _this3.token_qty);
-                options = {
-                  type: "native",
-                  amount: moralis__WEBPACK_IMPORTED_MODULE_1___default().Units.ETH(amount),
-                  receiver: _this3.receiver_address
-                };
-                _context3.prev = 5;
-                _context3.next = 8;
-                return moralis__WEBPACK_IMPORTED_MODULE_1___default().transfer(options);
-
-              case 8:
-                result = _context3.sent;
-
-                _this3.saveTransaction(result);
-
-                _context3.next = 18;
-                break;
-
-              case 12:
-                _context3.prev = 12;
-                _context3.t0 = _context3["catch"](5);
-                console.log(_context3.t0);
-
-                _this3.$toastr.error("The transaction can not be processed", "Error");
-
-                document.body.classList.remove('loading-indicator_v1');
-                return _context3.abrupt("return");
-
-              case 18:
-                _context3.next = 34;
-                break;
-
-              case 20:
-                _amount = parseFloat(_this3.rates.bnb) * (parseFloat(_this3.currentProject.token_price.amount) * _this3.token_qty);
-                _options = {
-                  type: "erc20",
-                  amount: moralis__WEBPACK_IMPORTED_MODULE_1___default().Units.Token(_amount, "18"),
-                  receiver: _this3.receiver_address,
-                  contractAddress: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c"
-                };
-                _context3.prev = 22;
-                _context3.next = 25;
-                return moralis__WEBPACK_IMPORTED_MODULE_1___default().transfer(_options);
-
-              case 25:
-                _result = _context3.sent;
-
-                _this3.saveTransaction(_result);
-
-                _context3.next = 34;
-                break;
-
-              case 29:
-                _context3.prev = 29;
-                _context3.t1 = _context3["catch"](22);
-                console.log(_context3.t1);
-
-                _this3.$toastr.error("The transaction can not be processed", "Error");
-
-                return _context3.abrupt("return");
-
-              case 34:
+              case 6:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, null, [[5, 12], [22, 29]]);
+        }, _callee3);
       }))();
     },
-    saveTransaction: function saveTransaction(result) {
-      var _this4 = this;
-
-      var data = {
-        payload: result,
-        receiver_address: result.to_address,
-        amount: result.value,
-        transaction_hash: result.transaction_hash,
-        sender: result.from_address
+    getNetworkName: function getNetworkName(chainID) {
+      var networks = {
+        1: "Ethereum Mainnet",
+        3: "Ropsten Network",
+        4: "Rinkeby Network",
+        5: "Goerli Network",
+        56: "Binance Smart Chain Mainnet",
+        97: "Binance Smart Chain Testnet",
+        80001: "Polygon Mumbai Testnet"
       };
-      axios.post("transaction/" + this.currentProject.id + "/transfer", data).then(function (_ref2) {
-        var data = _ref2.data;
-
-        _this4.$toastr.success(data.message, "Success!");
-
-        $('#buyToken').modal('hide');
-
-        _this4.$router.push({
-          name: 'transaction'
-        });
-
-        _this4.initTrans = false;
-        document.body.classList.remove('loading-indicator_v1');
-      })["catch"](function (e) {
-        console.log(e);
-        var errors = e.response.data.errors;
-        Object.keys(errors).forEach(function (key) {
-          _this4.$toastr.error(errors[key], "Error!");
-        });
+      return networks[chainID];
+    },
+    monitorNetwork: function monitorNetwork() {
+      moralis__WEBPACK_IMPORTED_MODULE_1___default().onChainChanged(function () {
+        window.location.reload();
       });
     },
     buyToken: function buyToken(project) {
-      var _this5 = this;
+      var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
         var user;
@@ -471,54 +370,401 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 3:
                 user = _context4.sent;
-                _this5.currentProject = project;
+                _this4.currentProject = project;
+
+                _this4.checkWeb3();
+
                 $('#buyToken').modal('show');
-                _context4.next = 12;
+                _context4.next = 13;
                 break;
 
-              case 8:
-                _context4.prev = 8;
+              case 9:
+                _context4.prev = 9;
                 _context4.t0 = _context4["catch"](0);
                 //unathenticated
-                console.log(_context4.t0.response.data);
-                window.location.href = "/register";
+                console.log(_context4.t0.response.data); // window.location.href = "/register";
 
-              case 12:
+                window.location.href = "/register?refer=" + window.location.href + "?target=buy_crypto";
+
+              case 13:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4, null, [[0, 8]]);
+        }, _callee4, null, [[0, 9]]);
       }))();
     },
-    getData: function getData() {
-      var _this6 = this;
-
-      axios.get("/get-latest-projects?limit=3").then(function (_ref3) {
-        var data = _ref3.data;
-        _this6.projects = data;
-      });
-    },
-    getExchangeRate: function getExchangeRate() {
-      var _this7 = this;
+    authenticateMoralis: function authenticateMoralis() {
+      var _this5 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
+        var user, currentAddress, metamaskuser;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
-                axios.post('/exchange-rate').then(function (_ref4) {
-                  var data = _ref4.data;
-                  _this7.rates = data;
+                if (!window.ethereum) {
+                  _context5.next = 21;
+                  break;
+                }
+
+                _this5.initMoralis();
+
+                _context5.next = 4;
+                return moralis__WEBPACK_IMPORTED_MODULE_1___default().User.current();
+
+              case 4:
+                user = _context5.sent;
+                _context5.next = 7;
+                return moralis__WEBPACK_IMPORTED_MODULE_1___default().Web3.enable();
+
+              case 7:
+                _context5.next = 9;
+                return window.ethereum.send("eth_requestAccounts");
+
+              case 9:
+                currentAddress = _context5.sent;
+                currentAddress = currentAddress.result[0];
+
+                if (!(user && user.attributes.ethAddress == currentAddress)) {
+                  _context5.next = 16;
+                  break;
+                }
+
+                console.log(user);
+                _this5.metamaskuser = user.id;
+                _context5.next = 19;
+                break;
+
+              case 16:
+                _context5.next = 18;
+                return moralis__WEBPACK_IMPORTED_MODULE_1___default().authenticate({
+                  signingMessage: "Log in using Moonspark.Finance"
+                }).then(function (user) {
+                  console.log("logged in user:", user);
+                  localStorage.setItem('metamask_user', user.id);
+                  _this5.metamaskuser = user.id;
+                })["catch"](function (error) {
+                  console(error);
                 });
 
-              case 1:
+              case 18:
+                metamaskuser = _context5.sent;
+
+              case 19:
+                _context5.next = 23;
+                break;
+
+              case 21:
+                localStorage.removeItem('metamask_user');
+                console.log("Non ethereum browser");
+
+              case 23:
               case "end":
                 return _context5.stop();
             }
           }
         }, _callee5);
       }))();
+    },
+    init: function init() {
+      var _this6 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee7() {
+        var lsmu, user, metamaskuser;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee7$(_context7) {
+          while (1) {
+            switch (_context7.prev = _context7.next) {
+              case 0:
+                lsmu = localStorage.getItem('metamask_user');
+                _context7.next = 3;
+                return web3.eth.getAccounts( /*#__PURE__*/function () {
+                  var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6(err, accounts) {
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
+                      while (1) {
+                        switch (_context6.prev = _context6.next) {
+                          case 0:
+                            if (err != null || accounts.length == 0) {
+                              _this6.unsetUser();
+
+                              _this6.authenticateMoralis(); // this.initMoralis();
+                              // let user = await Moralis.User.currentAsync();
+                              // if (!user) {
+                              //     console.log('i am here');
+                              //     let metamaskuser = await Moralis.authenticate({ signingMessage: "Log in using Moonspark.Finance" })
+                              //     .then( (user) => {
+                              //         console.log("logged in user:", user);
+                              //         localStorage.setItem('metamask_user', user.id);
+                              //         this.metamaskuser = user.id
+                              //     })
+                              //     .catch( (error) => {
+                              //         console(error);
+                              //     });
+                              // }
+                              // else{
+                              //     console.log('but i am here too', user);
+                              //     localStorage.setItem('metamask_user', user.id);
+                              //     this.metamaskuser = user.id;
+                              // }                 
+
+                            } else {
+                              if (!_this6.metamaskuser) _this6.authenticateMoralis();
+                              console.log("User is logged in to MetaMask");
+                            }
+
+                            ;
+
+                          case 2:
+                          case "end":
+                            return _context6.stop();
+                        }
+                      }
+                    }, _callee6);
+                  }));
+
+                  return function (_x2, _x3) {
+                    return _ref2.apply(this, arguments);
+                  };
+                }());
+
+              case 3:
+                console.log('here');
+                return _context7.abrupt("return");
+
+              case 10:
+                _this6.initMoralis();
+
+                _context7.next = 13;
+                return moralis__WEBPACK_IMPORTED_MODULE_1___default().User.currentAsync();
+
+              case 13:
+                user = _context7.sent;
+
+                if (user) {
+                  _context7.next = 21;
+                  break;
+                }
+
+                console.log('i am here');
+                _context7.next = 18;
+                return moralis__WEBPACK_IMPORTED_MODULE_1___default().authenticate({
+                  signingMessage: "Log in using Moonspark.Finance"
+                }).then(function (user) {
+                  console.log("logged in user:", user);
+                  localStorage.setItem('metamask_user', user.id);
+                  _this6.metamaskuser = user.id;
+                })["catch"](function (error) {
+                  console(error);
+                });
+
+              case 18:
+                metamaskuser = _context7.sent;
+                _context7.next = 24;
+                break;
+
+              case 21:
+                console.log('but i am here too', user);
+                localStorage.setItem('metamask_user', user.id);
+                _this6.metamaskuser = user.id;
+
+              case 24:
+              case "end":
+                return _context7.stop();
+            }
+          }
+        }, _callee7);
+      }))();
+    },
+    changeProvider: function changeProvider() {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee8() {
+        var web3;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee8$(_context8) {
+          while (1) {
+            switch (_context8.prev = _context8.next) {
+              case 0:
+                _context8.next = 2;
+                return moralis__WEBPACK_IMPORTED_MODULE_1___default().Web3.enable();
+
+              case 2:
+                web3 = _context8.sent;
+                _context8.next = 5;
+                return web3.currentProvider.request({
+                  method: "wallet_switchEthereumChain",
+                  params: [{
+                    chainId: "0x89"
+                  }]
+                });
+
+              case 5:
+              case "end":
+                return _context8.stop();
+            }
+          }
+        }, _callee8);
+      }))();
+    },
+    getReceiverAddress: function getReceiverAddress(project) {
+      var _this7 = this;
+
+      axios.get('get-receiver-address').then(function (_ref3) {
+        var data = _ref3.data;
+        _this7.receiver_address = data;
+      })["catch"](function (e) {
+        var errors = e.response.data.errors;
+        Object.keys(errors).forEach(function (key) {
+          _this7.$toastr.error(errors[key], "Error!");
+        });
+      });
+    },
+    initiateTransaction: function initiateTransaction(type) {
+      var _this8 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee9() {
+        var amount, options, result, _amount, _options, _result;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee9$(_context9) {
+          while (1) {
+            switch (_context9.prev = _context9.next) {
+              case 0:
+                document.body.classList.add('loading-indicator_v1');
+
+                if (!_this8.receiver_address) {
+                  _this8.$toastr.error("You can not send asset at this moment, Contact Support", "Error!");
+                }
+
+                if (!(type == 1)) {
+                  _context9.next = 20;
+                  break;
+                }
+
+                amount = parseFloat(_this8.rates.eth) * (parseFloat(_this8.currentProject.token_price.amount) * _this8.token_qty);
+                options = {
+                  type: "native",
+                  amount: moralis__WEBPACK_IMPORTED_MODULE_1___default().Units.ETH(amount),
+                  receiver: _this8.receiver_address
+                };
+                _context9.prev = 5;
+                _context9.next = 8;
+                return moralis__WEBPACK_IMPORTED_MODULE_1___default().transfer(options);
+
+              case 8:
+                result = _context9.sent;
+
+                _this8.saveTransaction(result);
+
+                _context9.next = 18;
+                break;
+
+              case 12:
+                _context9.prev = 12;
+                _context9.t0 = _context9["catch"](5);
+                console.log(_context9.t0);
+
+                _this8.$toastr.error("The transaction can not be processed", "Error");
+
+                document.body.classList.remove('loading-indicator_v1');
+                return _context9.abrupt("return");
+
+              case 18:
+                _context9.next = 34;
+                break;
+
+              case 20:
+                _amount = parseFloat(_this8.rates.bnb) * (parseFloat(_this8.currentProject.token_price.amount) * _this8.token_qty);
+                _options = {
+                  type: "erc20",
+                  amount: moralis__WEBPACK_IMPORTED_MODULE_1___default().Units.Token(_amount, "18"),
+                  receiver: _this8.receiver_address,
+                  contractAddress: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c"
+                };
+                _context9.prev = 22;
+                _context9.next = 25;
+                return moralis__WEBPACK_IMPORTED_MODULE_1___default().transfer(_options);
+
+              case 25:
+                _result = _context9.sent;
+
+                _this8.saveTransaction(_result);
+
+                _context9.next = 34;
+                break;
+
+              case 29:
+                _context9.prev = 29;
+                _context9.t1 = _context9["catch"](22);
+                console.log(_context9.t1);
+
+                _this8.$toastr.error("The transaction can not be processed", "Error");
+
+                return _context9.abrupt("return");
+
+              case 34:
+              case "end":
+                return _context9.stop();
+            }
+          }
+        }, _callee9, null, [[5, 12], [22, 29]]);
+      }))();
+    },
+    saveTransaction: function saveTransaction(result) {
+      var _this9 = this;
+
+      var data = {
+        payload: result,
+        receiver_address: result.to_address,
+        amount: result.value,
+        transaction_hash: result.transaction_hash,
+        sender: result.from_address
+      };
+      axios.post("transaction/" + this.currentProject.id + "/transfer", data).then(function (_ref4) {
+        var data = _ref4.data;
+
+        _this9.$toastr.success(data.message, "Success!");
+
+        $('#buyToken').modal('hide');
+
+        _this9.$router.push({
+          name: 'transaction'
+        });
+
+        _this9.initTrans = false;
+        document.body.classList.remove('loading-indicator_v1');
+      })["catch"](function (e) {
+        console.log(e);
+        var errors = e.response.data.errors;
+        Object.keys(errors).forEach(function (key) {
+          _this9.$toastr.error(errors[key], "Error!");
+        });
+      });
+    },
+    getExchangeRate: function getExchangeRate() {
+      var _this10 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee10() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee10$(_context10) {
+          while (1) {
+            switch (_context10.prev = _context10.next) {
+              case 0:
+                axios.post('/exchange-rate').then(function (_ref5) {
+                  var data = _ref5.data;
+                  _this10.rates = data;
+                });
+
+              case 1:
+              case "end":
+                return _context10.stop();
+            }
+          }
+        }, _callee10);
+      }))();
+    },
+    getData: function getData() {
+      var _this11 = this;
+
+      axios.get("/get-latest-projects?limit=3").then(function (_ref6) {
+        var data = _ref6.data;
+        _this11.projects = data;
+      });
     }
   },
   watch: {
@@ -894,7 +1140,7 @@ var render = function () {
                                 },
                               }),
                               _vm._v(
-                                "\n                        Connect MetaMask Wallet"
+                                "\n                            Connect MetaMask Wallet"
                               ),
                             ]
                           ),
@@ -964,7 +1210,7 @@ var render = function () {
                                       attrs: { src: "/assets/img/eth.png" },
                                     }),
                                     _vm._v(
-                                      "\n                                " +
+                                      "\n                                    " +
                                         _vm._s(
                                           parseFloat(_vm.rates.eth) *
                                             (parseFloat(
@@ -973,7 +1219,7 @@ var render = function () {
                                             ) *
                                               _vm.token_qty)
                                         ) +
-                                        " ETH\n                            "
+                                        " ETH\n                                "
                                     ),
                                   ]
                                 ),
@@ -1013,7 +1259,7 @@ var render = function () {
                                             ) *
                                               _vm.token_qty)
                                         ) +
-                                        " BNB                                    \n                            "
+                                        " BNB                                    \n                                "
                                     ),
                                   ]
                                 ),
@@ -1076,7 +1322,9 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "notice" }, [
       _c("strong", [_vm._v("Note:")]),
-      _vm._v(" Plese Connect Metamask Wallet to proceed\n                    "),
+      _vm._v(
+        " Plese Connect Metamask Wallet to proceed\n                        "
+      ),
     ])
   },
   function () {
@@ -1086,7 +1334,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "notice" }, [
       _c("strong", [_vm._v("Note:")]),
       _vm._v(
-        " Make Sure while sending Eth or BSC it is connected to appropriate \n                        Chain Network, "
+        " Make Sure while sending Eth or BSC it is connected to appropriate \n                            Chain Network, "
       ),
       _c(
         "a",
@@ -1108,7 +1356,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "notice" }, [
       _c("strong", [_vm._v("Note:")]),
       _vm._v(
-        " You can pay for token in Eth or BNB, Once the transaction is confirmed, \n                        The system will transfer the token to your wallet address\n                    "
+        " You can pay for token in Eth or BNB, Once the transaction is confirmed, \n                            The system will transfer the token to your wallet address\n                        "
       ),
     ])
   },
@@ -1119,7 +1367,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "notice" }, [
       _c("strong", [_vm._v("Note:")]),
       _vm._v(
-        " Make Sure while sending Eth or BSC it is connected to appropriate \n                        Chain Network, "
+        " Make Sure while sending Eth or BSC it is connected to appropriate \n                            Chain Network, "
       ),
       _c(
         "a",

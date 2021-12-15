@@ -88,71 +88,71 @@
             </div>
         </section>
 
-    <div class="modal fade" id="buyToken" tabindex="-1" role="dialog" aria-labelledby="buyTokenTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="buyCoin" v-if="!metamaskuser">
-                    <form>
-                        <h3>Proceed to Buy</h3>
-                        <div class="notice">
-                            <strong>Note:</strong> Plese Connect Metamask Wallet to proceed
-                        </div>
-                        <div class="notice">
-                            <strong>Note:</strong> Make Sure while sending Eth or BSC it is connected to appropriate 
-                            Chain Network, <a 
-                            style="color: black"
-                            href="https://moonspark.finance/wallet-guide/" target="_blank">Refer, https://moonspark.finance/wallet-guide/ </a>
-                        </div>
-                        <div class="form-button connect-metamask">
-                            <button @click="init" type="button" class="main-btn btn-gold">
-                                <img style="width:30px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/512px-MetaMask_Fox.svg.png">
-                            Connect MetaMask Wallet</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="buyCoin" v-else>
-                    <form>
-                        <h3>Proceed to Buy</h3>
-                        <div class="notice">
-                            <strong>Note:</strong> You can pay for token in Eth or BNB, Once the transaction is confirmed, 
-                            The system will transfer the token to your wallet address
-                        </div>
-                        <div class="notice">
-                            <strong>Note:</strong> Make Sure while sending Eth or BSC it is connected to appropriate 
-                            Chain Network, <a 
-                            style="color: black"
-                            href="https://moonspark.finance/wallet-guide/" target="_blank">Refer, https://moonspark.finance/wallet-guide/ </a>
-                        </div>
-                        <div class="form-group">
-                            <label>Enter Number of Tokens</label>
-                            <input type="number" class="form-control" v-model="token_qty">
-                        </div>
-                        <div class="form-group" v-if="currentProject.token_price && rates">
-                            <label class="d-flex align-items-center justify-content-between">
-                                <span>Tokens Fiat Price:</span>
-                                <span class="tokens_to_be_transfered"></span>
-                            </label>
-                            <label class="d-flex align-items-center justify-content-between">
-                                <button @click="() => initiateTransaction(1)" class="main-btn btn-silver" type="button">
-                                    <img style="width:20px" src="/assets/img/eth.png">
-                                    {{ parseFloat(rates.eth) * (parseFloat(currentProject.token_price.amount) * token_qty) }} ETH
-                                </button>
-                            </label>
-                            <label class="d-flex align-items-center justify-content-between">
-                                <button @click="() => initiateTransaction(2)" class="main-btn btn-silver" type="button">
-                                    <img style="width:20px" src="/assets/img/bnblogo.png"> {{ parseFloat(rates.bnb) * (parseFloat(currentProject.token_price.amount) * token_qty) }} BNB                                    
-                                </button>
-                            </label>
+        <div class="modal fade" id="buyToken" tabindex="-1" role="dialog" aria-labelledby="buyTokenTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="buyCoin" v-if="!metamaskuser">
+                        <form>
+                            <h3>Proceed to Buy</h3>
+                            <div class="notice">
+                                <strong>Note:</strong> Plese Connect Metamask Wallet to proceed
+                            </div>
+                            <div class="notice">
+                                <strong>Note:</strong> Make Sure while sending Eth or BSC it is connected to appropriate 
+                                Chain Network, <a 
+                                style="color: black"
+                                href="https://moonspark.finance/wallet-guide/" target="_blank">Refer, https://moonspark.finance/wallet-guide/ </a>
+                            </div>
+                            <div class="form-button connect-metamask">
+                                <button @click="init" type="button" class="main-btn btn-gold">
+                                    <img style="width:30px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/512px-MetaMask_Fox.svg.png">
+                                Connect MetaMask Wallet</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="buyCoin" v-else>
+                        <form>
+                            <h3>Proceed to Buy</h3>
+                            <div class="notice">
+                                <strong>Note:</strong> You can pay for token in Eth or BNB, Once the transaction is confirmed, 
+                                The system will transfer the token to your wallet address
+                            </div>
+                            <div class="notice">
+                                <strong>Note:</strong> Make Sure while sending Eth or BSC it is connected to appropriate 
+                                Chain Network, <a 
+                                style="color: black"
+                                href="https://moonspark.finance/wallet-guide/" target="_blank">Refer, https://moonspark.finance/wallet-guide/ </a>
+                            </div>
+                            <div class="form-group">
+                                <label>Enter Number of Tokens</label>
+                                <input type="number" class="form-control" v-model="token_qty">
+                            </div>
+                            <div class="form-group" v-if="currentProject.token_price && rates">
+                                <label class="d-flex align-items-center justify-content-between">
+                                    <span>Tokens Fiat Price:</span>
+                                    <span class="tokens_to_be_transfered"></span>
+                                </label>
+                                <label class="d-flex align-items-center justify-content-between">
+                                    <button @click="() => initiateTransaction(1)" class="main-btn btn-silver" type="button">
+                                        <img style="width:20px" src="/assets/img/eth.png">
+                                        {{ parseFloat(rates.eth) * (parseFloat(currentProject.token_price.amount) * token_qty) }} ETH
+                                    </button>
+                                </label>
+                                <label class="d-flex align-items-center justify-content-between">
+                                    <button @click="() => initiateTransaction(2)" class="main-btn btn-silver" type="button">
+                                        <img style="width:20px" src="/assets/img/bnblogo.png"> {{ parseFloat(rates.bnb) * (parseFloat(currentProject.token_price.amount) * token_qty) }} BNB                                    
+                                    </button>
+                                </label>
 
-                        </div>
-                        <div class="form-button">
-                            <button class="main-btn btn-transparent" data-dismiss="modal">cancel</button>
-                        </div>
-                    </form>
+                            </div>
+                            <div class="form-button">
+                                <button class="main-btn btn-transparent" data-dismiss="modal">cancel</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>    
+        </div>    
 
 
     </div>
@@ -197,15 +197,158 @@ export default {
     };
   },
   mounted() {
+    this.checkWeb3();
     this.getData();
     this.getReceiverAddress();
     // this.init();
     this.getExchangeRate();
   },
   methods: {
+    async checkWeb3(){
+        const ethereum = window.ethereum;
+        if(!ethereum || !ethereum.on) {
+            this.metamaskuser = "";
+        }
+        else{
+            //displayMessage("00", "Metamask is Installed");
+            this.setWeb3Environment()
+        }
+    },
+    updateCallBack(params){
+        console.log(params, "Update Callback");
+    },
+    setWeb3Environment(){
+        web3 = new Web3(window.ethereum);
+
+        web3.currentProvider.on('connect', this.updateCallBack);
+        web3.currentProvider.on('close', this.updateCallBack);
+
+        window.ethereum.on('accountsChanged', async (accounts) => {
+            if(!accounts[0]){
+                this.metamaskuser = "";                
+            }
+            else{
+                let user = await Moralis.User.current();
+                this.metamaskuser = user.id;
+            }
+        });
+        this.getNetwork();
+        this.monitorNetwork();
+    },
+    unsetUser(){
+        this.metamaskuser = "";
+    },
+    async getNetwork(){
+        let chainID = await web3.eth.net.getId();
+
+        await web3.eth.getAccounts((err, accounts) => {
+            if (err != null) this.unsetUser();
+            else if (accounts.length == 0) this.unsetUser();
+            else console.log("User is logged in to MetaMask");
+        });
+
+        if(!chainID) {
+            this.metamaskuser = "";            
+        }
+    },
+    getNetworkName(chainID){
+        let networks = {
+            1:"Ethereum Mainnet",
+            3:"Ropsten Network",
+            4:"Rinkeby Network",
+            5:"Goerli Network",
+            56:"Binance Smart Chain Mainnet",
+            97:"Binance Smart Chain Testnet",
+            80001:"Polygon Mumbai Testnet"
+        }
+        return networks[chainID];
+    },
+    monitorNetwork(){
+        Moralis.onChainChanged(function(){
+            window.location.reload()
+        })
+    },   
+    async buyToken(project){
+        try{
+            let user = await axios('profile');
+            this.currentProject = project;
+            this.checkWeb3();
+            $('#buyToken').modal('show');
+
+        }catch(e){
+            //unathenticated
+            console.log(e.response.data);
+            // window.location.href = "/register";
+            window.location.href = "/register?refer="+window.location.href+"?target=buy_crypto";
+
+        }
+    },
+    async authenticateMoralis() {
+        if (window.ethereum) {
+            this.initMoralis();
+            let user = await Moralis.User.current();
+            await Moralis.Web3.enable();
+            let currentAddress = await window.ethereum.send("eth_requestAccounts");
+            currentAddress = currentAddress.result[0];
+            if (user && user.attributes.ethAddress == currentAddress) {
+                console.log(user);
+                this.metamaskuser = user.id;
+
+            } else {
+                let metamaskuser = await Moralis.authenticate({ signingMessage: "Log in using Moonspark.Finance" })
+                .then( (user) => {
+                    console.log("logged in user:", user);
+                    localStorage.setItem('metamask_user', user.id);
+                    this.metamaskuser = user.id
+                })
+                .catch( (error) => {
+                    console(error);
+                });                
+                // return await Moralis.authenticate({ signingMessage: "Log in using Moonspark.Finance" })
+                // return await authenticate(provider);
+            }
+        } else {
+            localStorage.removeItem('metamask_user');
+            console.log("Non ethereum browser")
+        }
+    },
     async init(){
         let lsmu = localStorage.getItem('metamask_user');
-        console.log(typeof lsmu, lsmu);
+    
+        await web3.eth.getAccounts( async(err, accounts) => {
+            if (err != null || accounts.length == 0) {
+                this.unsetUser();
+                this.authenticateMoralis();
+                // this.initMoralis();
+                // let user = await Moralis.User.currentAsync();
+                // if (!user) {
+                //     console.log('i am here');
+                //     let metamaskuser = await Moralis.authenticate({ signingMessage: "Log in using Moonspark.Finance" })
+                //     .then( (user) => {
+                //         console.log("logged in user:", user);
+                //         localStorage.setItem('metamask_user', user.id);
+                //         this.metamaskuser = user.id
+                //     })
+                //     .catch( (error) => {
+                //         console(error);
+                //     });
+                // }
+                // else{
+                //     console.log('but i am here too', user);
+                //     localStorage.setItem('metamask_user', user.id);
+                //     this.metamaskuser = user.id;
+                // }                 
+            }
+            else{
+                if(!this.metamaskuser) this.authenticateMoralis();
+                console.log("User is logged in to MetaMask");
+            };
+        });
+
+        console.log('here');
+
+        return;
+
         if(typeof lsmu == 'undefined' && typeof lsmu !== "object" && lsmu !== ""){
             alert('sdsv')
             this.metamaskuser = localStorage.getItem('metamask_user');
@@ -317,27 +460,11 @@ export default {
             });
         });      
     },    
-    async buyToken(project){
-        //check if user is logged In or Not
-        // this.initMoralis();
-        // let m = await Moralis.User.currentAsync();
-        // if(m) this.metamaskuser = m.id;
-
-        try{
-            let user = await axios('profile');
-            this.currentProject = project;
-
-            $('#buyToken').modal('show');
-
-        }catch(e){
-            //unathenticated
-            console.log(e.response.data);
-            window.location.href = "/register";
-        }
-
-
-
-
+    async getExchangeRate() {
+        axios.post('/exchange-rate')
+            .then(({data}) => {
+                this.rates = data;
+            });
 
     },
     getData() {
@@ -345,13 +472,6 @@ export default {
         this.projects = data;
       });
     },
-    async getExchangeRate() {
-        axios.post('/exchange-rate')
-            .then(({data}) => {
-                this.rates = data;
-            });
-
-    }    
   },
   watch: {
     filter: function () {

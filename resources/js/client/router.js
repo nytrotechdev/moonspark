@@ -2,45 +2,71 @@ import VueRouter from "vue-router";
 import NotFound from "./components/NotFound";
 
 // Dashboard
-const DashboardComponent             = () => import(/* webpackChunkName: "client-dashboard" */ './views/dashboard/IndexComponent');
+const DashboardComponent = () =>
+    import ( /* webpackChunkName: "client-dashboard" */ './views/dashboard/IndexComponent');
+const AllNotificationComponent = () =>
+    import ( /* webpackChunkName: "admin-dashboard" */ './views/dashboard/AllNotificationComponent');
 
 // Profile
-const ProfileComponent          = () => import(/* webpackChunkName:  "client-profile-view" */ './views/profile/ProfileComponent');
+const ProfileComponent = () =>
+    import ( /* webpackChunkName:  "client-profile-view" */ './views/profile/ProfileComponent');
 
 // Project
-const ProjectComponent          = () => import(/* webpackChunkName: "client-project-index" */ './views/project/IndexComponent');
-const ProjectCreateComponent    = () => import(/* webpackChunkName: "client-project-create" */ './views/project/CreateComponent');
-const ProjectShowComponent      = () => import(/* webpackChunkName: "client-project-show" */ './views/project/ShowComponent');
-const ProjectEditComponent      = () => import(/* webpackChunkName: "client-project-edit" */ './views/project/EditComponent');
+const ProjectComponent = () =>
+    import ( /* webpackChunkName: "client-project-index" */ './views/project/IndexComponent');
+const ProjectCreateComponent = () =>
+    import ( /* webpackChunkName: "client-project-create" */ './views/project/CreateComponent');
+const ProjectShowComponent = () =>
+    import ( /* webpackChunkName: "client-project-show" */ './views/project/ShowComponent');
+const ProjectEditComponent = () =>
+    import ( /* webpackChunkName: "client-project-edit" */ './views/project/EditComponent');
 
 //Transaction
-const TransactionComponent      = () => import(/* webpackChunkName: "client-trans-index" */ './views/transaction/IndexComponent');
+const TransactionComponent = () =>
+    import ( /* webpackChunkName: "client-trans-index" */ './views/transaction/IndexComponent');
 
 // Blogs
-const BlogComponent             = () => import(/* webpackChunkName: "client-page-index" */ './views/page/IndexComponent');
+const BlogComponent = () =>
+    import ( /* webpackChunkName: "client-page-index" */ './views/page/IndexComponent');
 
 //faqs
-const FaqComponent              = () => import(/* webpackChunkName: "client.reminder" */ './views/faq/IndexComponent');
+const FaqComponent = () =>
+    import ( /* webpackChunkName: "client.reminder" */ './views/faq/IndexComponent');
 
 //pages
-const AboutUs = () => import(/* webpackChunkName: "client.about" */ './views/page/AboutUsComponent');
-const ContactUs = () => import(/* webpackChunkName: "client.ContactUs" */ './views/page/ContactUs');
-const Risk = () => import(/* webpackChunkName: "client.Risk" */ './views/page/Risk');
-const Restriction = () => import(/* webpackChunkName: "client.Restriction" */ './views/page/Restriction');
-const Terms = () => import(/* webpackChunkName: "client.Terms" */ './views/page/Terms');
-const CommingSoon = () => import(/* webpackChunkName: "client.commingsoon" */ './views/page/CommingSoon');
-const WalletGuide = () => import(/* webpackChunkName: "client.WalletGuide" */ './views/page/WalletGuide');
+const AboutUs = () =>
+    import ( /* webpackChunkName: "client.about" */ './views/page/AboutUsComponent');
+const ContactUs = () =>
+    import ( /* webpackChunkName: "client.ContactUs" */ './views/page/ContactUs');
+const Risk = () =>
+    import ( /* webpackChunkName: "client.Risk" */ './views/page/Risk');
+const Restriction = () =>
+    import ( /* webpackChunkName: "client.Restriction" */ './views/page/Restriction');
+const Terms = () =>
+    import ( /* webpackChunkName: "client.Terms" */ './views/page/Terms');
+const CommingSoon = () =>
+    import ( /* webpackChunkName: "client.commingsoon" */ './views/page/CommingSoon');
+const WalletGuide = () =>
+    import ( /* webpackChunkName: "client.WalletGuide" */ './views/page/WalletGuide');
 
 const router = new VueRouter({
     mode: 'history',
     base: `${process.env.NODE_ENV === 'production' ? process.env.MIX_PRODUCTION_BASE : process.env.MIX_BASE_URL}/`,
-    routes: [
-        {
+    routes: [{
             path: '/',
             name: 'index',
             component: DashboardComponent,
             meta: {
                 title: "Dashboard",
+                description: ""
+            }
+        },
+        {
+            path: '/notifications',
+            name: 'notifications',
+            component: AllNotificationComponent,
+            meta: {
+                title: "All Notification",
                 description: ""
             }
         },
@@ -89,7 +115,7 @@ const router = new VueRouter({
                 description: ""
             }
         },
-        
+
         {
             path: '/restrictions',
             name: 'restriction',
@@ -108,7 +134,7 @@ const router = new VueRouter({
                 description: ""
             }
         },
-   
+
         {
             path: '/contact',
             name: 'contact',
@@ -127,7 +153,7 @@ const router = new VueRouter({
                 title: "Dashboard",
                 description: ""
             }
-        },        
+        },
         {
             path: '/dashboard',
             name: 'home',
@@ -215,6 +241,9 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+
+    window.scrollTo(0, 0)
+
     // This goes through the matched routes from last to first, finding the closest route with a title.
     // eg. if we have /some/deep/nested/route and /some, /deep, and /nested have titles, nested's will be chosen.
     const nearestWithTitle = to.matched.slice().reverse().find(r => r.meta && r.meta.title);
@@ -224,27 +253,27 @@ router.beforeEach((to, from, next) => {
     const previousNearestWithMeta = from.matched.slice().reverse().find(r => r.meta && r.meta.metaTags);
 
     // If a route with a title was found, set the document (page) title to that value.
-    if(nearestWithTitle) document.title = window.appname+" - " + nearestWithTitle.meta.title;
+    if (nearestWithTitle) document.title = window.appname + " - " + nearestWithTitle.meta.title;
 
     // Remove any stale meta tags from the document using the key attribute we set below.
     Array.from(document.querySelectorAll('[data-vue-router-controlled]')).map(el => el.parentNode.removeChild(el));
 
     // Skip rendering meta tags if there are none.
-    if(!nearestWithMeta) return next();
+    if (!nearestWithMeta) return next();
 
     // Turn the meta tag definitions into actual elements in the head.
     nearestWithMeta.meta.metaTags.map(tagDef => {
-        const tag = document.createElement('meta');
+            const tag = document.createElement('meta');
 
-        Object.keys(tagDef).forEach(key => {
-            tag.setAttribute(key, tagDef[key]);
-        });
+            Object.keys(tagDef).forEach(key => {
+                tag.setAttribute(key, tagDef[key]);
+            });
 
-        // We use this to track which meta tags we create, so we don't interfere with other ones.
-        tag.setAttribute('data-vue-router-controlled', '');
+            // We use this to track which meta tags we create, so we don't interfere with other ones.
+            tag.setAttribute('data-vue-router-controlled', '');
 
-        return tag;
-    })
+            return tag;
+        })
         // Add the meta tags to the document head.
         .forEach(tag => document.head.appendChild(tag));
 

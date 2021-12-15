@@ -29,14 +29,36 @@ class DashboardController extends Controller
             'projects' => count($project),
             'active_project' => $project->where('status', 0)->count(),
             'pending_project' => $project->where('status', 1)->count(),
-            'active_tran' => $transaction->where('status', 0)->count(),
-            'pending_tran' => $transaction->where('status', 1)->count(),
+            'active_tran' => $transaction->where('status', 1)->count(),
+            'pending_tran' => $transaction->where('status', 0)->count(),
             'rejected_tran' => $transaction->where('status', 2)->count(),
             'latest_project' => Project::whereDate('created_at', Carbon::now())->latest()->get(),
             'latest_transaction' => Transaction::whereDate('created_at', Carbon::now())->latest()->get(),
         ];
 
     }
+
+    public function getNotifications(Request $request)
+    {
+
+        if($request->query('type') == "all"){
+            $request->user()->unreadNotifications->markAsRead();
+
+            $notifications = $request->user()->notifications();
+        
+            if($request->query('take')) $notifications->take($request->query('take'));
+    
+            return $notifications->latest()->get();
+    
+        }else{
+            $notifications = $request->user()->unreadNotifications();
+        
+            if($request->query('take')) $notifications->take($request->query('take'));
+    
+            return $notifications->latest()->get();
+        }
+    }
+
 
     public function profile(Request $request){
         return $request->user();

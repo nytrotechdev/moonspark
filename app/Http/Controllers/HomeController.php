@@ -24,6 +24,28 @@ class HomeController extends Controller
         return "";
     }
 
+    public function getNotifications(Request $request)
+    {
+
+        if($request->query('type') == "all"){
+            $request->user()->unreadNotifications->markAsRead();
+
+            $notifications = $request->user()->notifications();
+        
+            if($request->query('take')) $notifications->take($request->query('take'));
+    
+            return $notifications->latest()->get();
+    
+        }else{
+            $notifications = $request->user()->unreadNotifications();
+        
+            if($request->query('take')) $notifications->take($request->query('take'));
+    
+            return $notifications->latest()->get();
+        }
+    }
+
+
     public function adminAddress(Request $request){
         $admin = Admin::first();
 

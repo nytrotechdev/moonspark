@@ -136,14 +136,14 @@
                   <div class="d-100 text-center"><img
                     loading="lazy"
                     class="wp-image-316 size-full aligncenter"
-                    src="https://moonspark.finance/wp-content/uploads/2021/10/metamask.jpg"
+                    :src="`${base_url}/wallet/metamask.jpg`"
                     alt=""
                     width="636"
                     height="424"
-                    srcset="
-                      https://wordpress.moonspark.finance/wp-content/uploads/2021/10/metamask.jpg         636w,
-                      https://wordpress.moonspark.finance/wp-content/uploads/2021/10/metamask-300x200.jpg 300w
-                    "
+                    :srcset="`
+                      ${base_url}/wallet/metamask.jpg         636w,
+                      ${base_url}/wallet/metamask-300x200.jpg 300w
+                    `"
                     sizes="(max-width: 636px) 100vw, 636px"
                 /></div></span>
               </p>
@@ -181,14 +181,14 @@
                 <div class="d-100 text-center"><img
                   loading="lazy"
                   class="size-full wp-image-317 aligncenter"
-                  src="https://moonspark.finance/wp-content/uploads/2021/10/secret.jpg"
+                  :src="`${base_url}/wallet/secret.jpg`"
                   alt=""
                   width="512"
                   height="341"
-                  srcset="
-                    https://wordpress.moonspark.finance/wp-content/uploads/2021/10/secret.jpg         512w,
-                    https://wordpress.moonspark.finance/wp-content/uploads/2021/10/secret-300x200.jpg 300w
-                  "
+                  :srcset="`
+                    ${base_url}/wallet/secret.jpg         512w,
+                    ${base_url}/wallet/secret-300x200.jpg 300w
+                  `"
                   sizes="(max-width: 512px) 100vw, 512px"
                 /></div>
               </p>
@@ -244,14 +244,14 @@
                 <div class="d-100 text-center"><img
                   loading="lazy"
                   class="size-full wp-image-318 aligncenter"
-                  src="https://moonspark.finance/wp-content/uploads/2021/10/metamask2.jpg"
+                  :src="`${base_url}/wallet/metamask2.jpg`"
                   alt=""
                   width="636"
                   height="424"
-                  srcset="
-                    https://wordpress.moonspark.finance/wp-content/uploads/2021/10/metamask2.jpg         636w,
-                    https://wordpress.moonspark.finance/wp-content/uploads/2021/10/metamask2-300x200.jpg 300w
-                  "
+                  :srcset="`
+                    ${base_url}/wallet/metamask2.jpg         636w,
+                    ${base_url}/wallet/metamask2-300x200.jpg 300w
+                  `"
                   sizes="(max-width: 636px) 100vw, 636px"
                 /></div>
               </p>
@@ -322,14 +322,14 @@
                     <div class="d-100 text-center"><img
                       loading="lazy"
                       class="aligncenter size-full wp-image-320"
-                      src="https://moonspark.finance/wp-content/uploads/2021/10/savtbl.jpg"
+                      :src="`${base_url}/wallet/savtbl.jpg`"
                       alt=""
                       width="604"
                       height="96"
-                      srcset="
-                        https://wordpress.moonspark.finance/wp-content/uploads/2021/10/savtbl.jpg        604w,
-                        https://wordpress.moonspark.finance/wp-content/uploads/2021/10/savtbl-300x48.jpg 300w
-                      "
+                      :srcset="`
+                        ${base_url}/wallet/savtbl.jpg        604w,
+                        ${base_url}/wallet/savtbl-300x48.jpg 300w
+                      `"
                       sizes="(max-width: 604px) 100vw, 604px"
                   /></div></span>
                 </li>
@@ -407,15 +407,15 @@
                 <div class="d-100 text-center"><img
                   loading="lazy"
                   class="aligncenter size-full wp-image-322"
-                  src="https://moonspark.finance/wp-content/uploads/2021/10/unnamed.png"
+                  :src="`${base_url}/wallet/unnamed.png`"
                   alt=""
                   width="714"
                   height="1204"
-                  srcset="
-                    https://wordpress.moonspark.finance/wp-content/uploads/2021/10/unnamed.png          714w,
-                    https://wordpress.moonspark.finance/wp-content/uploads/2021/10/unnamed-178x300.png  178w,
-                    https://wordpress.moonspark.finance/wp-content/uploads/2021/10/unnamed-607x1024.png 607w
-                  "
+                  :srcset="`
+                    ${base_url}/wallet/unnamed.png          714w,
+                    ${base_url}/wallet/unnamed-178x300.png  178w,
+                    ${base_url}/wallet/unnamed-607x1024.png 607w
+                  `"
                   sizes="(max-width: 714px) 100vw, 714px"
                 /></div><br />
                 <strong
@@ -426,15 +426,15 @@
                 <div class="d-100 text-center"><img
                   loading="lazy"
                   class="aligncenter size-full wp-image-323"
-                  src="https://moonspark.finance/wp-content/uploads/2021/10/setting.png"
+                  :src="`${base_url}/wallet/setting.png`"
                   alt=""
                   width="712"
                   height="1202"
-                  srcset="
-                    https://wordpress.moonspark.finance/wp-content/uploads/2021/10/setting.png          712w,
-                    https://wordpress.moonspark.finance/wp-content/uploads/2021/10/setting-178x300.png  178w,
-                    https://wordpress.moonspark.finance/wp-content/uploads/2021/10/setting-607x1024.png 607w
-                  "
+                  :srcset="`
+                    ${base_url}/wallet/setting.png          712w,
+                    ${base_url}/wallet/setting-178x300.png  178w,
+                    ${base_url}/wallet/setting-607x1024.png 607w
+                  `"
                   sizes="(max-width: 712px) 100vw, 712px"
                 /></div><br />
                 2. On the “Settings” page, locate the “Networks” menu.
@@ -443,15 +443,15 @@
                 <div class="d-100 text-center"><img
                   loading="lazy"
                   class="aligncenter size-full wp-image-324"
-                  src="https://moonspark.finance/wp-content/uploads/2021/10/addneteork.png"
+                  :src="`${base_url}/wallet/addneteork.png`"
                   alt=""
                   width="716"
                   height="1200"
-                  srcset="
-                    https://wordpress.moonspark.finance/wp-content/uploads/2021/10/addneteork.png          716w,
-                    https://wordpress.moonspark.finance/wp-content/uploads/2021/10/addneteork-179x300.png  179w,
-                    https://wordpress.moonspark.finance/wp-content/uploads/2021/10/addneteork-611x1024.png 611w
-                  "
+                  :srcset="`
+                    ${base_url}/wallet/addneteork.png          716w,
+                    ${base_url}/wallet/addneteork-179x300.png  179w,
+                    ${base_url}/wallet/addneteork-611x1024.png 611w
+                  `"
                   sizes="(max-width: 716px) 100vw, 716px"
                 /></div>
               </p>
@@ -479,15 +479,15 @@
                 <div class="d-100 text-center"><img
                   loading="lazy"
                   class="aligncenter size-full wp-image-325"
-                  src="https://moonspark.finance/wp-content/uploads/2021/10/information.png"
+                  :src="`${base_url}/wallet/information.png`"
                   alt=""
                   width="714"
                   height="1202"
-                  srcset="
-                    https://wordpress.moonspark.finance/wp-content/uploads/2021/10/information.png          714w,
-                    https://wordpress.moonspark.finance/wp-content/uploads/2021/10/information-178x300.png  178w,
-                    https://wordpress.moonspark.finance/wp-content/uploads/2021/10/information-608x1024.png 608w
-                  "
+                  :srcset="`
+                    ${base_url}/wallet/information.png          714w,
+                    ${base_url}/wallet/information-178x300.png  178w,
+                    ${base_url}/wallet/information-608x1024.png 608w
+                  `"
                   sizes="(max-width: 714px) 100vw, 714px"
                 /></div>
               </p>
@@ -496,15 +496,15 @@
                 <div class="d-100 text-center"><img
                   loading="lazy"
                   class="aligncenter size-full wp-image-326"
-                  src="https://moonspark.finance/wp-content/uploads/2021/10/bnb.png"
+                  :src="`${base_url}/wallet/bnb.png`"
                   alt=""
                   width="714"
                   height="1198"
-                  srcset="
-                    https://wordpress.moonspark.finance/wp-content/uploads/2021/10/bnb.png          714w,
-                    https://wordpress.moonspark.finance/wp-content/uploads/2021/10/bnb-179x300.png  179w,
-                    https://wordpress.moonspark.finance/wp-content/uploads/2021/10/bnb-610x1024.png 610w
-                  "
+                  :srcset="`
+                    ${base_url}/wallet/bnb.png          714w,
+                    ${base_url}/wallet/bnb-179x300.png  179w,
+                    ${base_url}/wallet/bnb-610x1024.png 610w
+                  `"
                   sizes="(max-width: 714px) 100vw, 714px"
                 /></div>
               </p>
@@ -548,6 +548,7 @@ export default {
     return {
       charge: 1,
       project: undefined,
+      base_url: window.base_url,
       supported_platform: window.supported_platform,
     };
   },

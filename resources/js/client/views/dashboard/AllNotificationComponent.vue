@@ -1,49 +1,56 @@
 <template>
-    <section id="configuration" class="search view-cause all-notifications">
-        <div class="row">
-            <div class="col-12">
-                <div class="card rounded pad-20">
-                    <div class="card-content collapse show">
-                        <div class="card-body table-responsive card-dashboard">
-                            <div class="row">
-                                <div class="col-12 d-block d-sm-flex justify-content-between">
-                                    <div class="left">
-                                        <h1 class="pull-left">Notifications</h1>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-
-                                <div class="col-lg-12 col-xl-12 col-sm-12">
-                                    <div class="noti-inner-cards" v-for="(noti, index) in notifications">
-                                        <div class="card mt-3">
-                                            <div class="notification-title">
-                                                <h5>{{ noti.data.subject}}</h5>
-                                                <h4 v-if="(noti.read_at !== null)">New</h4>
-                                            </div>
-                                            <div class="noti-content">
-                                                <div class="media align-items-center">
-                                                    <i class="fa fa-envelope-o" aria-hidden="true"></i>
-                                                    <div class="media-body">
-                                                        <p>{{noti.data.notification_text || noti.data.text}}</p>
-
-                                                    </div>
-                                                    <h5><timeago :datetime="noti.created_at"></timeago></h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
+    <div>
+        <section class="banner"></section>
+        <section class="project_summary">
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+            <h2 class="heading text-center mt-5 mb-5">Transactions</h2>
+            </div>
+            <div class="card-wrapper">
+            <div class="form col-12">
+                <div class="table-responsive">
+                <table
+                    id="transTable"
+                    class="table display"
+                >
+                    <thead>
+                    <tr>
+                        <th>S.No</th>
+                        <th>Notification</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr :key="index"  v-for="(noti, index) in notifications">
+                        <td>{{ ++index }}</td>
+                        <td>{{ noti.data.notification_text || noti.data.text }}</td>
+                        <td><timeago :datetime="noti.created_at"></timeago></td>
+                    </tr>
+                    </tbody>
+                </table>
                 </div>
             </div>
+            </div>
         </div>
-    </section>
+        </section>
+    </div>
 </template>
+<style>
+    #transTable tr , #transTable td{
+        background: transparent;
+        color: #fff;    
+    }
 
+    .dataTables_filter label, .dataTables_length label, .dataTables_info, .dataTables_paginate a, .paginate_button{
+        color: #fff !important;
+    }
+
+    .dataTables_filter input{
+        background: transparent;
+        color: #fff;
+        border: 1px solid #ffffff6e !important;
+    }
+</style>
 <script>
     export  default {
         components: {

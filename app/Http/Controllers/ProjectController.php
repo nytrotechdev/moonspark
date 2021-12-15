@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProjectRequest;
+use App\Models\Admin;
 use App\Models\User;
 use App\Models\Project;
 use App\Models\TokenPrice;
@@ -97,6 +98,13 @@ class ProjectController extends Controller
             'project_id' => $project->id,
         ]);
 
+        $this->notify([
+            "name" => "Admin",
+            "title" => "New Project submitted by {$request->user()->name}",
+            "text" => $request->user()->name." has created a project a new project - $request->project_name ($request->project_ticker) on Moonspark.finance ",
+            "transaction_id" => $project->id,
+            "transaction_type" => get_class($project),
+        ], Admin::all(), 'project_creation');
 
         return $this->responseSuccess("The Project is added successfully, Please wait for Admin approval", $project);
     }
@@ -111,7 +119,7 @@ class ProjectController extends Controller
         $data['status'] = $request->status;
 
         if($request->logo && $request->hasfile('logo')){
-            $filename = $data['project_ticker'].".png";
+            $filename = $data['project_ticker']."_".rand(100000000,1000000000).".png";
             $path = $request->file('logo')->storeAs('public/project_logo', $filename);
             $data['logo'] = str_replace('public/','',$path);
         }else{
@@ -130,6 +138,14 @@ class ProjectController extends Controller
         $project->fill($data);
         $project->save();
 
+        $this->notify([
+            'name' => "Admin",
+            "title" => "Project details updated by {$request->user()->name}",
+            "text" => $request->user()->name." has updated a project detail of - $request->project_name ($request->project_ticker) on Moonspark.finance ",
+            "transaction_id" => $project->id,
+            "transaction_type" => get_class($project),
+        ], Admin::all(), 'project_updation');
+
 
         return $this->responseSuccess("The Project is updated successfully", $project);
     }
@@ -142,13 +158,23 @@ class ProjectController extends Controller
             'project_id' => 'required'
         ]);
 
-
+        $project = Project::find($request->project_id);
 
         // Setting Exchange Rate
         TokenPrice::whereProjectId($request->project_id)->update([
             'amount' => $request->amount,
             'currency' => $request->currency,
         ]);
+
+        $this->notify([
+            'name' => "Admin",
+            "title" => "Project price updated by {$request->user()->name}",
+            "text" => $request->user()->name." has recently updated a price for project - $request->project_name ($request->project_ticker) on Moonspark.finance ",
+            "transaction_id" => $project->id,
+            "transaction_type" => get_class($project),
+        ], Admin::all(), 'project_rate');
+
+
 
         return $this->responseSuccess("The Project rate is updated successfully");
 
@@ -169,9 +195,21 @@ class ProjectController extends Controller
     }
 
 
-    public function destroy($project){
+    public function destroy(Request $request, $project){
+
         $project = Project::find($project);
+
+        $this->notify([
+            'name' => "Admin",
+            "title" => "Project price updated by {$request->user()->name}",
+            "text" => $request->user()->name." has deleted a project - $request->project_name ($request->project_ticker) on Moonspark.finance ",
+            "transaction_id" => $project->id,
+            "transaction_type" => get_class($project),
+        ], Admin::all(), 'project_deletion');
+
+
         $project->delete();
+
         return $this->responseSuccess("The project is deleted successfully");
     }
 

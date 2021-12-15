@@ -17,6 +17,7 @@
 
 			<router-link :to="{ name: 'wallet-guide' }" >wallet guide</router-link>
 			<router-link :to="{ name: 'earn' }" >earn</router-link>
+			<NotificationsComponent />
 			<Fragment v-if="!user">
 				<a class="main-btn btn-white" :href="`${base_url}/login`" >Login</a>
 				<a class="main-btn btn-gold" :href="`${base_url}/register`" >Register</a>
@@ -29,6 +30,7 @@
 						<router-link :to="{ name: 'profile' }" class="dropdown-item">Profile</router-link>
 						<router-link :to="{ name: 'project' }" class="dropdown-item">My Projects</router-link>
 						<router-link :to="{ name: 'transaction' }" class="dropdown-item">My Transactions</router-link>
+						<router-link :to="{ name: 'notifications' }" class="dropdown-item">Notifications</router-link>
 						<div class="dropdown-divider"></div>
 						<a :href="`${base_url}/logout`" class="dropdown-item">Logout</a>
 					</div>

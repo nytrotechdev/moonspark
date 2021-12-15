@@ -52,8 +52,8 @@ class User extends Authenticatable
 
     protected $appends = ['created_date'];
 
-    public function getNameAttribute()
-    {
+    public function getNameAttribute($value)
+    {   
         return $this->first_name.' '.$this->last_name;
     }
 

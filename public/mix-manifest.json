@@ -1,6 +1,7 @@
 {
     "/js/client/app.js": "/js/client/app.js",
     "/js/client/client-chunks/client-dashboard.js": "/js/client/client-chunks/client-dashboard.js",
+    "/js/client/client-chunks/admin-dashboard.js": "/js/client/client-chunks/admin-dashboard.js",
     "/js/client/client-chunks/client-profile-view.js": "/js/client/client-chunks/client-profile-view.js",
     "/js/client/client-chunks/client-project-index.js": "/js/client/client-chunks/client-project-index.js",
     "/js/client/client-chunks/client-project-create.js": "/js/client/client-chunks/client-project-create.js",
