@@ -17,12 +17,12 @@
 
 			<router-link :to="{ name: 'wallet-guide' }" >wallet guide</router-link>
 			<router-link :to="{ name: 'earn' }" >earn</router-link>
-			<NotificationsComponent />
 			<Fragment v-if="!user">
 				<a class="main-btn btn-white" :href="`${base_url}/login`" >Login</a>
 				<a class="main-btn btn-gold" :href="`${base_url}/register`" >Register</a>
 			</Fragment>
 			<Fragment v-else>
+				<NotificationsComponent />
 				<div class="nav-item dropdown loginIdBtn">
 					<a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action">
 						<img :src="user.image" class="avatar mr-2"/>{{ user.name }} <b class="caret"></b></a>

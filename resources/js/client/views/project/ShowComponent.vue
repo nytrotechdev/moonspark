@@ -655,6 +655,7 @@
                 axios.get(`/projects/${this.$route.params.id}`)
                 .then( ( {data} ) => {
                     this.project = data;
+                    this.currentProject = data;
                 }).catch(e => {
                     console.log(e);
                     let errors = e.response.data.errors;
@@ -732,6 +733,9 @@
                     let user = await axios('profile');
                     this.currentProject = project;
                     this.checkWeb3();
+
+                    if(!user.wallet_address) return this.$toastr.error("Your wallet address is not set, Please go to profile section to update your wallet address", "Error");
+
                     $('#buyToken').modal('show');
 
                 }catch(e){
@@ -776,25 +780,7 @@
                     if (err != null || accounts.length == 0) {
                         this.unsetUser();
                         this.authenticateMoralis();
-                        // this.initMoralis();
-                        // let user = await Moralis.User.currentAsync();
-                        // if (!user) {
-                        //     console.log('i am here');
-                        //     let metamaskuser = await Moralis.authenticate({ signingMessage: "Log in using Moonspark.Finance" })
-                        //     .then( (user) => {
-                        //         console.log("logged in user:", user);
-                        //         localStorage.setItem('metamask_user', user.id);
-                        //         this.metamaskuser = user.id
-                        //     })
-                        //     .catch( (error) => {
-                        //         console(error);
-                        //     });
-                        // }
-                        // else{
-                        //     console.log('but i am here too', user);
-                        //     localStorage.setItem('metamask_user', user.id);
-                        //     this.metamaskuser = user.id;
-                        // }                 
+             
                     }
                     else{
                         if(!this.metamaskuser) this.authenticateMoralis();
@@ -804,33 +790,6 @@
 
                 console.log('here');
 
-                return;
-
-                if(typeof lsmu == 'undefined' && typeof lsmu !== "object" && lsmu !== ""){
-                    alert('sdsv')
-                    this.metamaskuser = localStorage.getItem('metamask_user');
-                }
-                else{
-                    this.initMoralis();
-                    let user = await Moralis.User.currentAsync();
-                    if (!user) {
-                        console.log('i am here');
-                        let metamaskuser = await Moralis.authenticate({ signingMessage: "Log in using Moonspark.Finance" })
-                        .then( (user) => {
-                            console.log("logged in user:", user);
-                            localStorage.setItem('metamask_user', user.id);
-                            this.metamaskuser = user.id
-                        })
-                        .catch( (error) => {
-                            console(error);
-                        });
-                    }
-                    else{
-                        console.log('but i am here too', user);
-                        localStorage.setItem('metamask_user', user.id);
-                        this.metamaskuser = user.id;
-                    }        
-                }
             },
             async changeProvider(){
                 const web3 = await Moralis.Web3.enable();

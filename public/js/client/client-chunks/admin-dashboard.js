@@ -304,7 +304,7 @@ var staticRenderFns = [
       { staticClass: "row align-items-center justify-content-center" },
       [
         _c("h2", { staticClass: "heading text-center mt-5 mb-5" }, [
-          _vm._v("Transactions"),
+          _vm._v("Notification"),
         ]),
       ]
     )

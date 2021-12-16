@@ -4,7 +4,7 @@
         <section class="project_summary">
         <div class="container">
             <div class="row align-items-center justify-content-center">
-            <h2 class="heading text-center mt-5 mb-5">Transactions</h2>
+            <h2 class="heading text-center mt-5 mb-5">Notification</h2>
             </div>
             <div class="card-wrapper">
             <div class="form col-12">

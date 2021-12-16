@@ -114,7 +114,10 @@ class RegisterController extends Controller
         ], Admin::all(), 'registration');
 
 
-        if($request->query('refer')) return Redirect::to($request->refer);
+        if($request->refer) {
+            // dd($request->refer);
+            return redirect($request->refer);
+        }
 
         return redirect(url($this->redirectTo));
     }    

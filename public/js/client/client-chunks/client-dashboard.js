@@ -372,26 +372,34 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 user = _context4.sent;
                 _this4.currentProject = project;
 
+                if (user.wallet_address) {
+                  _context4.next = 7;
+                  break;
+                }
+
+                return _context4.abrupt("return", _this4.$toastr.error("Your wallet address is not set, Please go to profile section to update your wallet address", "Error"));
+
+              case 7:
                 _this4.checkWeb3();
 
                 $('#buyToken').modal('show');
-                _context4.next = 13;
+                _context4.next = 15;
                 break;
 
-              case 9:
-                _context4.prev = 9;
+              case 11:
+                _context4.prev = 11;
                 _context4.t0 = _context4["catch"](0);
                 //unathenticated
                 console.log(_context4.t0.response.data); // window.location.href = "/register";
 
                 window.location.href = "/register?refer=" + window.location.href + "?target=buy_crypto";
 
-              case 13:
+              case 15:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4, null, [[0, 9]]);
+        }, _callee4, null, [[0, 11]]);
       }))();
     },
     authenticateMoralis: function authenticateMoralis() {

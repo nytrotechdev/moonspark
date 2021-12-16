@@ -25,6 +25,10 @@ Route::prefix('admin')->name('admins.')->namespace('App\Http\Controllers\Admins'
     Auth::routes(['register' => false]);
 
     Route::get('logout',function(){ 
+        $userTokens = auth('admin')->user()->tokens;
+        foreach($userTokens as $token) {
+            $token->revoke();   
+        }
         setcookie('p_token', null, -1, '/'); 
         Auth::guard('admin')->logout(); 
         return redirect('admin/login'); 
@@ -116,6 +120,10 @@ if($region == 'US' || $region == 'CA')
     // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     
     Route::get('logout',function(){ 
+        $userTokens = auth()->user()->tokens;
+        foreach($userTokens as $token) {
+            $token->revoke();   
+        }
         Auth::logout(); 
         setcookie('p_token', null, -1, '/'); 
         return redirect(url('/login')); 

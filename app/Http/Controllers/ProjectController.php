@@ -49,7 +49,7 @@ class ProjectController extends Controller
      */
     public function show(Request $request, $project){
 
-        return Project::find($project);
+        return Project::with('tokenPrice')->find($project);
     }
 
 

@@ -272,6 +272,10 @@ export default {
         try{
             let user = await axios('profile');
             this.currentProject = project;
+
+            if(!user.wallet_address) return this.$toastr.error("Your wallet address is not set, Please go to profile section to update your wallet address", "Error");
+
+
             this.checkWeb3();
             $('#buyToken').modal('show');
 

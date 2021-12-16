@@ -16,8 +16,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moralis__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moralis */ "./node_modules/moralis/index.js");
 /* harmony import */ var moralis__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moralis__WEBPACK_IMPORTED_MODULE_1__);
 /* provided dependency */ var console = __webpack_require__(/*! ./node_modules/console-browserify/index.js */ "./node_modules/console-browserify/index.js");
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -680,6 +678,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       axios.get("/projects/".concat(this.$route.params.id)).then(function (_ref) {
         var data = _ref.data;
         _this.project = data;
+        _this.currentProject = data;
       })["catch"](function (e) {
         console.log(e);
         var errors = e.response.data.errors;
@@ -833,23 +832,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _this5.checkWeb3();
 
+                if (user.wallet_address) {
+                  _context4.next = 8;
+                  break;
+                }
+
+                return _context4.abrupt("return", _this5.$toastr.error("Your wallet address is not set, Please go to profile section to update your wallet address", "Error"));
+
+              case 8:
                 $('#buyToken').modal('show');
-                _context4.next = 13;
+                _context4.next = 15;
                 break;
 
-              case 9:
-                _context4.prev = 9;
+              case 11:
+                _context4.prev = 11;
                 _context4.t0 = _context4["catch"](0);
                 //unathenticated
                 console.log(_context4.t0.response.data);
                 window.location.href = "/register?refer=" + window.location.href;
 
-              case 13:
+              case 15:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4, null, [[0, 9]]);
+        }, _callee4, null, [[0, 11]]);
       }))();
     },
     authenticateMoralis: function authenticateMoralis() {
@@ -929,7 +936,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this7 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee7() {
-        var lsmu, user, metamaskuser;
+        var lsmu;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee7$(_context7) {
           while (1) {
             switch (_context7.prev = _context7.next) {
@@ -945,26 +952,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                             if (err != null || accounts.length == 0) {
                               _this7.unsetUser();
 
-                              _this7.authenticateMoralis(); // this.initMoralis();
-                              // let user = await Moralis.User.currentAsync();
-                              // if (!user) {
-                              //     console.log('i am here');
-                              //     let metamaskuser = await Moralis.authenticate({ signingMessage: "Log in using Moonspark.Finance" })
-                              //     .then( (user) => {
-                              //         console.log("logged in user:", user);
-                              //         localStorage.setItem('metamask_user', user.id);
-                              //         this.metamaskuser = user.id
-                              //     })
-                              //     .catch( (error) => {
-                              //         console(error);
-                              //     });
-                              // }
-                              // else{
-                              //     console.log('but i am here too', user);
-                              //     localStorage.setItem('metamask_user', user.id);
-                              //     this.metamaskuser = user.id;
-                              // }                 
-
+                              _this7.authenticateMoralis();
                             } else {
                               if (!_this7.metamaskuser) _this7.authenticateMoralis();
                               console.log("User is logged in to MetaMask");
@@ -987,45 +975,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 3:
                 console.log('here');
-                return _context7.abrupt("return");
 
-              case 10:
-                _this7.initMoralis();
-
-                _context7.next = 13;
-                return moralis__WEBPACK_IMPORTED_MODULE_1___default().User.currentAsync();
-
-              case 13:
-                user = _context7.sent;
-
-                if (user) {
-                  _context7.next = 21;
-                  break;
-                }
-
-                console.log('i am here');
-                _context7.next = 18;
-                return moralis__WEBPACK_IMPORTED_MODULE_1___default().authenticate({
-                  signingMessage: "Log in using Moonspark.Finance"
-                }).then(function (user) {
-                  console.log("logged in user:", user);
-                  localStorage.setItem('metamask_user', user.id);
-                  _this7.metamaskuser = user.id;
-                })["catch"](function (error) {
-                  console(error);
-                });
-
-              case 18:
-                metamaskuser = _context7.sent;
-                _context7.next = 24;
-                break;
-
-              case 21:
-                console.log('but i am here too', user);
-                localStorage.setItem('metamask_user', user.id);
-                _this7.metamaskuser = user.id;
-
-              case 24:
+              case 4:
               case "end":
                 return _context7.stop();
             }
